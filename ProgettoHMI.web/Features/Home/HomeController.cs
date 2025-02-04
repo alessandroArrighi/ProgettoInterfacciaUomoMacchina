@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Players;
+using ProgettoHMI.Services.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
@@ -18,8 +19,10 @@ namespace ProgettoHMI.web.Features.Home
             ViewData["ShowHeader"] = false;
             var model = new HomeViewModel();
             var players = PlayersService.Query();
+            var tournaments = TournamentService.Query();
 
             model.setPlayers(players);
+            model.setTournaments(tournaments);
 
             return View(model);
         }

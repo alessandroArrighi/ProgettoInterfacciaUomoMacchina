@@ -20,58 +20,81 @@
         </form>
     </header>
 
-    <div class="top-players">
-        <h2>Top Players</h2>
-        <div>
-			<img class="player-img" />
-			<p>Mario Rossi</p>
-			<p>Punteggio: 2300</p>
-			<img class="palyer-rank-img" />
-        </div>
-    </div>
-    <div class="prossimi-tornei">
-        <h2>Prossimi Tornei</h2>
-        <div>
-            <img class="torneo-img"/>
-            <p>Torneo X</p>
-            <p>Dal 16-26 gennaio</p>
-            <p>Circolo di Brescia</p>
-        </div>
-    </div>
-
-    @foreach (var player in Model.Players)
-    {
-        <div>
-			<img class="player-img" src="@player.Img" />
-			<p>@player.Name</p>
-            <p class="palyer-rank">Rank: @player.Rank</p>
-			<p>Punteggio: @player.Points</p>
-			
-        </div>
-    }
-
-    <div id="carouselExampleIndicators" class="carousel slide">
+    <div id="carouselTopPlayers" class="carousel slide">
         <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselTopPlayers" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+            @for(var i = 1; i < Model.Players.Length; ++i) {
+                <button type="button" data-bs-target="#carouselTopPlayers" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+            }
         </div>
+
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="~/accessibility.jpg" class="d-block w-100" alt="...">
+                <p>@Model.Players[0].Name @Model.Players[0].Surname</p>
+                <p>Punteggio: @Model.Players[0].Points</p>
+                <img src="" />
             </div>
-            <div class="carousel-item">
-                <img src="~/php.png" class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="~/img-prova.jpg" class="d-block w-100" alt="...">
-            </div>
+
+            @for (var i = 1; i < Model.Players.Length; ++i)
+            {
+                var player = Model.Players[i];
+
+                <div class="carousel-item">
+					<img src="~/accessibility.jpg" class="d-block w-100" alt="...">
+                    <p>@player.Name @player.Surname</p>
+                    <p>Punteggio: @player.Points</p>
+                    <img src="" />
+				</div>
+			}
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+		
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselTopPlayers" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselTopPlayers" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+    <div id="carouselNextTournaments" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselNextTournaments" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+            @for (var i = 1; i < Model.Tournaments.Length; ++i)
+            {
+                <button type="button" data-bs-target="#carouselNextTournaments" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+            }
+        </div>
+
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/php.png" class="d-block w-100" alt="...">
+				<p>@Model.Tournaments[0].TournamentName</p>
+                <p>@Model.Tournaments[0].Date</p>
+                <p>@Model.Tournaments[0].FieldName</p>
+            </div>
+
+            @for (var i = 1; i < Model.Players.Length; ++i)
+            {
+                var player = Model.Tournaments[i];
+
+                <div class="carousel-item">
+                    <img src="~/php.png" class="d-block w-100" alt="...">
+                    <p>@player.TournamentName</p>
+                    <p>@player.Date</p>
+                    <p>@player.FieldName</p>
+                </div>
+            }
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselNextTournaments" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselNextTournaments" data-bs-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Next</span>
         </button>
