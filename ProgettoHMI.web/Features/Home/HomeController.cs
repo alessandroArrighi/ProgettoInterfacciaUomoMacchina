@@ -2,6 +2,8 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using ProgettoHMI.Services.Players;
+using ProgettoHMI.Services.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
@@ -12,7 +14,21 @@ namespace ProgettoHMI.web.Features.Home
         }
 
         [HttpGet]
-        public virtual IActionResult Home()
+        public virtual IActionResult Index()
+        {
+            ViewData["ShowHeader"] = false;
+            var model = new HomeViewModel();
+            var players = PlayersService.Query();
+            var tournaments = TournamentService.Query();
+
+            model.setPlayers(players);
+            model.setTournaments(tournaments);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public virtual IActionResult Prova()
         {
             ViewData["ShowHeader"] = false;
             return View();

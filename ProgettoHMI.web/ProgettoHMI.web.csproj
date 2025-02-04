@@ -19,6 +19,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="wwwroot\img-prova.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <ProjectReference Include="..\ProgettoHMI\ProgettoHMI.csproj" />
 	</ItemGroup>
 
