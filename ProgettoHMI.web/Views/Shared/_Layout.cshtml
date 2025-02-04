@@ -20,7 +20,11 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <h1 class="text-dark">LOGO</h1>
-                <a href="#" class="btn btn-primary">Registrati</a>
+                @if (ViewData["showRegister"] as bool? ?? true) {
+                    <a href="#" class="btn btn-primary">Registrati</a>
+                } else {
+					// aggiungere il riferimento all'utente loggato
+                }
             </div>
         </nav>
        // @RenderSection("pageTitle", false)
