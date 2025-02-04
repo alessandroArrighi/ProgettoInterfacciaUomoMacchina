@@ -1,1 +1,27 @@
 ﻿@import "site.variables.scss";
+
+$theme-colors: ( "primary": $primary, "secondary": $secondary );
+
+.btn-primary {
+    --bs-btn-color: #{$black};
+    --bs-btn-bg: #{$btn-primary};
+    --bs-btn-border-color: #{$btn-primary};
+    --bs-btn-hover-color: #{$black};
+    --bs-btn-hover-bg: #{$btn-prim-hover-bg};
+    --bs-btn-hover-border-color: #{$btn-prim-hover-bg};
+    --bs-btn-active-color: #{$black};
+    --bs-btn-active-bg: #{$btn-prim-hover-bg};
+    --bs-btn-active-border-color: #{$btn-prim-hover-bg};
+}
+
+.btn-secondary {
+    --bs-btn-color: #{$black};
+    --bs-btn-bg: #{$btn-secondary};
+    --bs-btn-border-color: #{$secondary};
+    --bs-btn-hover-color: #{$black};
+    --bs-btn-hover-bg: #{$btn-sec-hover-bg};
+    --bs-btn-hover-border-color: #{$btn-sec-hover-bg};
+    --bs-btn-active-color: #{$black};
+    --bs-btn-active-bg: #{$btn-sec-hover-bg};
+    --bs-btn-active-border-color: #{$btn-sec-hover-bg};
+}
