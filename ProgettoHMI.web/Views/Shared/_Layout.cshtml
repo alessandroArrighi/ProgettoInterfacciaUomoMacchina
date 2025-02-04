@@ -9,19 +9,47 @@
 @section metas{
     @RenderSection("metas", false)
 }
-@section styles{
+@section styles {
     @RenderSection("styles", false)
 }
-<div id="pageId" class="container-fluid bg-primary">
+<div id="pageId" class="">
     @if (ViewData["ShowHeader"] as bool? ?? true) {
-        <div>
-            <button>Nav Button</button>
-            <h1>LOGO</h1>
-            <button>Iscriviti</button>
-            @RenderSection("pageTitle", false)
+        <nav class="navbar navbar-light bg-primary">
+            <div class="container-fluid">
+                <button class="btn bg-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <h1 class="text-dark">LOGO</h1>
+                @if (ViewData["showRegister"] as bool? ?? true) {
+                    <a href="#" class="btn btn-primary">Registrati</a>
+                } else {
+					// aggiungere il riferimento all'utente loggato
+                }
+            </div>
+        </nav>
+       // @RenderSection("pageTitle", false)
+    
+        <div class="offcanvas offcanvas-start bg-primary" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="width:60% !important;">
+            <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div class="text-center">
+                    <a href="@Url.Action(MVC.Home.Home())" class="nav-link mb-1">Home</a>
+                    <hr />
+                    <a href="#" class="nav-link mb-1">Live</a>
+                    <hr />
+                    <a href="#" class="nav-link mb-1">Tornei</a>
+                    <hr />
+                    <a href="#" class="nav-link mb-1">Gradi</a>
+                    <hr class="mb-5" />
+                    <a href="#" class="btn btn-primary d-block mb-3">Registrati</a>
+                    <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary d-block">Accedi</a>
+                </div>
+            </div>
         </div>
     }
-    @RenderSection("pageSubtitle", false)
+    @* @RenderSection("pageSubtitle", false) *@
     @RenderBody()
     <footer>
         <p>Footer Copyright</p>
@@ -40,6 +68,6 @@
     <script type="text/javascript">
         @this.RenderAlertsWithToastify()
     </script>
-
+ 
     @RenderSection("scripts", false)
 }
