@@ -113,7 +113,7 @@ namespace ProgettoHMI.web
                 endpoints.MapHub<TemplateHub>("/templateHub");
 
                 endpoints.MapAreaControllerRoute("Example", "Example", "Example/{controller=Users}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Home}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 // endpoints.MapControllerRoute("default", "{controller=Login}/{action=Login}");
             });
         }

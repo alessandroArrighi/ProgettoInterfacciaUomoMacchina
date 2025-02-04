@@ -1,0 +1,79 @@
+﻿@model ProgettoHMI.web.Features.Home.HomeViewModel
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<div>
+    <header>
+        <button>Nav Button</button>
+        <h1>LOGO</h1>
+        <form class="home-signin" action="@Url.Action(MVC.Login.Login())" id="signin-form" method="get">
+            <button type="submit">Accedi</button>
+        </form>
+        <form class="home-signin" action="/SignIn/SignIn" id="signin-form" method="get">
+            <button type="submit">Iscriviti</button>
+        </form>
+        <h1>Il sito che organizza i migliori tornei in Italia</h1>
+        <h2>Pronto per una nuova sfida</h2>
+        <form class="home-signin" action="/SignIn/SignIn" id="signin-form" method="get">
+            <button type="submit">Partecipa Ora</button>
+        </form>
+    </header>
+
+    <div class="top-players">
+        <h2>Top Players</h2>
+        <div>
+			<img class="player-img" />
+			<p>Mario Rossi</p>
+			<p>Punteggio: 2300</p>
+			<img class="palyer-rank-img" />
+        </div>
+    </div>
+    <div class="prossimi-tornei">
+        <h2>Prossimi Tornei</h2>
+        <div>
+            <img class="torneo-img"/>
+            <p>Torneo X</p>
+            <p>Dal 16-26 gennaio</p>
+            <p>Circolo di Brescia</p>
+        </div>
+    </div>
+
+    @foreach (var player in Model.Players)
+    {
+        <div>
+			<img class="player-img" src="@player.Img" />
+			<p>@player.Name</p>
+            <p class="palyer-rank">Rank: @player.Rank</p>
+			<p>Punteggio: @player.Points</p>
+			
+        </div>
+    }
+
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/accessibility.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/php.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="~/img-prova.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
