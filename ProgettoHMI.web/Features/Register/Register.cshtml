@@ -1,16 +1,152 @@
-﻿@{
-    ViewData["Title"] = "Register";
+﻿@model ProgettoHMI.web.Features.Register.RegisterViewModel
+@{
+    ViewData["Title"] = "Registrati";
     ViewData["ShowHeader"] = false;
 }
 
 <div class="bg-primary min-vh-100">
     <nav class="navbar navbar-light">
         <div class="container-fluid">
-            <a class="logo-home" href="@Url.Action(MVC.Home.Home())"><img class="logo-home" src="~/images/Home.svg" /></a>
+            <a class="logo-home" href="@Url.Action(MVC.Home.Index())"><img class="logo-home" src="~/images/Home.svg" /></a>
             <h1>LOGO</h1>
             <a href="@Url.Action(MVC.Login.Login())" class="btn btn-primary">Accedi</a>
         </div>
     </nav>
-    <p class="text-dark fw-bold fs-2  mt-5">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
+    <p class="text-dark fw-bold fs-4 text-center mt-5 mb-2">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
+    <div class="container-fluid align-content-center">
+    <div class="bg-secondary p-2 rounded shadow-sm mt-5" style="max-width: 530px;">
+        <h2 class="text-center">Registrazione</h2>
+
+        <form method="post" enctype="multipart/form-data">
+            <!-- Prima sezione -->
+            <div class="step">
+                <label asp-for=Name class="form-label"></label>
+                <input asp-for="Name" class="form-control" type="text" required/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+
+                <label asp-for=Surname class="form-label"></label>
+                <input asp-for="Surname" class="form-control" type="text" required />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+
+                <label asp-for=Email class="form-label"></label>
+                <input asp-for="Email" class="form-control" type="text" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+
+                <label asp-for=Password class="form-label"></label>
+                <input asp-for="Password" class="form-control" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Seconda sezione -->
+            <div class="step d-none">
+                <label for="telefono" class="form-label">Telefono:</label>
+                <input type="tel" id="telefono" name="Telefono" class="form-control"  required>
+
+                <label for="codiceFiscale" class="form-label">Codice Fiscale:</label>
+                <input type="text" id="codiceFiscale" name="CodiceFiscale" class="form-control"  required>
+
+                <label for="indirizzo" class="form-label">Indirizzo:</label>
+                <input type="text" id="indirizzo" name="Indirizzo" class="form-control"  required>
+
+                <label for="nazionalita" class="form-label">Nazionalità:</label>
+                <input type="text" id="nazionalita" name="Nazionalita" class="form-control"  required>
+
+                <label for="imgProfilo" class="form-label">Immagine Profilo:</label>
+                <input type="file" id="imgProfilo" name="ImgProfilo" class="form-control"  accept="image/*" required>
+            </div>
+
+            <div class="step d-none">
+                <h2 class="text-center">Scegli il tuo livello</h2>
+                <div>
+                    <div class="option-card">
+                        <img src="~/images/Diamond.svg" alt="Diamante">
+                        <div class="content">
+                            <h5>Diamante</h5>
+                            <p>Giocatore esperto, capace di sferrare vincenti in ogni zona del campo.</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="level" value="diamante">
+                        </div>
+                    </div>
+
+                    <div class="option-card">
+                        <img src="~/images/Gold.svg" alt="Oro">
+                        <div class="content">
+                            <h5>Oro</h5>
+                            <p>Giocatore che riesce a controllare i propri colpi, con un buon servizio.</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="level" value="oro">
+                        </div>
+                    </div>
+
+                    <div class="option-card">
+                        <img src="~/images/Silver.svg" alt="Argento">
+                        <div class="content">
+                            <h5>Argento</h5>
+                            <p>Giocatore che è capace di sferrare bei solidi colpi, ma fatica a trovare continuità.</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="level" value="argento">
+                        </div>
+                    </div>
+
+                    <div class="option-card">
+                        <img src="~/images/Bronze.svg" alt="Bronzo">
+                        <div class="content">
+                            <h5>Bronzo</h5>
+                            <p>Giocatore che ha appena superato le prime avversità.</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="level" value="bronzo">
+                        </div>
+                    </div>
+                </div>
+            </div>
+   @*          <div class="progress mb-3"> *@
+   @*              <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div> *@
+			@* </div> *@
+            
+        </form>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <p id="progress" class="mb-0">1 di 3</p>
+            <div>
+                <button type="button" id="prevBtn" class="btn btn-secondary me-2" onclick="changeStep(-1)" disabled>Indietro</button>
+                <button type="button" id="nextBtn" class="btn btn-primary" onclick="changeStep(1)">Avanti</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        let currentStep = 0;
+        const steps = document.querySelectorAll(".step");
+        const progress = document.getElementById("progress");
+        const prevBtn = document.getElementById("prevBtn");
+        const nextBtn = document.getElementById("nextBtn");
+
+        function updateForm() {
+            steps.forEach((step, index) => {
+                step.classList.toggle("d-none", index !== currentStep);
+            });
+            progress.innerText = `Passo ${currentStep + 1} di ${steps.length}`;
+            prevBtn.disabled = currentStep === 0;
+            nextBtn.innerText = currentStep === steps.length - 1 ? "Invia" : "Avanti";
+        }
+
+        function changeStep(stepChange) {
+            currentStep += stepChange;
+            if (currentStep >= steps.length) {
+                document.querySelector("form").submit();
+                return;
+            }
+            updateForm();
+        }
+    </script>
+
+
+
+
 
 </div>
