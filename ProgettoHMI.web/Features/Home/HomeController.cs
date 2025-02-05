@@ -16,7 +16,6 @@ namespace ProgettoHMI.web.Features.Home
         [HttpGet]
         public virtual IActionResult Index()
         {
-            ViewData["ShowHeader"] = false;
             var model = new HomeViewModel();
             var players = PlayersService.Query();
             var tournaments = TournamentService.Query();

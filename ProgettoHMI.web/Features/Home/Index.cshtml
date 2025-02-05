@@ -1,23 +1,17 @@
 ﻿@model ProgettoHMI.web.Features.Home.HomeViewModel
 @{
-    ViewData["Title"] = "SignIn";
+    ViewData["Title"] = "Home";
+    ViewData["isHomePage"] = true;
+    ViewData["isLogin"] = false;
 }
 
 <header id="home-header">
-	<nav class="navbar navbar-light">
-		<div class="container-fluid">
-			<button class="col-2">txt</button>
-			<h1>LOGO</h1>
-			<a href="@Url.Action(MVC.Login.Login())" class="btn btn-primary">Accedi</a>
-			<a href="/Register/Register" class="btn btn-primary">Registrati</a>
-		</div>
-	</nav>
 	<div class="container-fluid">
         <div class="pt-5 text-center container-fluid">
             <div class="container-fluid pb-5">
                 <h1 class="display-3" style="font-weight: 500;">Il sito che organizza i migliori tornei in Italia</h1>
 			    <h2 class="pt-5 pb-3">Pronto per una nuova sfida?</h2>
-			    <a href="/Register/Register" class="btn btn-primary px-5 py-3">Partecipa Ora</a>
+                <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary px-5 py-3">Partecipa Ora</a>
             </div>
 		</div>
 	</div>

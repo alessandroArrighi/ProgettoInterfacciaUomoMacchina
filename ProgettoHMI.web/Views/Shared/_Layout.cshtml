@@ -13,41 +13,74 @@
     @RenderSection("styles", false)
 }
 <div id="pageId">
-    @if (ViewData["ShowHeader"] as bool? ?? true) {
-        <nav class="navbar navbar-light bg-primary">
+    @if (ViewData["isNotRegister"] as bool? ?? true) 
+    {
+        @if (ViewData["isHomePage"] as bool? ?? false)
+        {
+            <nav class="navbar navbar-light bg-primary">
+                <div class="container-fluid">
+                    <button class="btn bg-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <h1 class="text-dark">LOGO</h1>
+                    @if (ViewData["isLogin"] as bool? ?? false) 
+                    {
+                        <a href="#" class="btn">Utente</a>
+					
+                    } else {
+                        <div class="ms-4">
+                            <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary opacity-75">Accedi</a>
+                            <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary">Registrati</a>
+                        </div>
+                    }
+                </div>
+            </nav>
+           // @RenderSection("pageTitle", false)
+        } else {
+            <nav class="navbar navbar-light bg-primary">
+                <div class="container-fluid">
+                    <button class="btn bg-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <h1 class="text-dark">LOGO</h1>
+                    @if (ViewData["isLogin"] as bool? ?? false)
+                    {
+                        <a href="#" class="btn">Utente</a>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary">Registrati</a>
+                    }
+                </div>
+            </nav>
+        }
+            <div class="offcanvas offcanvas-start bg-primary" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="width:60% !important;">
+                <div class="offcanvas-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <div class="text-center">
+                        <a href="@Url.Action(MVC.Home.Index())" class="nav-link mb-1">Home</a>
+                        <hr />
+                        <a href="#" class="nav-link mb-1">Live</a>
+                        <hr />
+                        <a href="#" class="nav-link mb-1">Tornei</a>
+                        <hr />
+                        <a href="#" class="nav-link mb-1">Gradi</a>
+                        <hr class="mb-5" />
+                        <a href="#" class="btn btn-primary d-block mb-3">Registrati</a>
+                        <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary d-block">Accedi</a>
+                    </div>
+                </div>
+        </div>
+    } else {
+        <nav class="navbar navbar-light">
             <div class="container-fluid">
-                <button class="btn bg-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#staticBackdrop" aria-controls="staticBackdrop">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <h1 class="text-dark">LOGO</h1>
-                @if (ViewData["showRegister"] as bool? ?? true) {
-                    <a href="#" class="btn btn-primary">Registrati</a>
-                } else {
-					// aggiungere il riferimento all'utente loggato
-                }
+                <a class="logo-home" href="@Url.Action(MVC.Home.Index())"><img class="logo-home" src="~/images/Home.svg" /></a>
+                <h1>LOGO</h1>
+                <a href="@Url.Action(MVC.Login.Login())" class="btn btn-primary">Accedi</a>
             </div>
         </nav>
-       // @RenderSection("pageTitle", false)
-    
-        <div class="offcanvas offcanvas-start bg-primary" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="width:60% !important;">
-            <div class="offcanvas-header">
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div class="text-center">
-                    <a href="@Url.Action(MVC.Home.Index())" class="nav-link mb-1">Home</a>
-                    <hr />
-                    <a href="#" class="nav-link mb-1">Live</a>
-                    <hr />
-                    <a href="#" class="nav-link mb-1">Tornei</a>
-                    <hr />
-                    <a href="#" class="nav-link mb-1">Gradi</a>
-                    <hr class="mb-5" />
-                    <a href="#" class="btn btn-primary d-block mb-3">Registrati</a>
-                    <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary d-block">Accedi</a>
-                </div>
-            </div>
-        </div>
     }
     @* @RenderSection("pageSubtitle", false) *@
     @RenderBody()
