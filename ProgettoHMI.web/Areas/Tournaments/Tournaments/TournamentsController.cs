@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
 {
-    public class TournamentsController : Controller
+    [Area("Tournaments")]
+    public partial class TournamentsController : Controller
     {
-        public IActionResult Index()
+        public virtual IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel("provaName", "Bronze");
+            return View(model);
         }
     }
 }

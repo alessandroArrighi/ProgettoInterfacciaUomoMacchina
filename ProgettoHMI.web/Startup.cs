@@ -112,6 +112,8 @@ namespace ProgettoHMI.web
                 // ROUTING PER HUB
                 endpoints.MapHub<TemplateHub>("/templateHub");
 
+
+                endpoints.MapAreaControllerRoute("Tournaments", "Tournaments", "Tournaments/{controller=Tournaments}/{action=Index}/{id?}");
                 endpoints.MapAreaControllerRoute("Example", "Example", "Example/{controller=Users}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 // endpoints.MapControllerRoute("default", "{controller=Login}/{action=Login}");
