@@ -25,8 +25,37 @@
     font-size: 13px;
 }
 
-.selected {
+.selected-register {
     background-color: #A3A0A0 !important;
     transform: scale(0.95);
     transition: transform 0.2s ease-in-out;
+}
+
+.btn-sel-draw {
+    background-color: #CACACA;
+}
+
+.selected-draw {
+    background-color: #CACACA !important;
+    border: 3px solid #E99700 !important;
+}
+
+.live-dot {
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.5);
+        opacity: 0.6;
+    }
 }

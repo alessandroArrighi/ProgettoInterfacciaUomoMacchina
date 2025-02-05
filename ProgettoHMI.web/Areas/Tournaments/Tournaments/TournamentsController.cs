@@ -11,5 +11,10 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
             var model = new IndexViewModel("provaName", "Bronze");
             return View(model);
         }
+
+        public virtual IActionResult Draw()
+        {
+            return View();
+        }
     }
 }

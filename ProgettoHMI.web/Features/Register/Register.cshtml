@@ -156,9 +156,9 @@
         document.querySelectorAll('input[name="level"]').forEach((radio) => {
             radio.addEventListener('change', function() {
                 document.querySelectorAll('.bg-secondary').forEach((div) => {
-                    div.classList.remove('selected');
+                    div.classList.remove('selected-register');
                 });
-                this.closest('.bg-secondary').classList.add('selected');
+                this.closest('.bg-secondary').classList.add('selected-register');
             });
         });
 
