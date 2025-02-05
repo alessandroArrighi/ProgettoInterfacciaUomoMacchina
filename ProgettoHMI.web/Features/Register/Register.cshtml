@@ -23,19 +23,23 @@
                 <div class="step">
                     <label asp-for=Name class="form-label"></label>
                     <input asp-for="Name" class="form-control" type="text" required/>
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <span asp-validation-for="Name" class="text-danger"> </span>
+                    <div class="mb-3"></div>
 
                     <label asp-for=Surname class="form-label"></label>
                     <input asp-for="Surname" class="form-control" type="text" required />
-                    <span asp-validation-for="Surname" class="text-danger"></span>
+                    <span asp-validation-for="Surname" class="text-danger"> </span>
+                    <div class="mb-3"></div>
 
                     <label asp-for=Email class="form-label"></label>
                     <input asp-for="Email" class="form-control" type="text" required />
-                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span asp-validation-for="Email" class="text-danger"> </span>
+                    <div class="mb-3"></div>
 
                     <label asp-for=Password class="form-label"></label>
                     <input asp-for="Password" class="form-control" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
+                    <span asp-validation-for="Password" class="text-danger"> </span>
+                    <div class="mb-3"></div>
                 </div>
 
                 <!-- Seconda sezione -->
@@ -140,7 +144,7 @@
             steps.forEach((step, index) => {
                 step.classList.toggle("d-none", index !== currentStep);
             });
-            progress.innerText = `Passo ${currentStep + 1} di ${steps.length}`;
+            progress.innerText = `${currentStep + 1} di ${steps.length}`;
             prevBtn.disabled = currentStep === 0;
             nextBtn.innerText = currentStep === steps.length - 1 ? "Invia" : "Avanti";
             bg.style.backgroundColor = currentStep === steps.length - 1 ? '#729D9D' : '#E1E1E1';
@@ -166,16 +170,6 @@
         });
 
     </script>
-
-    <style>
-        .fs-p-register {
-			font-size: 13px;
-        }
-
-        .selected {
-            background-color: #918F8F !important;
-        }
-    </style>
 
 
 
