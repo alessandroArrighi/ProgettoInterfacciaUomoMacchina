@@ -1,0 +1,21 @@
+﻿.rank-icon-home {
+    width: 20px;
+    margin-left: 45%;
+    margin-bottom: 10%
+}
+
+@media (min-width: $tablet) {
+    .logo-home {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.home-tournament-date {
+    margin-bottom: 5px;
+}
+
+#home-header {
+    background-color: #729d9d;
+    background-image: linear-gradient(#729d9d, #BAC9C9);
+}
