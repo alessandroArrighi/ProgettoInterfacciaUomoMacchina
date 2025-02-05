@@ -29,10 +29,10 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="container-fluid">
-                        <img src="~/img-prova.jpg" class="carousel-image-home d-block w-100 rounded-4" alt="..." style="width: 380px; height: 215px;" >
+                        <img src="~/images/monfils.jpg" class="carousel-image-home d-block w-100 rounded-4" alt="..." style="width: 380px; height: 215px;">
                         <div class="ps-2 pt-3 pb-3">
 							<p class="h3">@Model.Players[0].Name @Model.Players[0].Surname</p>
-                            <p>Punteggio: @Model.Players[0].Points<img src="~/img-prova.jpg" class="rank-icon-home" /></p>
+                            <p>Punteggio: @Model.Players[0].Points<img src="~/images/Bronze.svg" class="rank-icon-home" /></p>
                         </div>
                     </div>
                 </div>
@@ -43,10 +43,10 @@
 
                     <div class="carousel-item">
                         <div class="container-fluid">
-                            <img src="~/accessibility.jpg" class="d-block w-100 rounded-4" alt="..." style="width: 380px; height: 215px;">
+                            <img src="~/images/monfils.jpg" class="d-block w-100 rounded-4" alt="..." style="width: 380px; height: 215px;">
                             <div class="ps-2 pt-3 pb-3">
                                 <p class="h3">@player.Name @player.Surname</p>
-                                <p>Punteggio: @player.Points<img src="~/img-prova.jpg" class="rank-icon-home" /></p>
+                                <p>Punteggio: @player.Points<img src="~/images/Bronze.svg" class="rank-icon-home" /></p>
 				            </div>
                         </div>
 				    </div>
@@ -82,7 +82,7 @@
             <div class="carousel-inner">
                 <div class="carousel-item active">
                     <div class="container-fluid">
-                        <img src="~/img-prova.jpg" class="d-block w-100 rounded-4" alt="...">
+                        <img src="~/images/wimbledon.jpg" class="d-block w-100 rounded-4" alt="...">
                         <div class="ps-2 pt-3 pb-3 text-center">
 				            <p class="h3 pb-2">@Model.Tournaments[0].TournamentName</p>
                             <p class="home-tournament-date">@Model.Tournaments[0].Date</p>
@@ -97,7 +97,7 @@
 
                     <div class="carousel-item">
                         <div class="container-fluid">
-                            <img src="~/php.png" class="d-block w-100 rounded-4" alt="...">
+                            <img src="~/images/wimbledon.jpg" class="d-block w-100 rounded-4" alt="...">
                             <div class="ps-2 pt-3 pb-3 text-center">
                                 <p class="h3 pb-2">@player.TournamentName</p>
                                 <p class="home-tournament-date">@player.Date</p>
@@ -109,10 +109,10 @@
             </div>
 
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselNextTournaments" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 0"></button>
+                <button type="button" data-bs-target="#carouselNextTournaments" data-bs-slide-to="0" class="active bg-black" aria-current="true" aria-label="Slide 0"></button>
                 @for (var i = 1; i < Model.Tournaments.Length; ++i)
                 {
-                    <button type="button" data-bs-target="#carouselNextTournaments" data-bs-slide-to="@i" aria-label="Slide @i"></button>
+                    <button type="button" data-bs-target="#carouselNextTournaments" class="bg-black" data-bs-slide-to="@i" aria-label="Slide @i"></button>
                 }
             </div>  
 
