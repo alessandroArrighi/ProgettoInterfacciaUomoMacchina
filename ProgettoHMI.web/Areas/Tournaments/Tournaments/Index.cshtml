@@ -52,7 +52,7 @@
 					<div class="col-1"></div>
 					<div class="col-8">
 						<div class="pb-2"></div>
-						<p class="h4">{{ data.name }}</p>
+						<a href="@Url.Action(MVC.Tournaments.Tournaments.Draw())" class="h4">{{ data.name }}</a>
 					</div>
 					<div class="col-3">
 						<img v-if="data.rank == 'Bronze'" src="~/images/Bronze.svg" alt="icona rank">
