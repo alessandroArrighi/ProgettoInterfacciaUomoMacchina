@@ -1,5 +1,88 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model ProgettoHMI.web.Areas.Tournaments.Tournaments.IndexViewModel
+
 @{
+	ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid bg-secondary vh-100">
+    <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei </h1>
+    <div class="row">
+        <div class="col-11 row">
+			<div class="col-1"></div>
+			<div class="dropdown col-3" style="display: inline-block">
+				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					Città
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<li><a class="dropdown-item" href="#">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			</div>
+			<div class="col-1"></div>
+			<div class="dropdown col-3" style="display: inline-block">
+				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					Rank
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<li><a class="dropdown-item" href="#">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			</div>
+			<div class="col-1"></div>
+			<div class="dropdown col-3" style="display: inline;">
+				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+					Data
+				</button>
+				<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<li><a class="dropdown-item" href="#">Action</a></li>
+					<li><a class="dropdown-item" href="#">Another action</a></li>
+					<li><a class="dropdown-item" href="#">Something else here</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="col-1"></div>
+    </div>
+	<div class="pt-5"></div>
+	<div>
+		<template v-for="data in model.tournaments" >
+			<div class="container-fluid bg-white py-4 rounded-4">
+				<div class="row">
+					<div class="col-1"></div>
+					<div class="col-8">
+						<div class="pb-2"></div>
+						<p class="h4">{{ data.name }}</p>
+					</div>
+					<div class="col-3">
+						<img v-if="data.rank == 'Bronze'" src="~/images/Bronze.svg" alt="icona rank">
+						<img v-if="data.rank == 'Diamond'" src="~/images/Diamond.svg" alt="icona rank">
+						<img v-if="data.rank == 'Silver'" src="~/images/Silver.svg" alt="icona rank">
+						<img v-if="data.rank == 'Gold'" src="~/images/Gold.svg" alt="icona rank">
+					</div>
+				</div>
+			</div>
+			<div class="pb-3"></div>
+		</template>
+	</div>
+	
+	<div class="pb-5"></div>
+</div>
+
+@section scripts {
+	<script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+	<script src="~/Areas/Tournaments/Tournaments/Index.js" asp-append-version="true"></script>
+
+	<script type="application/json" id="Seed_JSON">
+		@Html.Raw(Model.ToJson())
+	</script>
+	
+	<script type="text/javascript">
+		var viewModel = new Tournaments.Tournaments.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText))
+
+		var vueModel = new Vue({
+			el: '#pageId',
+			data: viewModel
+		});
+	</script>
 }

@@ -6,6 +6,8 @@
 
 	<ItemGroup>
 	  <None Remove="Areas\Tournaments\Tournaments\Draw.ts" />
+	  <None Remove="Areas\Tournaments\Tournaments\Index.ts" />
+	  <None Remove="Areas\Tournaments\Tournaments\IndexViewModelInterface.cs.d.ts" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,10 +22,6 @@
 
 	<ItemGroup>
 		<AssemblyAttribute Include="Sg4Mvc.GenerateSg4Mvc" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="wwwroot\img-prova.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -54,6 +52,8 @@
 
 	<ItemGroup>
 	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\Draw.ts" />
+	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\Index.ts" />
+	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\IndexViewModelInterface.cs.d.ts" />
 	</ItemGroup>
 
 </Project>

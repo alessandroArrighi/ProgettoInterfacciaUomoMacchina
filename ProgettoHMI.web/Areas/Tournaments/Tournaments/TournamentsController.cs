@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.IO;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
 {
@@ -7,7 +8,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
     {
         public virtual IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel("provaName", "Bronze");
+            return View(model);
         }
 
         public virtual IActionResult Draw()
