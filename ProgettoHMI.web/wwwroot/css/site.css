@@ -11918,6 +11918,16 @@ textarea.form-control-lg {
   --bs-btn-active-border-color: #C2C2C2;
 }
 
+.fs-p-register {
+  font-size: 13px;
+}
+
+.selected {
+  background-color: #A3A0A0 !important;
+  transform: scale(0.95);
+  transition: transform 0.2s ease-in-out;
+}
+
 @media (min-width: 568px) {
   .logo-home {
     width: 50px;

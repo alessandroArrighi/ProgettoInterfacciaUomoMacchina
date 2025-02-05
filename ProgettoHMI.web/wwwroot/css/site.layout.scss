@@ -26,6 +26,17 @@ $theme-colors: ( "primary": $primary, "secondary": $secondary );
     --bs-btn-active-border-color: #{$btn-sec-hover-bg};
 }
 
+.fs-p-register {
+    font-size: 13px;
+}
+
+.selected {
+    background-color: #A3A0A0 !important;
+    transform: scale(0.95);
+    transition: transform 0.2s ease-in-out;
+}
+
+
 @media (min-width: $tablet) {
     .logo-home {
         width: 50px;
