@@ -4,7 +4,7 @@
     margin-bottom: 10%
 }
 
-@media (min-width: $tablet) {
+@media (min-width: 567px) {
     .logo-home {
         width: 50px;
         height: 50px;
@@ -18,4 +18,15 @@
 #home-header {
     background-color: #729d9d;
     background-image: linear-gradient(#729d9d, #BAC9C9);
+}
+
+
+.fs-p-register {
+    font-size: 13px;
+}
+
+.selected {
+    background-color: #A3A0A0 !important;
+    transform: scale(0.95);
+    transition: transform 0.2s ease-in-out;
 }
