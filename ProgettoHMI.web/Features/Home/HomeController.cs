@@ -27,13 +27,6 @@ namespace ProgettoHMI.web.Features.Home
             return View(model);
         }
 
-        [HttpGet]
-        public virtual IActionResult Prova()
-        {
-            ViewData["ShowHeader"] = false;
-            return View();
-        }
-
         [HttpPost]
         public virtual IActionResult ChangeLanguageTo(string cultureName)
         {
