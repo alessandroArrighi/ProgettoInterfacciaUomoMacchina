@@ -9,5 +9,10 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
         {
             return View();
         }
+
+        public virtual IActionResult Draw()
+        {
+            return View();
+        }
     }
 }
