@@ -25,7 +25,7 @@
                     <div class="mb-3"></div>
 
                     <label asp-for=Email class="form-label"></label>
-                    <input asp-for="Email" class="form-control" type="text" required />
+                    <input asp-for="Email" class="form-control" type="email" required />
                     <span asp-validation-for="Email" class="text-danger"> </span>
                     <div class="mb-3"></div>
 
@@ -37,20 +37,29 @@
 
                 <!-- Seconda sezione -->
                 <div v-bind:class="selectSection == 2 ? 'd-block' : 'd-none'">
-                    <label for="telefono" class="form-label">Telefono*</label>
-                    <input type="tel" id="telefono" name="Telefono" class="form-control mb-3"  required>
+                    <label asp-for=PhoneNumber class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" type="tel" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"> </span>
+                    <div class="mb-3"></div>
 
-                    <label for="codiceFiscale" class="form-label">Codice Fiscale (facoltativo)</label>
-                    <input type="text" id="codiceFiscale" name="CodiceFiscale" class="form-control mb-3" required>
+                    <label asp-for="TaxID" class="form-label"></label>
+                    <input asp-for="TaxID" class="form-control" type="text" />
+                    <span asp-validation-for="TaxID" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="indirizzo" class="form-label">Indirizzo (facoltativo)</label>
-                    <input type="text" id="indirizzo" name="Indirizzo" class="form-control mb-3" required>
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control" type="text" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="nazionalita" class="form-label">Nazionalità (facoltativo)</label>
-                    <input type="text" id="nazionalita" name="Nazionalita" class="form-control mb-3" required>
+                    <label asp-for="Nationality" class="form-label"></label>
+                    <input asp-for="Nationality" class="form-control" type="text" />
+                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="imgProfilo" class="form-label">Immagine Profilo (facoltativo)</label>
-                    <input type="file" id="imgProfilo" name="ImgProfilo" class="form-control mb-3" accept="image/*" required>
+                    <label asp-for="ImgProfile" class="form-label"></label>
+                    <input asp-for="ImgProfile" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="ImgProfile" class="text-danger"></span>
                 </div>
 
                 <!-- Terza sezione -->
