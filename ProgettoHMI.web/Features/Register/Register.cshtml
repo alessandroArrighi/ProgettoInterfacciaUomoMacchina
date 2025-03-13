@@ -110,14 +110,14 @@
                         </div>
                     </div>
                 </div>
-            </form>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <p id="progress" class="mb-0">{{ selectSection }} di 3</p>
-                <div>
-                    <button type="button" id="prevBtn" class="btn btn-secondary me-2" v-on:click="selectSection = selectSection - 1" v-show="selectSection != 1">Indietro</button>
-                    <button v-bind:type="selectSection == 3 ? 'submit' : 'button'" id="nextBtn" class="btn btn-primary" v-on:click="selectSection = selectSection + 1">{{ selectSection == 3 ? 'Invia' : 'Avanti' }}</button>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <p id="progress" class="mb-0">{{ selectSection }} di 3</p>
+                    <div>
+                        <button type="button" id="prevBtn" class="btn btn-secondary me-2" v-on:click="selectSection = selectSection - 1" v-show="selectSection != 1">Indietro</button>
+                        <button v-bind:type="selectSection == 3 ? 'submit' : 'button'" id="nextBtn" class="btn btn-primary" v-on:click="selectSection < 3 ? selectSection++ : null">{{ selectSection == 3 ? 'Invia' : 'Avanti' }}</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
