@@ -42,8 +42,8 @@ namespace ProgettoHMI.Services.Shared
         {
             public Guid Id { get; set; }
             public string Email { get; set; }
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
+            public string Name { get; set; }
+            public string Surname { get; set; }
         }
     }
 
@@ -56,8 +56,8 @@ namespace ProgettoHMI.Services.Shared
     {
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
         public string NickName { get; set; }
     }
 
@@ -120,8 +120,8 @@ namespace ProgettoHMI.Services.Shared
                     {
                         Id = x.Id,
                         Email = x.Email,
-                        FirstName = x.FirstName,
-                        LastName = x.LastName
+                        Name = x.Name,
+                        Surname = x.Surname
                     })
                     .ToArrayAsync(),
                 Count = await queryable.CountAsync()
@@ -141,9 +141,8 @@ namespace ProgettoHMI.Services.Shared
                 {
                     Id = x.Id,
                     Email = x.Email,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    NickName = x.NickName
+                    Name = x.Name,
+                    Surname = x.Surname
                 })
                 .FirstOrDefaultAsync();
         }
@@ -167,9 +166,8 @@ namespace ProgettoHMI.Services.Shared
             {
                 Id = user.Id,
                 Email = user.Email,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                NickName = user.NickName
+                Name = user.Name,
+                Surname = user.Surname
             };
         }
     }

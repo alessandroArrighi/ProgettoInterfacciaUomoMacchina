@@ -22,13 +22,20 @@ namespace ProgettoHMI.web.Features.Register
         }
 
         [HttpGet]
-        public virtual IActionResult Register()
+        public virtual IActionResult Register(string returnUrl)
         {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                if (string.IsNullOrWhiteSpace(returnUrl) == false)
+                    return Redirect(returnUrl);
+
+                return RedirectToAction(MVC.Home.Index());
+            }
+
             return View();
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async virtual Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -37,19 +44,21 @@ namespace ProgettoHMI.web.Features.Register
                 {
                     var userId = await _sharedService.Handle(new AddOrUpdateUserCommand
                     {
+                        Id = null,
                         Email = model.Email,
                         Password = model.Password,
                         Name = model.Name,
                         Surname = model.Surname,
                         PhoneNumber = model.PhoneNumber,
-                        CodiceFiscale = model.TaxID,
-                        Indirizzo = model.Indirizzo,
-                        Nazionalita = model.Nazionalita,
-                        ImgProfilo = model.ImgProfilo
+                        TaxID = model.TaxID,
+                        Address = model.Address,
+                        Nationality = model.Nationality,
+                        ImgProfile = model.ImgProfile
                     });
 
                     // Redirect to login page after successful registration
-                    return RedirectToAction("Login", "Login");
+                    Console.Write("Ciaoooo");
+                    
                 }
                 catch (Exception e)
                 {
@@ -57,7 +66,7 @@ namespace ProgettoHMI.web.Features.Register
                 }
             }
 
-            return View(model);
+            return RedirectToAction(MVC.Login.Login());
         }
     }
 }

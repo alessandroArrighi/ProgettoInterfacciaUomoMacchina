@@ -62,13 +62,13 @@ namespace ProgettoHMI.web.Areas.Example.Users
         {
             this.Id = userIndexDTO.Id;
             this.Email = userIndexDTO.Email;
-            this.FirstName = userIndexDTO.FirstName;
-            this.LastName = userIndexDTO.LastName;
+            this.Name = userIndexDTO.Name;
+            this.Surname = userIndexDTO.Surname;
         }
 
         public Guid Id { get; set; }
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
     }
 }
