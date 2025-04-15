@@ -46,7 +46,7 @@ namespace ProgettoHMI.web.Features.Login
             if (string.IsNullOrWhiteSpace(returnUrl) == false)
                 return Redirect(returnUrl);
 
-            return RedirectToAction(MVC.Example.Users.Index());
+            return RedirectToAction(MVC.Home.Index());
         }
 
         [HttpGet]
@@ -57,7 +57,7 @@ namespace ProgettoHMI.web.Features.Login
                 if (string.IsNullOrWhiteSpace(returnUrl) == false)
                     return Redirect(returnUrl);
 
-                return RedirectToAction(MVC.Example.Users.Index());
+                return RedirectToAction(MVC.Home.Index());
             }
 
             var model = new LoginViewModel

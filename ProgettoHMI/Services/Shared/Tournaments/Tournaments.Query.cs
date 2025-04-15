@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgettoHMI.Services.Tournaments
+namespace ProgettoHMI.Services.Shared.Tournaments
 {
     public class TournamentDTO
     {

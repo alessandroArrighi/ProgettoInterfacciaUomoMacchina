@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Players;
-using ProgettoHMI.Services.Tournaments;
+using ProgettoHMI.Services.Shared.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {

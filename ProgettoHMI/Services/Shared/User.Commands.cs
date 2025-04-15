@@ -9,9 +9,15 @@ namespace ProgettoHMI.Services.Shared
     {
         public Guid? Id { get; set; }
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string NickName { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Rank { get; set; }
+        public string PhoneNumber { get; set; }
+        public string TaxID { get; set; }
+        public string Address { get; set; }
+        public string Nationality { get; set; }
+        public string ImgProfile { get; set; }
     }
 
     public partial class SharedService
@@ -26,14 +32,24 @@ namespace ProgettoHMI.Services.Shared
             {
                 user = new User
                 {
+                    Id = Guid.NewGuid(),
                     Email = cmd.Email,
+                    Password = cmd.Password,
+                    Name = cmd.Name,
+                    Surname = cmd.Surname,
+                    Rank = cmd.Rank,
+                    PhoneNumber = cmd.PhoneNumber,
+                    TaxID = cmd.TaxID,
+                    Address = cmd.Address,
+                    Nationality = cmd.Nationality,
+                    ImgProfile = cmd.ImgProfile
                 };
+               // Console.Write(user)
                 _dbContext.Users.Add(user);
             }
 
-            user.FirstName = cmd.FirstName;
-            user.LastName = cmd.LastName;
-            user.NickName = cmd.NickName;
+            user.Name = cmd.Name;
+            user.Surname = cmd.Surname;
 
             await _dbContext.SaveChangesAsync();
 

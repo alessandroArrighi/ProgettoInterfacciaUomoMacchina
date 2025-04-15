@@ -16,9 +16,9 @@ namespace ProgettoHMI.web.Areas.Example.Users
         public string Email { get; set; }
 
         [Display(Name = "Nome")]
-        public string FirstName { get; set; }
+        public string Name { get; set; }
         [Display(Name = "Cognome")]
-        public string LastName { get; set; }
+        public string Surname { get; set; }
         [Display(Name = "Nickname")]
         public string NickName { get; set; }
 
@@ -33,8 +33,8 @@ namespace ProgettoHMI.web.Areas.Example.Users
             {
                 Id = userDetailDTO.Id;
                 Email = userDetailDTO.Email;
-                FirstName = userDetailDTO.FirstName;
-                LastName = userDetailDTO.LastName;
+                Name = userDetailDTO.Name;
+                Surname = userDetailDTO.Surname;
                 NickName = userDetailDTO.NickName;
             }
         }
@@ -45,9 +45,9 @@ namespace ProgettoHMI.web.Areas.Example.Users
             {
                 Id = Id,
                 Email = Email,
-                FirstName = FirstName,
-                LastName = LastName,
-                NickName = NickName
+                Name = Name,
+                Surname = Surname,
+
             };
         }
     }

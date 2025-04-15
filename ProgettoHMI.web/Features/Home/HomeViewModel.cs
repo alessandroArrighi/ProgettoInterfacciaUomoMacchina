@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using ProgettoHMI.Services.Players;
-using ProgettoHMI.Services.Tournaments;
+using ProgettoHMI.Services.Shared.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {

@@ -4,16 +4,16 @@
     ViewData["isNotRegister"] = false;
 }
 
-<div class="bg-primary vh-100 pt-3">
+<div class="bg-primary pb-5 pt-3">
 
-    <p class="p-register text-dark fw-bold fs-4 text-center mb-2 disabled">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
+    <p class="text-dark fw-bold fs-4 text-center mb-2 disabled" v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
 
     <div class="container-fluid"> <!-- centrare -->
-        <div class="bg-change p-4 rounded mt-5">
+        <div class="p-4 rounded mt-5" v-bind:style="{backgroundColor: selectSection == 3 ? '#729D9D' : '#E1E1E1'}">
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" role="form" autocomplete="off">
                 <!-- Prima sezione -->
-                <div class="step">
+                <div v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">
                     <label asp-for=Name class="form-label"></label>
                     <input asp-for="Name" class="form-control" type="text" required/>
                     <span asp-validation-for="Name" class="text-danger"> </span>
@@ -25,7 +25,7 @@
                     <div class="mb-3"></div>
 
                     <label asp-for=Email class="form-label"></label>
-                    <input asp-for="Email" class="form-control" type="text" required />
+                    <input asp-for="Email" class="form-control" type="email" required />
                     <span asp-validation-for="Email" class="text-danger"> </span>
                     <div class="mb-3"></div>
 
@@ -36,28 +36,37 @@
                 </div>
 
                 <!-- Seconda sezione -->
-                <div class="step d-none">
-                    <label for="telefono" class="form-label">Telefono*</label>
-                    <input type="tel" id="telefono" name="Telefono" class="form-control mb-3"  required>
+                <div v-bind:class="selectSection == 2 ? 'd-block' : 'd-none'">
+                    <label asp-for=PhoneNumber class="form-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" type="tel" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"> </span>
+                    <div class="mb-3"></div>
 
-                    <label for="codiceFiscale" class="form-label">Codice Fiscale (facoltativo)</label>
-                    <input type="text" id="codiceFiscale" name="CodiceFiscale" class="form-control mb-3" required>
+                    <label asp-for="TaxID" class="form-label"></label>
+                    <input asp-for="TaxID" class="form-control" type="text" />
+                    <span asp-validation-for="TaxID" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="indirizzo" class="form-label">Indirizzo (facoltativo)</label>
-                    <input type="text" id="indirizzo" name="Indirizzo" class="form-control mb-3" required>
+                    <label asp-for="Address" class="form-label"></label>
+                    <input asp-for="Address" class="form-control" type="text" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="nazionalita" class="form-label">Nazionalità (facoltativo)</label>
-                    <input type="text" id="nazionalita" name="Nazionalita" class="form-control mb-3" required>
+                    <label asp-for="Nationality" class="form-label"></label>
+                    <input asp-for="Nationality" class="form-control" type="text" />
+                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                    <div class="mb-3"></div>
 
-                    <label for="imgProfilo" class="form-label">Immagine Profilo (facoltativo)</label>
-                    <input type="file" id="imgProfilo" name="ImgProfilo" class="form-control mb-3" accept="image/*" required>
+                    <label asp-for="ImgProfile" class="form-label"></label>
+                    <input asp-for="ImgProfile" class="form-control" type="file" accept="image/*" />
+                    <span asp-validation-for="ImgProfile" class="text-danger"></span>
                 </div>
 
                 <!-- Terza sezione -->
-                <div class="step d-none">
+                <div v-bind:class="selectSection == 3 ? 'd-block' : 'd-none'">
                     <h2 class="text-center mb-3">Scegli il tuo livello</h2>
                     <div>
-                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4">
+                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4" v-bind:class="selectRank == 1 ? 'selected-register' : ''">
                             <div class="col-auto">
                                 <img src="~/images/diamond.svg" alt="Diamante">
                             </div>
@@ -66,11 +75,11 @@
                                 <p class="fs-p-register">Giocatore esperto, capace di sferrare vincenti in ogni zona del campo.</p>
                             </div>
                             <div class="col-auto form-check">
-                                <input class="form-check-input" type="radio" name="level" value="diamante">
+                                <input class="form-check-input p-2" type="radio" name="level" value="diamante" v-on:click="selectRank = 1">
                             </div>
                         </div>
 
-                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4">
+                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4" v-bind:class="selectRank == 2 ? 'selected-register' : ''">
                             <div class="col-auto">
                                 <img src="~/images/gold.svg" alt="Oro">
                             </div>
@@ -79,11 +88,11 @@
                                 <p class="fs-p-register">Giocatore che riesce a controllare i propri colpi, con un buon servizio.</p>
                             </div>
                             <div class="col-auto form-check">
-                                <input class="form-check-input" type="radio" name="level" value="oro">
+                                <input class="form-check-input p-2" type="radio" name="level" value="oro" v-on:click="selectRank = 2">
                             </div>
                         </div>
 
-                        <div class="bg-secondary row align-items-center mb-2 p-2 rounded-4">
+                        <div class="bg-secondary row align-items-center mb-2 p-2 rounded-4" v-bind:class="selectRank == 3 ? 'selected-register' : ''">
                             <div class="col-auto">
                                 <img src="~/images/silver.svg" alt="Argento">
                             </div>
@@ -92,11 +101,11 @@
                                 <p class="fs-p-register">Giocatore che è capace di sferrare bei solidi colpi, ma fatica a trovare continuità.</p>
                             </div>
                             <div class="col-auto form-check">
-                                <input class="form-check-input" type="radio" name="level" value="argento">
+                                <input class="form-check-input p-2" type="radio" name="level" value="argento" v-on:click="selectRank = 3">
                             </div>
                         </div>
 
-                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4">
+                        <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4" v-bind:class="selectRank == 4 ? 'selected-register' : ''">
                             <div class="col-auto">
                                 <img src="~/images/bronze.svg" alt="Bronzo">
                             </div>
@@ -105,66 +114,34 @@
                                 <p class="fs-p-register">Giocatore che ha appena superato le prime avversità.</p>
                             </div>
                             <div class="col-auto form-check">
-                                <input class="form-check-input" type="radio" name="level" value="bronzo">
+                                <input class="form-check-input p-2" type="radio" name="level" value="bronzo" v-on:click="selectRank = 4">
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
-            <div class="d-flex justify-content-between align-items-center mt-3">
-                <p id="progress" class="mb-0">1 di 3</p>
-                <div>
-                    <button type="button" id="prevBtn" class="btn btn-secondary me-2" onclick="changeStep(-1)" disabled>Indietro</button>
-                    <button type="button" id="nextBtn" class="btn btn-primary" onclick="changeStep(1)">Avanti</button>
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <p id="progress" class="mb-0">{{ selectSection }} di 3</p>
+                    <div>
+                        <button type="button" id="prevBtn" class="btn btn-secondary me-2" v-on:click="selectSection = selectSection - 1" v-show="selectSection != 1">Indietro</button>
+                        <button v-bind:type="button" id="nextBtn" class="btn btn-primary" v-on:click="selectSection < 3 ? selectSection++ : null">{{ selectSection == 3 ? 'Invia' : 'Avanti' }}</button>
+                        <button type="submit" class="btn btn primary">dadaaaaaaaaaaaaaaaaaaaaaa</button>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
-
-
-    <script>
-        let currentStep = 0;
-        const steps = document.querySelectorAll(".step");
-        const progress = document.getElementById("progress");
-        const prevBtn = document.getElementById("prevBtn");
-        const nextBtn = document.getElementById("nextBtn");
-        const bg =  document.querySelector('.bg-change');
-        const pRegister =  document.querySelector('.p-register');
-
-        bg.style.backgroundColor = '#E1E1E1';
-
-        function updateForm() {
-            steps.forEach((step, index) => {
-                step.classList.toggle("d-none", index !== currentStep);
-            });
-            progress.innerText = `${currentStep + 1} di ${steps.length}`;
-            prevBtn.disabled = currentStep === 0;
-            nextBtn.innerText = currentStep === steps.length - 1 ? "Invia" : "Avanti";
-            bg.style.backgroundColor = currentStep === steps.length - 1 ? '#729D9D' : '#E1E1E1';
-            pRegister.style.display = currentStep === 0 ? 'block' : 'none';
-        }
-
-        function changeStep(stepChange) {
-            currentStep += stepChange;
-            if (currentStep >= steps.length) {
-                document.querySelector("form").submit();
-                return;
-            }
-            updateForm();
-        }
-
-        document.querySelectorAll('input[name="level"]').forEach((radio) => {
-            radio.addEventListener('change', function() {
-                document.querySelectorAll('.bg-secondary').forEach((div) => {
-                    div.classList.remove('selected-register');
-                });
-                this.closest('.bg-secondary').classList.add('selected-register');
-            });
-        });
-
-    </script>
-
-
-
-
 </div>
+
+@section Scripts {
+    <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+
+    <script type="text/javascript">
+        new Vue({
+            el: '#pageId',
+            data: {
+                selectSection: 1,
+                selectRank: 0
+            }
+        });
+    </script>
+}

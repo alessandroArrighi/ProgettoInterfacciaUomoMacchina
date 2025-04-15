@@ -5,13 +5,13 @@ namespace ProgettoHMI.web.Features.Register
     public class RegisterViewModel
     {
         [Required]
-        [Display(Name = "Name*")]
-        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Nome*")]
+        [DataType(DataType.Text)]
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Surname*")]
-        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Cognome*")]
+        [DataType(DataType.Text)]
         public string Surname { get; set; }
 
         [Required]
@@ -24,6 +24,27 @@ namespace ProgettoHMI.web.Features.Register
         [Display(Name = "Password*")]
         public string Password { get; set; }
 
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        [Display(Name = "Telefono*")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Codice Fiscale*")]
+        public string TaxID { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Indirizzo (facoltativo)")]
+        public string Address { get; set; }
+
+        [DataType(DataType.Text)]
+        [Display(Name = "Nazionalità (facoltativo)")]
+        public string Nationality { get; set; }
+
+        [DataType(DataType.ImageUrl)]
+        [Display(Name = "Immagine del profilo (facoltativo)")]
+        public string ImgProfile { get; set; }
 
     }
 }
