@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProgettoHMI.Services.Shared
+namespace ProgettoHMI.Services.Shared.Users
 {
     public class User
     {
@@ -15,7 +15,7 @@ namespace ProgettoHMI.Services.Shared
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Rank { get; set; }    
+        public string Rank { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }
         public string Address { get; set; }
@@ -35,9 +35,9 @@ namespace ProgettoHMI.Services.Shared
             if (string.IsNullOrWhiteSpace(password)) return false;
 
             var sha256 = SHA256.Create();
-            var testPassword = System.Convert.ToBase64String(sha256.ComputeHash(Encoding.ASCII.GetBytes(password)));
+            var testPassword = Convert.ToBase64String(sha256.ComputeHash(Encoding.ASCII.GetBytes(password)));
 
-            return this.Password == testPassword;
+            return Password == testPassword;
         }
     }
 }
