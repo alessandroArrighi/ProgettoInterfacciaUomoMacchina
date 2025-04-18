@@ -4,24 +4,44 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
+using static ProgettoHMI.Services.Shared.UsersIndexDTO;
 
-namespace ProgettoHMI.Services.Shared.Users
+namespace ProgettoHMI.Services.Shared
 {
-    public class UsersSelectQuery
+    //public class UsersSelectQuery
+    //{
+    //    public Guid IdCurrentUser { get; set; }
+    //    public string Filter { get; set; }
+    //}
+
+    //public class UsersSelectDTO
+    //{
+    //    public IEnumerable<User> Users { get; set; }
+    //    public int Count { get; set; }
+
+    //    public class User
+    //    {
+    //        public Guid Id { get; set; }
+    //        public string Email { get; set; }
+    //    }
+    //}
+
+    public class UsersRankQuery
     {
-        public Guid IdCurrentUser { get; set; }
-        public string Filter { get; set; }
+        public int count { get; set; }
     }
 
-    public class UsersSelectDTO
+    public class UsersRankDTO
     {
         public IEnumerable<User> Users { get; set; }
-        public int Count { get; set; }
 
         public class User
         {
             public Guid Id { get; set; }
-            public string Email { get; set; }
+            public string Name { get; set; }
+            public string Surname { get; set; }
+            public int Rank { get; set; }
+            public string Nationality { get; set; }
         }
     }
 
@@ -74,28 +94,28 @@ namespace ProgettoHMI.Services.Shared.Users
         /// </summary>
         /// <param name="qry"></param>
         /// <returns></returns>
-        public async Task<UsersSelectDTO> Query(UsersSelectQuery qry)
-        {
-            var queryable = _dbContext.Users
-                .Where(x => x.Id != qry.IdCurrentUser);
+        //public async Task<UsersSelectDTO> Query(UsersSelectQuery qry)
+        //{
+        //    var queryable = _dbContext.Users
+        //        .Where(x => x.Id != qry.IdCurrentUser);
 
-            if (string.IsNullOrWhiteSpace(qry.Filter) == false)
-            {
-                queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
-            }
+        //    if (string.IsNullOrWhiteSpace(qry.Filter) == false)
+        //    {
+        //        queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
+        //    }
 
-            return new UsersSelectDTO
-            {
-                Users = await queryable
-                .Select(x => new UsersSelectDTO.User
-                {
-                    Id = x.Id,
-                    Email = x.Email
-                })
-                .ToArrayAsync(),
-                Count = await queryable.CountAsync(),
-            };
-        }
+        //    return new UsersSelectDTO
+        //    {
+        //        Users = await queryable
+        //        .Select(x => new UsersSelectDTO.User
+        //        {
+        //            Id = x.Id,
+        //            Email = x.Email
+        //        })
+        //        .ToArrayAsync(),
+        //        Count = await queryable.CountAsync(),
+        //    };
+        //}
 
         /// <summary>
         /// Returns users for an index page

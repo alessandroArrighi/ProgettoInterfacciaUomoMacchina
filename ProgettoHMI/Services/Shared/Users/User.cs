@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProgettoHMI.Services.Shared.Users
+namespace ProgettoHMI.Services.Shared
 {
     public class User
     {
