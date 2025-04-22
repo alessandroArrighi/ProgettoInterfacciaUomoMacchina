@@ -43,7 +43,7 @@ namespace ProgettoHMI.Services.Tournament
         public async Task<TournamentsDTO> Query(TournamentsSelectQuery qry)
         {
             var queryable = _dbContext.Tournaments
-            .Where(x => DateTime.Compare(x.Date, qry.Date) == 1);
+                .Where(x => DateTime.Compare(x.Date, qry.Date) == 1);
 
             return new TournamentsDTO {
                 Tournaments = await queryable
@@ -55,6 +55,19 @@ namespace ProgettoHMI.Services.Tournament
                     Img = x.Image
                 }).ToArrayAsync()
             };
+        }
+
+        public async Task<TournamentsIdDTO> Query(TournamentsIdQuery qry) {
+            return await _dbContext.Tournaments
+                .Where(x => x.Id == qry.Id)
+                .Select(x => new TournamentsIdDTO {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Field = x.Field,
+                    Date = x.Date,
+                    Img = x.Image
+                })
+                .FirstOrDefaultAsync();
         }
     }
 }
