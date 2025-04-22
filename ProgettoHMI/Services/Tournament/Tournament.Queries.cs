@@ -5,6 +5,7 @@ using System.Linq.Dynamic.Core;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ProgettoHMI.Services.Shared;
 
 namespace ProgettoHMI.Services.Tournament
@@ -23,6 +24,18 @@ namespace ProgettoHMI.Services.Tournament
             public DateTime Date { get; set; }
             public string Img { get; set; }
         }
+    }
+
+    public class TournamentsIdQuery {
+        public Guid Id { get; set; }
+    }
+
+    public class TournamentsIdDTO {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Field { get; set; }
+        public DateTime Date { get; set; }
+        public string Img { get; set; }
     }
 
     public partial class TournamentService
