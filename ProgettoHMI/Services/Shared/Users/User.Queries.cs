@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
+using System.Management.Instrumentation;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
@@ -26,6 +28,8 @@ namespace ProgettoHMI.Services.Shared
     //    }
     //}
 
+
+    // Prendere i giocatori in ordine di rank
     public class UsersRankQuery
     {
         public int count { get; set; }
@@ -45,27 +49,27 @@ namespace ProgettoHMI.Services.Shared
         }
     }
 
-    public class UsersIndexQuery
-    {
-        public Guid IdCurrentUser { get; set; }
-        public string Filter { get; set; }
+    //public class UsersIndexQuery
+    //{
+    //    public Guid IdCurrentUser { get; set; }
+    //    public string Filter { get; set; }
 
-        public Paging Paging { get; set; }
-    }
+    //    public Paging Paging { get; set; }
+    //}
 
-    public class UsersIndexDTO
-    {
-        public IEnumerable<User> Users { get; set; }
-        public int Count { get; set; }
+    //public class UsersIndexDTO
+    //{
+    //    public IEnumerable<User> Users { get; set; }
+    //    public int Count { get; set; }
 
-        public class User
-        {
-            public Guid Id { get; set; }
-            public string Email { get; set; }
-            public string Name { get; set; }
-            public string Surname { get; set; }
-        }
-    }
+    //    public class User
+    //    {
+    //        public Guid Id { get; set; }
+    //        public string Email { get; set; }
+    //        public string Name { get; set; }
+    //        public string Surname { get; set; }
+    //    }
+    //}
 
     public class UserDetailQuery
     {
@@ -122,31 +126,31 @@ namespace ProgettoHMI.Services.Shared
         /// </summary>
         /// <param name="qry"></param>
         /// <returns></returns>
-        public async Task<UsersIndexDTO> Query(UsersIndexQuery qry)
-        {
-            var queryable = _dbContext.Users
-                .Where(x => x.Id != qry.IdCurrentUser);
+        //public async Task<UsersIndexDTO> Query(UsersIndexQuery qry)
+        //{
+        //    var queryable = _dbContext.Users
+        //        .Where(x => x.Id != qry.IdCurrentUser);
 
-            if (string.IsNullOrWhiteSpace(qry.Filter) == false)
-            {
-                queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
-            }
+        //    if (string.IsNullOrWhiteSpace(qry.Filter) == false)
+        //    {
+        //        queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
+        //    }
 
-            return new UsersIndexDTO
-            {
-                Users = await queryable
-                    .ApplyPaging(qry.Paging)
-                    .Select(x => new UsersIndexDTO.User
-                    {
-                        Id = x.Id,
-                        Email = x.Email,
-                        Name = x.Name,
-                        Surname = x.Surname
-                    })
-                    .ToArrayAsync(),
-                Count = await queryable.CountAsync()
-            };
-        }
+        //    return new UsersIndexDTO
+        //    {
+        //        Users = await queryable
+        //            .ApplyPaging(qry.Paging)
+        //            .Select(x => new UsersIndexDTO.User
+        //            {
+        //                Id = x.Id,
+        //                Email = x.Email,
+        //                Name = x.Name,
+        //                Surname = x.Surname
+        //            })
+        //            .ToArrayAsync(),
+        //        Count = await queryable.CountAsync()
+        //    };
+        //}
 
         /// <summary>
         /// Returns the detail of the user who matches the Id passed in the qry parameter
@@ -190,5 +194,42 @@ namespace ProgettoHMI.Services.Shared
                 Surname = user.Surname
             };
         }
+
+
+        public async Task<UsersRankDTO> Query(UsersRankQuery qry)
+        {
+
+            var rankOrder = new Dictionary<string, int>
+            {
+                { "Diamante", 1 },
+                { "Oro", 2 },
+                { "Argento", 3 },
+                { "Bronzo", 4 }
+            };
+
+          
+            var users = await _dbContext.Users
+                .Where(x => x.Rank != null && rankOrder.ContainsKey(x.Rank))
+                .OrderBy(x => rankOrder[x.Rank]) 
+                .ThenBy(x => x.Name) 
+                .Take(qry.count) 
+                .Select(x => new UsersRankDTO.User
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Surname = x.Surname,
+                    Rank = rankOrder[x.Rank], 
+                    Nationality = x.Nationality
+                })
+                .ToListAsync();
+
+            
+            return new UsersRankDTO
+            {
+                Users = users
+            };
+        }
+
+
     }
 }
