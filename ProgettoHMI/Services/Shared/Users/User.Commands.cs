@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProgettoHMI.Services.Shared;
 
 namespace ProgettoHMI.Services.Shared
 {

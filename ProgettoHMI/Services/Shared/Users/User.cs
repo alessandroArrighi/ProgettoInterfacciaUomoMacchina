@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -15,7 +16,8 @@ namespace ProgettoHMI.Services.Shared
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Rank { get; set; }
+        public int Rank { get; set; }
+        public int Points { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }
         public string Address { get; set; }

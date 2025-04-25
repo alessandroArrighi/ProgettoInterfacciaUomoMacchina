@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Management.Instrumentation;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
-using static ProgettoHMI.Services.Shared.UsersIndexDTO;
 
 namespace ProgettoHMI.Services.Shared
 {
@@ -44,7 +42,8 @@ namespace ProgettoHMI.Services.Shared
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string Surname { get; set; }
-            public int Rank { get; set; }
+            public string Rank { get; set; }
+            public int Points { get; set; }
             public string Nationality { get; set; }
         }
     }
@@ -199,18 +198,17 @@ namespace ProgettoHMI.Services.Shared
         public async Task<UsersRankDTO> Query(UsersRankQuery qry)
         {
 
-            var rankOrder = new Dictionary<string, int>
+            var rankDescriptions = new Dictionary<int, string>
             {
-                { "Diamante", 1 },
-                { "Oro", 2 },
-                { "Argento", 3 },
-                { "Bronzo", 4 }
+                { 1, "Diamante" },
+                { 2, "Oro" },
+                { 3, "Argento" },
+                { 4, "Bronzo" }
             };
 
-          
             var users = await _dbContext.Users
-                .Where(x => x.Rank != null && rankOrder.ContainsKey(x.Rank))
-                .OrderBy(x => rankOrder[x.Rank]) 
+                .Where(x => x.Points > 0) // si può togliere
+                .OrderByDescending(x => x.Points) 
                 .ThenBy(x => x.Name) 
                 .Take(qry.count) 
                 .Select(x => new UsersRankDTO.User
@@ -218,12 +216,12 @@ namespace ProgettoHMI.Services.Shared
                     Id = x.Id,
                     Name = x.Name,
                     Surname = x.Surname,
-                    Rank = rankOrder[x.Rank], 
+                    Rank = rankDescriptions.ContainsKey(x.Rank) ? rankDescriptions[x.Rank] : "Sconosciuto",
+                    Points = x.Points, 
                     Nationality = x.Nationality
                 })
                 .ToListAsync();
 
-            
             return new UsersRankDTO
             {
                 Users = users

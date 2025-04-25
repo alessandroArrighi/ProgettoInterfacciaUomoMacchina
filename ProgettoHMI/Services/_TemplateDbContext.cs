@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
-using ProgettoHMI.Services.Shared.Users;
+using ProgettoHMI.Services.Shared;
 
 namespace ProgettoHMI.Services
 {
