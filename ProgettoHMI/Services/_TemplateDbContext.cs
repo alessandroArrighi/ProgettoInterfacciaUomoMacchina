@@ -2,6 +2,7 @@
 using ProgettoHMI.Infrastructure;
 using ProgettoHMI.Services.Shared;
 using T = ProgettoHMI.Services.Tournament;
+using ProgettoHMI.Services.Games;
 
 namespace ProgettoHMI.Services
 {
@@ -18,5 +19,6 @@ namespace ProgettoHMI.Services
 
         public DbSet<User> Users { get; set; }
         public DbSet<T.Tournament> Tournaments { get; set; }
+        public DbSet<Game> Games { get; set; }
     }
 }

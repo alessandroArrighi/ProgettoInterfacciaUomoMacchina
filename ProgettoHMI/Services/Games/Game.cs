@@ -18,8 +18,8 @@ namespace ProgettoHMI.Services.Games
         public Guid TournamentId { get; set; }
         public int DrawPosition {get; set; }
         public string Status { get; set; }
-        public User User1 { get; set; }
-        public User User2 { get; set; }
+        public User Player1 { get; set; }
+        public User Player2 { get; set; }
         public Score Score { get; set; }
     }
 
