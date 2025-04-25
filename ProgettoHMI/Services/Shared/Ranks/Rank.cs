@@ -12,6 +12,6 @@ namespace ProgettoHMI.Services.Shared.Ranks
         public string Name { get; set; }
         public int MinPoints { get; set; }
         public int MaxPoints { get; set; }
-        
+        public string Description { get; set; }
     }
 }

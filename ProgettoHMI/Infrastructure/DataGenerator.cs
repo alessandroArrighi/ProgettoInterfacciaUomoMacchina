@@ -69,28 +69,32 @@ namespace ProgettoHMI.Infrastructure
                     Id = 1,
                     Name = "Bronzo",
                     MinPoints = 0,
-                    MaxPoints = 599
+                    MaxPoints = 599,
+                    Description = "Bronzo"
                 },
                 new Rank
                 {
                     Id = 2,
                     Name = "Argento",
                     MinPoints = 600,
-                    MaxPoints = 1199
+                    MaxPoints = 1199,
+                    Description = "Argento"
                 },
                 new Rank
                 {
                     Id = 3,
                     Name = "Oro",
                     MinPoints = 1200,
-                    MaxPoints = 2499
+                    MaxPoints = 2499,
+                    Description = "Oro"
                 },
                 new Rank
                 {
                     Id = 4,
                     Name = "Diamante",
                     MinPoints = 2500,
-                    MaxPoints = 15000
+                    MaxPoints = 15000,
+                    Description = "Diamante"
                 });
 
             context.SaveChanges();

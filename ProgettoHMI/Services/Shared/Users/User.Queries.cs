@@ -104,7 +104,7 @@ namespace ProgettoHMI.Services.Shared.Users
         public string Password { get; set; }
     }
 
-    public partial class SharedService
+    public partial class UsersService
     {
         /// <summary>
         /// Returns users for a select field

@@ -20,7 +20,7 @@ namespace ProgettoHMI.Services.Shared.Users
         public string ImgProfile { get; set; }
     }
 
-    public partial class SharedService
+    public partial class UsersService
     {
         public async Task<Guid> Handle(AddOrUpdateUserCommand cmd)
         {
