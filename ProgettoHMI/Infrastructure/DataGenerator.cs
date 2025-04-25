@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using ProgettoHMI.Services;
+using ProgettoHMI.Services.Shared.Ranks;
 using ProgettoHMI.Services.Shared.Users;
 
 namespace ProgettoHMI.Infrastructure
@@ -60,6 +61,36 @@ namespace ProgettoHMI.Infrastructure
                     Address = "Via Roma 1",
                     Nationality = "Italian",
                     ImgProfile = "..."
+                });
+
+            context.Ranks.AddRange(
+                new Rank
+                {
+                    Id = 1,
+                    Name = "Bronzo",
+                    MinPoints = 0,
+                    MaxPoints = 599
+                },
+                new Rank
+                {
+                    Id = 2,
+                    Name = "Argento",
+                    MinPoints = 600,
+                    MaxPoints = 1199
+                },
+                new Rank
+                {
+                    Id = 3,
+                    Name = "Oro",
+                    MinPoints = 1200,
+                    MaxPoints = 2499
+                },
+                new Rank
+                {
+                    Id = 4,
+                    Name = "Diamante",
+                    MinPoints = 2500,
+                    MaxPoints = 15000
                 });
 
             context.SaveChanges();

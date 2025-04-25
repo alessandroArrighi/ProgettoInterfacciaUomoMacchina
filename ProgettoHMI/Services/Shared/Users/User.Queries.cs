@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
+using ProgettoHMI.Services.Shared;
 
 namespace ProgettoHMI.Services.Shared.Users
 {
@@ -103,7 +104,7 @@ namespace ProgettoHMI.Services.Shared.Users
         public string Password { get; set; }
     }
 
-    public partial class UsersService
+    public partial class SharedService
     {
         /// <summary>
         /// Returns users for a select field
