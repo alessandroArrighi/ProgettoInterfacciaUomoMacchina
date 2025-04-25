@@ -10,8 +10,12 @@ namespace ProgettoHMI.Services.Tournament
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Field { get; set; }
-        public DateTime Date { get; set; }
+        public string Club { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         public string Image { get; set; }
+        public string City { get; set; }
+        public string Rank { get; set; }
+        public bool Status { get; set; }
     }
 }

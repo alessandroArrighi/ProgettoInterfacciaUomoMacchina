@@ -11,7 +11,7 @@ using ProgettoHMI.Services.Shared;
 namespace ProgettoHMI.Services.Tournament
 {
     public class TournamentsSelectQuery {
-        public DateTime Date { get; set; }
+        public DateTime StartDate { get; set; }
     }
     public class TournamentsDTO
     {
@@ -20,8 +20,9 @@ namespace ProgettoHMI.Services.Tournament
         public class Tournament {
             public Guid Id { get; set; }
             public string Name { get; set; }
-            public string Field { get; set; }
-            public DateTime Date { get; set; }
+            public string Club { get; set; }
+            public DateTime StartDate { get; set; }
+            public DateTime EndDate { get; set; }
             public string Img { get; set; }
         }
     }
@@ -33,9 +34,13 @@ namespace ProgettoHMI.Services.Tournament
     public class TournamentsIdDTO {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Field { get; set; }
-        public DateTime Date { get; set; }
-        public string Img { get; set; }
+        public string Club { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Image { get; set; }
+        public string City { get; set; }
+        public string Rank { get; set; }
+        public bool Status { get; set; }
     }
 
     public partial class TournamentService
@@ -43,15 +48,16 @@ namespace ProgettoHMI.Services.Tournament
         public async Task<TournamentsDTO> Query(TournamentsSelectQuery qry)
         {
             var queryable = _dbContext.Tournaments
-                .Where(x => DateTime.Compare(x.Date, qry.Date) == 1);
+                .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == 1);
 
             return new TournamentsDTO {
                 Tournaments = await queryable
                 .Select(x => new TournamentsDTO.Tournament {
                     Id = x.Id,
                     Name = x.Name,
-                    Field = x.Field,
-                    Date = x.Date,
+                    Club = x.Club,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
                     Img = x.Image
                 }).ToArrayAsync()
             };
@@ -63,9 +69,13 @@ namespace ProgettoHMI.Services.Tournament
                 .Select(x => new TournamentsIdDTO {
                     Id = x.Id,
                     Name = x.Name,
-                    Field = x.Field,
-                    Date = x.Date,
-                    Img = x.Image
+                    Club = x.Club,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    Image = x.Image,
+                    City = x.City,
+                    Rank = x.Rank,
+                    Status = x.Status
                 })
                 .FirstOrDefaultAsync();
         }

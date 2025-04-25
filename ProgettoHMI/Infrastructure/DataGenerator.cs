@@ -65,33 +65,49 @@ namespace ProgettoHMI.Infrastructure
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
                     Name = "Torneo di Milano",
-                    Field = "Circolo di Milano",
-                    Date = new DateTime(2026, 1, 1, 15, 0, 0),
-                    Image = "..."
+                    Club = "Circolo di Milano",
+                    StartDate = new DateTime(2026, 1, 1, 15, 0, 0),
+                    EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
+                    Image = "...",
+                    City = "Milano",
+                    Rank = "Diamante",
+                    Status = false
                 },
                 new Tournament
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     Name = "Torneo di Torino",
-                    Field = "Circolo di Torino",
-                    Date = new DateTime(2026, 1, 8, 15, 0, 0),
-                    Image = "..."
+                    Club = "Circolo di Torino",
+                    StartDate = new DateTime(2026, 1, 8, 15, 0, 0),
+                    EndDate = new DateTime(2026, 1, 14, 18, 0, 0),
+                    Image = "...",
+                    City = "Torino",
+                    Rank = "Oro",
+                    Status = false
                 },
                 new Tournament
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
                     Name = "Torneo di Bologna",
-                    Field = "Circolo di Bologna",
-                    Date = new DateTime(2026, 1, 15, 15, 0, 0),
-                    Image = "..."
+                    Club = "Circolo di Bologna",
+                    StartDate = new DateTime(2026, 1, 15, 15, 0, 0),
+                    EndDate = new DateTime(2026, 1, 21, 18, 0, 0),
+                    Image = "...",
+                    City = "Bologna",
+                    Rank = "Argento",
+                    Status = false
                 },
                 new Tournament
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
                     Name = "Torneo di Roma",
-                    Field = "Circolo di Roma",
-                    Date = new DateTime(2026, 1, 22, 15, 0, 0),
-                    Image = "..."
+                    Club = "Circolo di Roma",
+                    StartDate = new DateTime(2026, 1, 22, 15, 0, 0),
+                    EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
+                    Image = "...",
+                    City = "Roma",
+                    Rank = "Bronzo",
+                    Status = false
                 }
             );
 
