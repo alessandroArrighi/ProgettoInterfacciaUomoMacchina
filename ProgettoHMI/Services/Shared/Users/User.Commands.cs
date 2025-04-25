@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProgettoHMI.Services.Shared
+namespace ProgettoHMI.Services.Shared.Users
 {
     public class AddOrUpdateUserCommand
     {
@@ -12,7 +12,7 @@ namespace ProgettoHMI.Services.Shared
         public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Rank { get; set; }
+        public int Rank { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }
         public string Address { get; set; }
@@ -20,7 +20,7 @@ namespace ProgettoHMI.Services.Shared
         public string ImgProfile { get; set; }
     }
 
-    public partial class SharedService
+    public partial class UsersService
     {
         public async Task<Guid> Handle(AddOrUpdateUserCommand cmd)
         {

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
 
-namespace ProgettoHMI.Services.Shared
+namespace ProgettoHMI.Services.Shared.Users
 {
     //public class UsersSelectQuery
     //{
@@ -46,6 +46,19 @@ namespace ProgettoHMI.Services.Shared
             public int Points { get; set; }
             public string Nationality { get; set; }
         }
+    }
+
+    public class UserStatsQuery
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class UserStatsDTO
+    {
+        public Guid Id { get; set; }
+        public int Points { get; set; }
+        public int Rank { get; set; }
+        public string ImgProfile { get; set; }
     }
 
     //public class UsersIndexQuery
@@ -90,7 +103,7 @@ namespace ProgettoHMI.Services.Shared
         public string Password { get; set; }
     }
 
-    public partial class SharedService
+    public partial class UsersService
     {
         /// <summary>
         /// Returns users for a select field

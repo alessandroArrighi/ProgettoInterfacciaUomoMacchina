@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using ProgettoHMI.Services;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Shared.Users;
 
 namespace ProgettoHMI.Infrastructure
 {
