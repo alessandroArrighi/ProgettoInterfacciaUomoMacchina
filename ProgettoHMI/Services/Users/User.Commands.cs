@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProgettoHMI.Services.Shared.Users
+namespace ProgettoHMI.Services.Users
 {
     public class AddOrUpdateUserCommand
     {

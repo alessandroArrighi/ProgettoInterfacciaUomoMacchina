@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
-namespace ProgettoHMI.Services.Shared.Ranks
+namespace ProgettoHMI.Services.Ranks
 {
     public class RanksInfoQuery
     {

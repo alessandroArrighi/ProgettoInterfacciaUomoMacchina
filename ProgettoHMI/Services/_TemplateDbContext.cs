@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
-using ProgettoHMI.Services.Shared.Ranks;
+using ProgettoHMI.Services.Ranks;
 using ProgettoHMI.Services.Shared.Statistics;
-using ProgettoHMI.Services.Shared.Subscriptions;
-using ProgettoHMI.Services.Shared.Users;
+using ProgettoHMI.Services.Subscriptions;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services
 {

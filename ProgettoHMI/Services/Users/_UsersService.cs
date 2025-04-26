@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgettoHMI.Services.Shared.Users
+namespace ProgettoHMI.Services.Users
 {
     public partial class UsersService
     {

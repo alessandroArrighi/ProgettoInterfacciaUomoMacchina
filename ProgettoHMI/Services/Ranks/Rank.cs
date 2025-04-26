@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgettoHMI.Services.Shared.Ranks
+namespace ProgettoHMI.Services.Ranks
 {
     public class Rank
     {

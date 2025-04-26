@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgettoHMI.Services.Shared.Ranks
+namespace ProgettoHMI.Services.Subscriptions
 {
-    public partial class RanksService
+    public partial class SubscriptionsService
     {
         TemplateDbContext _dbContext;
 
-        public RanksService(TemplateDbContext dbContext)
+        public SubscriptionsService(TemplateDbContext dbContext)
         {
             _dbContext = dbContext;
         }

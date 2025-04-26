@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProgettoHMI.Services.Shared.Subscriptions
+namespace ProgettoHMI.Services.Subscriptions
 {
     public partial class SubscriptionsService
     {

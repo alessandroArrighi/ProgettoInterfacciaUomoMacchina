@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProgettoHMI.Services.Shared.Users
+namespace ProgettoHMI.Services.Users
 {
     public class User
     {
