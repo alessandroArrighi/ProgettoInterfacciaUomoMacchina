@@ -9,7 +9,7 @@ namespace ProgettoHMI.Services.Subscriptions
     public class Subscription
     {
         public Guid IDUser { get; set; }
-        public string IDTournament { get; set; }
+        public Guid IDTournament { get; set; }
         public int PointsGained { get; set; } = 0;
     }
 }
