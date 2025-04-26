@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using ProgettoHMI.Services;
-using ProgettoHMI.Services.Shared.Ranks;
-using ProgettoHMI.Services.Shared.Users;
+using ProgettoHMI.Services.Ranks;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Infrastructure
 {

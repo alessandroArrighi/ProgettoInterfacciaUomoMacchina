@@ -14,7 +14,7 @@ namespace ProgettoHMI.Services.Subscriptions
         public int PointsGained { get; set; }
     }
     
-    public partial class SubscriptionsService
+    public partial class SubscriptionService
     {
         public async Task<Guid> Handle(AddOrUpdateSubscriptionCommand cmd)
         {

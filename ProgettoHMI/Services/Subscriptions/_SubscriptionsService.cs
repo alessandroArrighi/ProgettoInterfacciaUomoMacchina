@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace ProgettoHMI.Services.Subscriptions
 {
-    public partial class SubscriptionsService
+    public partial class SubscriptionService
     {
         TemplateDbContext _dbContext;
 
-        public SubscriptionsService(TemplateDbContext dbContext)
+        public SubscriptionService(TemplateDbContext dbContext)
         {
             _dbContext = dbContext;
         }
