@@ -72,6 +72,6 @@ namespace ProgettoHMI.Services.Subscriptions
                 Subscriptions = subscriptions
             };
         }
-    
+    }
 }
 

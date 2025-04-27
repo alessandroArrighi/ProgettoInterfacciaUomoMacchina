@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProgettoHMI.Services.Statistics;
 
 namespace ProgettoHMI.Services.Users
 {
@@ -46,6 +47,24 @@ namespace ProgettoHMI.Services.Users
                 };
                // Console.Write(user)
                 _dbContext.Users.Add(user);
+
+                var _statisticsService = new StatisticsService(_dbContext);
+
+                var stats = new AddOrUpdateStatisticCommand
+                {
+                    IDUser = user.Id,
+                    MatchesPlayed = 0,
+                    MatchesWon = 0,
+                    MatchesLost = 0,
+                    Aces = 0,
+                    DoubleFaults = 0,
+                    FirstService = 0,
+                    SecondService = 0,
+                    Returns = 0
+                };
+
+                await _statisticsService.Handle(stats);
+
             }
 
             user.Name = cmd.Name;
