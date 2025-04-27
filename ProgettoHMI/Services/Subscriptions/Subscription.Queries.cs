@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,7 @@ namespace ProgettoHMI.Services.Subscriptions
         {
             public Guid IDTournament { get; set; }
             public int PointsGained { get; set; }
+            public int Point {  get; set; }
         }
     }
 
@@ -49,6 +51,18 @@ namespace ProgettoHMI.Services.Subscriptions
                     PointsGained = x.PointsGained
                 })
                 .ToListAsync();
+
+            var actualPoints = await _dbContext.Users
+                .Where(x => x.Id == qry.IDUser)
+                .Select(x => x.Points)
+                .FirstOrDefaultAsync();
+
+            int currentPoints = actualPoints;
+            foreach (var sub in subscriptions)
+            {
+                sub.Point = currentPoints;
+                currentPoints -= sub.PointsGained;
+            }
 
             return new SubscriptionUserDTO
             {

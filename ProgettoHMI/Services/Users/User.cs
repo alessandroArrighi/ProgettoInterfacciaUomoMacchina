@@ -12,11 +12,17 @@ namespace ProgettoHMI.Services.Users
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
+        [Required]
         public int Rank { get; set; }
+        [Required]
         public int Points { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }

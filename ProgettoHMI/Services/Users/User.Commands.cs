@@ -14,6 +14,7 @@ namespace ProgettoHMI.Services.Users
         public string Name { get; set; }
         public string Surname { get; set; }
         public int Rank { get; set; }
+        public int Points { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }
         public string Address { get; set; }
@@ -39,6 +40,7 @@ namespace ProgettoHMI.Services.Users
                     Name = cmd.Name,
                     Surname = cmd.Surname,
                     Rank = cmd.Rank,
+                    Points = cmd.Points,
                     PhoneNumber = cmd.PhoneNumber,
                     TaxID = cmd.TaxID,
                     Address = cmd.Address,
