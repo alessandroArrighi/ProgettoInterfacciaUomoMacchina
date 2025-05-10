@@ -47,7 +47,8 @@ namespace ProgettoHMI.Services.Users
                     Nationality = cmd.Nationality,
                     ImgProfile = cmd.ImgProfile
                 };
-               // Console.Write(user)
+                Console.WriteLine("User not found, creating new user: " + user.Id);
+                Console.Write(user);
                 _dbContext.Users.Add(user);
 
                 var _statisticsService = new StatisticsService(_dbContext);
@@ -64,6 +65,7 @@ namespace ProgettoHMI.Services.Users
                     SecondService = 0,
                     Returns = 0
                 };
+                Console.WriteLine("Creating new statistics for user: " + user.Id);
 
                 await _statisticsService.Handle(stats);
 

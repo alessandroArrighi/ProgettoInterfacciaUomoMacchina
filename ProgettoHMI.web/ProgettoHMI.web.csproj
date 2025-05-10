@@ -5,12 +5,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="Areas\Tournaments\Tournaments\Draw.ts" />
-	  <None Remove="Areas\Tournaments\Tournaments\Index.ts" />
-	  <None Remove="Areas\Tournaments\Tournaments\IndexViewModelInterface.cs.d.ts" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.11" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="SG4MVC" Version="0.9.4-beta" />
@@ -31,12 +25,6 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Example\" />
 	  <Folder Include="Areas\Tournaments\Live\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\Draw.ts" />
-	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\Index.ts" />
-	  <TypeScriptCompile Include="Areas\Tournaments\Tournaments\IndexViewModelInterface.cs.d.ts" />
 	</ItemGroup>
 
 </Project>

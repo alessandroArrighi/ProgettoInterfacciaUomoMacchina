@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using ProgettoHMI.web.Infrastructure;
 using ProgettoHMI.Infrastructure;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.web.Features.Login
 {
@@ -18,10 +18,10 @@ namespace ProgettoHMI.web.Features.Login
     public partial class LoginController : Controller
     {
         public static string LoginErrorModelStateKey = "LoginError";
-        private readonly SharedService _sharedService;
+        private readonly UsersService _sharedService;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public LoginController(SharedService sharedService, IStringLocalizer<SharedResource> sharedLocalizer)
+        public LoginController(UsersService sharedService, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _sharedService = sharedService;
             _sharedLocalizer = sharedLocalizer;

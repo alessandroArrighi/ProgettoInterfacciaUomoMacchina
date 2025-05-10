@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
-using ProgettoHMI.Services.Players;
-using ProgettoHMI.Services.Shared.Tournaments;
+//using ProgettoHMI.Services.Players;
+//using ProgettoHMI.Services.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
@@ -31,6 +31,25 @@ namespace ProgettoHMI.web.Features.Home
                 this.Tournaments[i] = new TournamentViewModel(tournaments[i]);
             }
         }
+    }
+
+    public class TournamentDTO
+    {
+        public string TournamentName { get; set; }
+        public string FieldName { get; set; }
+        public string Date { get; set; }
+        public string Img { get; set; }
+      
+    }
+
+    public class PlayerDTO
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Rank { get; set; }
+        public string Points { get; set; }
+        public string Img { get; set; }
+
     }
 
     public class PlayerViewModel
