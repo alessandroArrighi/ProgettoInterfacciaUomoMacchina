@@ -20,19 +20,24 @@ namespace ProgettoHMI.Services.Games
         public string Status { get; set; }
         public Guid Player1Id { get; set; }
         public Guid Player2Id { get; set; }
+
+        [NotMapped]
         public Score Score { get; set; }
     }
 
-    public class Score {
+    public class Score
+    {
         private const int LEN = 5;
-        public ScoreSet?[] Set;
+        public List<ScoreSet> Set;
 
-        public Score(ScoreSet[] sets) {
-            Set = new ScoreSet?[LEN];
+        public Score()
+        {
+            Set = new List<ScoreSet>();
+        }
 
-            for(int i = 0; i < Set.Length && i < LEN; ++i) {
-                Set[i] = sets[i];
-            }
+        public Score(List<ScoreSet> sets)
+        {
+            Set = sets;
         }
     }
 
