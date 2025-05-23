@@ -17,12 +17,19 @@ namespace ProgettoHMI.Services.Games
         public Guid GameId { get; set; }
         public Guid TournamentId { get; set; }
         public int DrawPosition {get; set; }
-        public string Status { get; set; }
+        public Status Status { get; set; }
         public Guid Player1Id { get; set; }
         public Guid Player2Id { get; set; }
 
         [NotMapped]
         public Score Score { get; set; }
+    }
+
+    public enum Status
+    {
+        BeforeStart,
+        Start,
+        End,
     }
 
     public class Score

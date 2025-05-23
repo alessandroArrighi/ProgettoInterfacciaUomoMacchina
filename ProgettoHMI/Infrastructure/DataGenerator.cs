@@ -74,7 +74,7 @@ namespace ProgettoHMI.Infrastructure
                     Image = "...",
                     City = "Milano",
                     Rank = "Diamante",
-                    Status = false
+                    Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
                 {
@@ -86,7 +86,7 @@ namespace ProgettoHMI.Infrastructure
                     Image = "...",
                     City = "Torino",
                     Rank = "Oro",
-                    Status = false
+                    Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
                 {
@@ -98,7 +98,7 @@ namespace ProgettoHMI.Infrastructure
                     Image = "...",
                     City = "Bologna",
                     Rank = "Argento",
-                    Status = false
+                    Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
                 {
@@ -110,7 +110,7 @@ namespace ProgettoHMI.Infrastructure
                     Image = "...",
                     City = "Roma",
                     Rank = "Bronzo",
-                    Status = false
+                    Status = Services.Tournament.Status.BeforeStart
                 }
             );
 
@@ -120,7 +120,7 @@ namespace ProgettoHMI.Infrastructure
                     GameId = Guid.Parse("00000000-0000-0000-0000-000000000010"),
                     TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
                     DrawPosition = 1,
-                    Status = "false",
+                    Status = Services.Games.Status.BeforeStart,
                     Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
                     Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
                     Score = new Score([new(7, 6), new(3, 5)])
@@ -130,7 +130,7 @@ namespace ProgettoHMI.Infrastructure
                     GameId = Guid.Parse("00000000-0000-0000-0000-000000000020"),
                     TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"),
                     DrawPosition = 2,
-                    Status = "false",
+                    Status = Services.Games.Status.BeforeStart,
                     Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
                     Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
                     Score = new Score([new(7, 6), new(3, 6), new (2, 0)])
@@ -140,7 +140,7 @@ namespace ProgettoHMI.Infrastructure
                     GameId = Guid.Parse("00000000-0000-0000-0000-000000000030"),
                     TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     DrawPosition = 1,
-                    Status = "false",
+                    Status = Services.Games.Status.BeforeStart,
                     Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4dAAA"),
                     Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0BBB"),
                     Score = new Score()

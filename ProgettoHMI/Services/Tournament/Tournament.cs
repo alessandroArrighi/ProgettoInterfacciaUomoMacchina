@@ -16,6 +16,13 @@ namespace ProgettoHMI.Services.Tournament
         public string Image { get; set; }
         public string City { get; set; }
         public string Rank { get; set; }
-        public bool Status { get; set; }
+        public Status Status { get; set; }
+    }
+
+    public enum Status
+    {
+        BeforeStart,
+        Start,
+        End,
     }
 }
