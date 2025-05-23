@@ -40,6 +40,7 @@ namespace ProgettoHMI.Services.Games
 
     public class GamesPositionQeury
     {
+        public Guid TournamentId { get; set; }
         public int DrawPosition { get; set; }
     }
 
@@ -107,7 +108,8 @@ namespace ProgettoHMI.Services.Games
         public async Task<GameSelectDTO> Query(GamesPositionQeury qry)
         {
             var queryable = _dbContext.Games
-                .Where(x => qry.DrawPosition == x.DrawPosition);
+                .Where(x => qry.TournamentId == x.TournamentId
+                            && qry.DrawPosition == x.DrawPosition);
 
             var games = await PlayersJoin(queryable);
 
