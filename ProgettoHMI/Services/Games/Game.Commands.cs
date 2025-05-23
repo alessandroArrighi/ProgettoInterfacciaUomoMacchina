@@ -11,7 +11,7 @@ namespace ProgettoHMI.Services.Games
 {
     public class AddOrUpdateGameCommand
     {
-        public Guid GameId { get; set; }
+        public Guid? GameId { get; set; }
         public Guid? TournamentId { get; set; }
         public int? DrawPosition { get; set; }
         public string? Status { get; set; }

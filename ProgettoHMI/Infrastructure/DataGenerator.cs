@@ -66,7 +66,7 @@ namespace ProgettoHMI.Infrastructure
             context.Tournaments.AddRange(
                 new Tournament
                 {
-                    Id = Guid.Parse("00000000-0000-0000-0000-000000000000"),
+                    Id = Guid.Parse("11000000-0000-0000-0000-000000000000"),
                     Name = "Torneo di Milano",
                     Club = "Circolo di Milano",
                     StartDate = new DateTime(2026, 1, 1, 15, 0, 0),
