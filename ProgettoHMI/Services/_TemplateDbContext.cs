@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Ranks;
+using ProgettoHMI.Services.Statistics;
+using ProgettoHMI.Services.Subscriptions;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services
 {
@@ -16,5 +19,8 @@ namespace ProgettoHMI.Services
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Subscription> Subscriptions {  get; set; }
+        public DbSet<Rank> Ranks { get; set; }
+        public DbSet<Statistic> Statistics { get; set; }
     }
 }

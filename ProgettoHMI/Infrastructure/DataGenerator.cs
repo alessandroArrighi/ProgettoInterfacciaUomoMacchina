@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using ProgettoHMI.Services;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Ranks;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Infrastructure
 {
@@ -22,7 +24,8 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Prova"
                     Name = "Filippo",
                     Surname = "Lutterotti",
-                    Rank = "Gold",
+                    Rank = 2,
+                    Points = 1200, 
                     PhoneNumber = "1234567890",
                     TaxID = "LTTFPP",
                     Address = "Via Roma 1",
@@ -36,7 +39,8 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Test"
                     Name = "Alessandro",
                     Surname = "Arrighi",
-                    Rank = "Gold",
+                    Rank = 2,
+                    Points = 1800,
                     PhoneNumber = "1234567890",
                     TaxID = "RRGLSS",
                     Address = "Via Roma 1",
@@ -50,12 +54,51 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Test"
                     Name = "Jannik",
                     Surname = "Sinner",
-                    Rank = "Diamond",
+                    Rank = 1,
+                    Points = 2950,
                     PhoneNumber = "1234567890",
                     TaxID = "SNRJNK",
                     Address = "Via Roma 1",
                     Nationality = "Italian",
                     ImgProfile = "..."
+                });
+
+            context.Ranks.AddRange(
+                new Rank
+                {
+                    Id = 1,
+                    Name = "Bronzo",
+                    MinPoints = 0,
+                    MaxPoints = 599,
+                    Description = "Bronzo",
+                    ImgRank = "bronze.svg"
+                },
+                new Rank
+                {
+                    Id = 2,
+                    Name = "Argento",
+                    MinPoints = 600,
+                    MaxPoints = 1199,
+                    Description = "Argento",
+                    ImgRank = "silver.svg"
+                },
+                new Rank
+                {
+                    Id = 3,
+                    Name = "Oro",
+                    MinPoints = 1200,
+                    MaxPoints = 2499,
+                    Description = "Oro",
+                    ImgRank = "gold.svg"
+                },
+                new Rank
+                {
+                    Id = 4,
+                    Name = "Diamante",
+                    MinPoints = 2500,
+                    MaxPoints = 15000,
+                    Description = "Diamante",
+                    ImgRank = "diamond.svg"
                 });
 
             context.SaveChanges();

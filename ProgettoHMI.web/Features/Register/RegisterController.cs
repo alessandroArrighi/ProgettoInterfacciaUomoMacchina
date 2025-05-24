@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using ProgettoHMI.web.Infrastructure;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.web.Features.Register
 {
@@ -12,10 +12,10 @@ namespace ProgettoHMI.web.Features.Register
     [ModelStateToTempData]
     public partial class RegisterController : Controller
     {
-        private readonly SharedService _sharedService;
+        private readonly UsersService _sharedService;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public RegisterController(SharedService sharedService, IStringLocalizer<SharedResource> sharedLocalizer)
+        public RegisterController(UsersService sharedService, IStringLocalizer<SharedResource> sharedLocalizer)
         {
             _sharedService = sharedService;
             _sharedLocalizer = sharedLocalizer;
