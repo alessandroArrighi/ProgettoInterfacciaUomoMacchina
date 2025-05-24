@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
-using ProgettoHMI.Services.Players;
-using ProgettoHMI.Services.Shared.Tournaments;
+//using ProgettoHMI.Services.Players;
+//using ProgettoHMI.Services.Shared.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
@@ -17,8 +18,17 @@ namespace ProgettoHMI.web.Features.Home
         public virtual IActionResult Index()
         {
             var model = new HomeViewModel();
-            var players = PlayersService.Query();
-            var tournaments = TournamentService.Query();
+            var players = new PlayerDTO[]
+            {
+                new PlayerDTO { Name = "John", Surname = "Doe", Rank = "1", Points = "1500", Img = "/images/john.jpg" },
+                new PlayerDTO { Name = "Jane", Surname = "Smith", Rank = "2", Points = "1400", Img = "/images/jane.jpg" }
+            };
+
+            var tournaments = new TournamentDTO[]
+            {
+                new TournamentDTO { TournamentName = "Spring Open", FieldName = "Central Court", Date = "2023-10-15", Img = "/images/spring_open.jpg" },
+                new TournamentDTO { TournamentName = "Summer Cup", FieldName = "Court 1", Date = "2023-11-20", Img = "/images/summer_cup.jpg" }
+            };
 
             model.setPlayers(players);
             model.setTournaments(tournaments);

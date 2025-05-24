@@ -1,8 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
-using ProgettoHMI.Services.Shared;
 using T = ProgettoHMI.Services.Tournament;
 using ProgettoHMI.Services.Games;
+using ProgettoHMI.Services.Ranks;
+using ProgettoHMI.Services.Statistics;
+using ProgettoHMI.Services.Subscriptions;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services
 {
@@ -20,5 +23,9 @@ namespace ProgettoHMI.Services
         public DbSet<User> Users { get; set; }
         public DbSet<T.Tournament> Tournaments { get; set; }
         public DbSet<Game> Games { get; set; }
+        public DbSet<Subscription> Subscriptions {  get; set; }
+        public DbSet<Rank> Ranks { get; set; }
+        public DbSet<Statistic> Statistics { get; set; }
+
     }
 }

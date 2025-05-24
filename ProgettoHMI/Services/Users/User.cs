@@ -1,21 +1,29 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ProgettoHMI.Services.Shared
+namespace ProgettoHMI.Services.Users
 {
     public class User
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Surname { get; set; }
-        public string Rank { get; set; }    
+        [Required]
+        public int Rank { get; set; }
+        [Required]
+        public int Points { get; set; }
         public string PhoneNumber { get; set; }
         public string TaxID { get; set; }
         public string Address { get; set; }
@@ -35,9 +43,9 @@ namespace ProgettoHMI.Services.Shared
             if (string.IsNullOrWhiteSpace(password)) return false;
 
             var sha256 = SHA256.Create();
-            var testPassword = System.Convert.ToBase64String(sha256.ComputeHash(Encoding.ASCII.GetBytes(password)));
+            var testPassword = Convert.ToBase64String(sha256.ComputeHash(Encoding.ASCII.GetBytes(password)));
 
-            return this.Password == testPassword;
+            return Password == testPassword;
         }
     }
 }
