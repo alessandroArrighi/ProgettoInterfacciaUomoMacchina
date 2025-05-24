@@ -70,7 +70,8 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Bronzo",
                     MinPoints = 0,
                     MaxPoints = 599,
-                    Description = "Bronzo"
+                    Description = "Bronzo",
+                    ImgRank = "bronze.svg"
                 },
                 new Rank
                 {
@@ -78,7 +79,8 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Argento",
                     MinPoints = 600,
                     MaxPoints = 1199,
-                    Description = "Argento"
+                    Description = "Argento",
+                    ImgRank = "silver.svg"
                 },
                 new Rank
                 {
@@ -86,7 +88,8 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Oro",
                     MinPoints = 1200,
                     MaxPoints = 2499,
-                    Description = "Oro"
+                    Description = "Oro",
+                    ImgRank = "gold.svg"
                 },
                 new Rank
                 {
@@ -94,7 +97,8 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Diamante",
                     MinPoints = 2500,
                     MaxPoints = 15000,
-                    Description = "Diamante"
+                    Description = "Diamante",
+                    ImgRank = "diamond.svg"
                 });
 
             context.SaveChanges();
