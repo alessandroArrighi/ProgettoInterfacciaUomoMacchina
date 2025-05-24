@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Dynamic;
+using System.Security;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 using ProgettoHMI.Services.Shared;
@@ -16,13 +17,12 @@ namespace ProgettoHMI.Services.Games
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid GameId { get; set; }
         public Guid TournamentId { get; set; }
-        public int DrawPosition {get; set; }
+        public int DrawPosition { get; set; }
         public Status Status { get; set; }
         public Guid Player1Id { get; set; }
         public Guid Player2Id { get; set; }
-
-        [NotMapped]
-        public Score Score { get; set; }
+        public int[] Player1Score { get; set; }
+        public int[] Player2Score { get; set; }
     }
 
     public enum Status
@@ -42,9 +42,45 @@ namespace ProgettoHMI.Services.Games
             Set = new List<ScoreSet>();
         }
 
-        public Score(List<ScoreSet> sets)
+        public Score(int[] p1, int[] p2) : this()
         {
-            Set = sets;
+            if (p1.Length != p2.Length)
+            {
+                throw new Exception();
+            }
+
+            for (int i = 0; i < p1.Length; ++i)
+            {
+                Set.Add(new(p1[i], p2[i]));
+            }
+        }
+
+        public static int[] ScoreToArray(Score score, int playerIndex)
+        {
+            if (playerIndex < 0 || playerIndex > 2)
+            {
+                throw new Exception("Index must be an integer equal to 0 or 1");
+            }
+
+            int[] res = new int[score.Set.Count];
+            int i = 0;
+
+            foreach (var s in score.Set)
+            {
+                if (playerIndex == 0)
+                {
+                    res[i] = s.Score1;
+                }
+
+                if (playerIndex == 1)
+                {
+                    res[i] = s.Score2;
+                }
+
+                ++i;
+            }
+
+            return res;
         }
     }
 

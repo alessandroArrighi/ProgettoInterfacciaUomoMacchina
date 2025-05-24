@@ -58,7 +58,7 @@ namespace ProgettoHMI.Services.Games
                         GameId = game.GameId,
                         DrawPosition = game.DrawPosition,
                         Status = game.Status,
-                        Score = game.Score,
+                        Score = new Score(game.Player1Score, game.Player2Score),
                         Player2Id = game.Player2Id,
                         Player1 = new GameSelectDTO.UserSelectDTO
                         {
