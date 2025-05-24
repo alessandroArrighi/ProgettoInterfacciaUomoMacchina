@@ -67,7 +67,7 @@ namespace ProgettoHMI.Services.Users
                 };
                 Console.WriteLine("Creating new statistics for user: " + user.Id);
 
-                await _statisticsService.Handle(stats);
+                await _statisticsService.Handle(stats); // Add stastistics
 
             }
 

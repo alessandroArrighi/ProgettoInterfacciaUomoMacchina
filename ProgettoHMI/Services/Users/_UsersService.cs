@@ -8,7 +8,7 @@ namespace ProgettoHMI.Services.Users
 {
     public partial class UsersService
     {
-        TemplateDbContext _dbContext;
+        readonly TemplateDbContext _dbContext;
 
         public UsersService(TemplateDbContext dbContext)
         {

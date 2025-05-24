@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProgettoHMI.Infrastructure;
+using ProgettoHMI.Services.Ranks;
 
 namespace ProgettoHMI.Services.Users
 {
@@ -42,11 +42,27 @@ namespace ProgettoHMI.Services.Users
             public Guid Id { get; set; }
             public string Name { get; set; }
             public string Surname { get; set; }
-            public string Rank { get; set; }
-            public int Points { get; set; }
+            public UserRank Rank { get; set; }
             public string Nationality { get; set; }
         }
+
+        public class UserRank : RankDTO
+        {
+            public int Points { get; set; }
+        }
     }
+
+    public class UserRankQuery
+    {
+        public Guid Id { get; set; }
+    }
+
+    public class UserRankDTO
+    {
+        public UsersRankDTO.User User { get; set; }
+    }
+
+
 
     public class UserStatsQuery
     {
@@ -60,28 +76,6 @@ namespace ProgettoHMI.Services.Users
         public int Rank { get; set; }
         public string ImgProfile { get; set; }
     }
-
-    //public class UsersIndexQuery
-    //{
-    //    public Guid IdCurrentUser { get; set; }
-    //    public string Filter { get; set; }
-
-    //    public Paging Paging { get; set; }
-    //}
-
-    //public class UsersIndexDTO
-    //{
-    //    public IEnumerable<User> Users { get; set; }
-    //    public int Count { get; set; }
-
-    //    public class User
-    //    {
-    //        public Guid Id { get; set; }
-    //        public string Email { get; set; }
-    //        public string Name { get; set; }
-    //        public string Surname { get; set; }
-    //    }
-    //}
 
     public class UserDetailQuery
     {
@@ -208,36 +202,70 @@ namespace ProgettoHMI.Services.Users
         }
 
 
-        public async Task<UsersRankDTO> Query(UsersRankQuery qry)
+        public async Task<UsersRankDTO> Query(UsersRankQuery qry) // prendere il Rank per pi utenti (ordine per Points)
         {
 
-            var rankDescriptions = new Dictionary<int, string>
-            {
-                { 1, "Diamante" },
-                { 2, "Oro" },
-                { 3, "Argento" },
-                { 4, "Bronzo" }
-            };
+
 
             var users = await _dbContext.Users
-                .Where(x => x.Points > 0) // si può togliere
-                .OrderByDescending(x => x.Points) 
-                .ThenBy(x => x.Name) 
-                .Take(qry.count) 
-                .Select(x => new UsersRankDTO.User
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Surname = x.Surname,
-                    Rank = rankDescriptions.ContainsKey(x.Rank) ? rankDescriptions[x.Rank] : "Sconosciuto",
-                    Points = x.Points, 
-                    Nationality = x.Nationality
-                })
+                .Where(user => user.Points > 0)
+                .OrderByDescending(user => user.Points)
+                .ThenBy(user => user.Name)
+                .Take(qry.count)
+                .Join(
+                    _dbContext.Ranks,
+                    user => user.Rank,         
+                    rank => rank.Id,           
+                    (user, rank) => new UsersRankDTO.User
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Surname = user.Surname,
+                        Rank = new UsersRankDTO.UserRank
+                        {
+                            Id = rank.Id,
+                            Name = rank.Name,
+                            ImgRank = rank.ImgRank,
+                            Points = user.Points
+                        },
+                        Nationality = user.Nationality
+                    }
+                )
                 .ToListAsync();
 
             return new UsersRankDTO
             {
                 Users = users
+            };
+        }
+
+        public async Task<UserRankDTO> Query(UserRankQuery qry) // prendere il Rank per un singolo utente
+        {
+            var user = await _dbContext.Users
+                .Where(user => user.Id == qry.Id)
+                .Join(_dbContext.Ranks,
+                    user => user.Rank,
+                    rank => rank.Id,
+                    (user, rank) => new UsersRankDTO.User
+                    {
+                        Id = user.Id,
+                        Name = user.Name,
+                        Surname = user.Surname,
+                        Rank = new UsersRankDTO.UserRank
+                        {
+                            Id = rank.Id,
+                            Name = rank.Name,
+                            ImgRank = rank.ImgRank,
+                            Points = user.Points
+                        },
+                        Nationality = user.Nationality
+                    }
+                )
+                .FirstOrDefaultAsync();
+
+            return new UserRankDTO
+            {
+                User = user
             };
         }
 
