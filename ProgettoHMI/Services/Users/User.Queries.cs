@@ -8,24 +8,6 @@ using ProgettoHMI.Services.Ranks;
 
 namespace ProgettoHMI.Services.Users
 {
-    //public class UsersSelectQuery
-    //{
-    //    public Guid IdCurrentUser { get; set; }
-    //    public string Filter { get; set; }
-    //}
-
-    //public class UsersSelectDTO
-    //{
-    //    public IEnumerable<User> Users { get; set; }
-    //    public int Count { get; set; }
-
-    //    public class User
-    //    {
-    //        public Guid Id { get; set; }
-    //        public string Email { get; set; }
-    //    }
-    //}
-
 
     // Prendere i giocatori in ordine di rank
     public class UsersRankQuery
@@ -127,36 +109,6 @@ namespace ProgettoHMI.Services.Users
         //    };
         //}
 
-        /// <summary>
-        /// Returns users for an index page
-        /// </summary>
-        /// <param name="qry"></param>
-        /// <returns></returns>
-        //public async Task<UsersIndexDTO> Query(UsersIndexQuery qry)
-        //{
-        //    var queryable = _dbContext.Users
-        //        .Where(x => x.Id != qry.IdCurrentUser);
-
-        //    if (string.IsNullOrWhiteSpace(qry.Filter) == false)
-        //    {
-        //        queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
-        //    }
-
-        //    return new UsersIndexDTO
-        //    {
-        //        Users = await queryable
-        //            .ApplyPaging(qry.Paging)
-        //            .Select(x => new UsersIndexDTO.User
-        //            {
-        //                Id = x.Id,
-        //                Email = x.Email,
-        //                Name = x.Name,
-        //                Surname = x.Surname
-        //            })
-        //            .ToArrayAsync(),
-        //        Count = await queryable.CountAsync()
-        //    };
-        //}
 
         /// <summary>
         /// Returns the detail of the user who matches the Id passed in the qry parameter
@@ -166,13 +118,14 @@ namespace ProgettoHMI.Services.Users
         public async Task<UserDetailDTO> Query(UserDetailQuery qry)
         {
             return await _dbContext.Users
-                .Where(x => x.Id == qry.Id)
-                .Select(x => new UserDetailDTO
+                .Where(user => user.Id == qry.Id)
+                .Select(user => new UserDetailDTO
                 {
-                    Id = x.Id,
-                    Email = x.Email,
-                    Name = x.Name,
-                    Surname = x.Surname
+                    Id = user.Id,
+                    Email = user.Email,
+                    Name = user.Name,
+                    Surname = user.Surname,
+                    NickName = user.Name.Substring(0, 1) + ". " + user.Surname
                 })
                 .FirstOrDefaultAsync();
         }

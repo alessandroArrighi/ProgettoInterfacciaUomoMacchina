@@ -44,26 +44,26 @@ namespace ProgettoHMI.Services.Subscriptions
         public async Task<SubscriptionUserDTO> Query(SubscriptionUserQuery qry)
         {
             var subscriptions = await _dbContext.Subscriptions
-                .Where(x => x.IDUser == qry.IDUser)
-                .Select(x => new SubscriptionUserDTO.Subscription
+                .Where(subs => subs.IDUser == qry.IDUser)
+                .Select(subs => new SubscriptionUserDTO.Subscription
                 {
-                    IDTournament = x.IDTournament,
-                    PointsGained = x.PointsGained
+                    IDTournament = subs.IDTournament,
+                    PointsGained = subs.PointsGained
                 })
                 .ToListAsync();
 
             var actualPoints = await _dbContext.Users
-                .Where(x => x.Id == qry.IDUser)
-                .Select(x => x.Points)
+                .Where(user => user.Id == qry.IDUser)
+                .Select(user => user.Points)
                 .FirstOrDefaultAsync();
 
             int currentPoints = actualPoints;
-            foreach (var sub in subscriptions)
+            foreach (var sub in subscriptions) // Prendo i vari punteggi nel tempo
             {
                 sub.Point = currentPoints;
                 currentPoints -= sub.PointsGained;
             }
-
+            
             return new SubscriptionUserDTO
             {
                 Subscriptions = subscriptions
