@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Linq;
 using System.Linq.Dynamic.Core;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services.Games
 {
@@ -18,11 +17,11 @@ namespace ProgettoHMI.Services.Games
     {
         public IEnumerable<Game> Games { get; set; }
 
-        public class UserSelectDTO
+        public class User
         {
             public Guid Id;
             public string Name;
-            public string Rank;
+            public UsersRankDTO.UserRank Rank;
         }
 
         public class Game
@@ -32,8 +31,8 @@ namespace ProgettoHMI.Services.Games
             public Status Status { get; set; }
             public Guid Player1Id { get; set; }
             public Guid Player2Id { get; set; }
-            public UserSelectDTO Player1 { get; set; }
-            public UserSelectDTO Player2 { get; set; }
+            public User Player1 { get; set; }
+            public User Player2 { get; set; }
             public Score Score { get; set; }
         }
     }
@@ -59,18 +58,50 @@ namespace ProgettoHMI.Services.Games
                         DrawPosition = game.DrawPosition,
                         Status = game.Status,
                         Score = new Score(game.Player1Score, game.Player2Score),
-                        Player2Id = game.Player2Id,
-                        Player1 = new GameSelectDTO.UserSelectDTO
+                        Player1 = new GameSelectDTO.User
                         {
                             Id = user.Id,
                             Name = user.Name,
-                            Rank = user.Rank
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = user.Rank,
+                                Points = user.Points
+                            }
+                        },
+                        Player2 = new GameSelectDTO.User
+                        {
+                            Id = game.Player2Id
                         }
                     }
                 )
                 .Join(
+                    _dbContext.Ranks,
+                    game => game.Player1.Rank.Id,
+                    rank => rank.Id,
+                    (game, rank) => new GameSelectDTO.Game
+                    {
+                        GameId = game.GameId,
+                        DrawPosition = game.DrawPosition,
+                        Status = game.Status,
+                        Score = game.Score,
+                        Player1 = new GameSelectDTO.User
+                        {
+                            Id = game.Player1.Id,
+                            Name = game.Player1.Name,
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = rank.Id,
+                                Name = rank.Name,
+                                ImgRank = rank.ImgRank,
+                                Points = game.Player1.Rank.Points
+                            }
+                        },
+                        Player2 = game.Player2
+                    }
+                )
+                .Join(
                     _dbContext.Users,
-                    game => game.Player2Id,
+                    game => game.Player2.Id,
                     user => user.Id,
                     (game, user) => new GameSelectDTO.Game
                     {
@@ -79,11 +110,40 @@ namespace ProgettoHMI.Services.Games
                         Status = game.Status,
                         Score = game.Score,
                         Player1 = game.Player1,
-                        Player2 = new GameSelectDTO.UserSelectDTO
+                        Player2 = new GameSelectDTO.User
                         {
                             Id = user.Id,
                             Name = user.Name,
-                            Rank = user.Rank
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = user.Rank,
+                                Points = user.Points
+                            }
+                        }
+                    }
+                )
+                .Join(
+                    _dbContext.Ranks,
+                    game => game.Player2.Rank.Id,
+                    rank => rank.Id,
+                    (game, rank) => new GameSelectDTO.Game
+                    {
+                        GameId = game.GameId,
+                        DrawPosition = game.DrawPosition,
+                        Status = game.Status,
+                        Score = game.Score,
+                        Player1 = game.Player1,
+                        Player2 = new GameSelectDTO.User
+                        {
+                            Id = game.Player2.Id,
+                            Name = game.Player2.Name,
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = rank.Id,
+                                Name = rank.Name,
+                                ImgRank = rank.ImgRank,
+                                Points = game.Player1.Rank.Points
+                            }
                         }
                     }
                 )
