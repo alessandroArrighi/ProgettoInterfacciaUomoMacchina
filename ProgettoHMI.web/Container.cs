@@ -4,6 +4,9 @@ using ProgettoHMI.Services.Shared;
 using ProgettoHMI.Services.Games;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.Services.Ranks;
+using ProgettoHMI.Services.Subscriptions;
+using ProgettoHMI.Services.Statistics;
 
 namespace ProgettoHMI.web
 {
@@ -17,6 +20,10 @@ namespace ProgettoHMI.web
             container.AddScoped<TournamentService>();
             container.AddScoped<GameService>();
             container.AddScoped<UsersService>();
+            container.AddScoped<RanksService>();
+            container.AddScoped<SubscriptionService>();
+            container.AddScoped<StatisticsService>();
+
 
             // Registration of SignalR events
             container.AddScoped<IPublishDomainEvents, SignalrPublishDomainEvents>();

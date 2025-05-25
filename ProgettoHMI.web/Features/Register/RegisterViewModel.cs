@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using ProgettoHMI.Services.Ranks;
 
 namespace ProgettoHMI.web.Features.Register
 {
@@ -46,5 +47,9 @@ namespace ProgettoHMI.web.Features.Register
         [Display(Name = "Immagine del profilo (facoltativo)")]
         public string ImgProfile { get; set; }
 
+        [Required]
+        public int RankId { get; set; }
+
+        public RanksInfoDTO Ranks { get; set; }
     }
 }

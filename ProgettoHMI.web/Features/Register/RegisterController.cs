@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using ProgettoHMI.web.Infrastructure;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.Services.Ranks;
 
 namespace ProgettoHMI.web.Features.Register
 {
@@ -12,17 +13,19 @@ namespace ProgettoHMI.web.Features.Register
     [ModelStateToTempData]
     public partial class RegisterController : Controller
     {
-        private readonly UsersService _sharedService;
+        private readonly UsersService _usersService;
+        private readonly RanksService _ranksService;
         private readonly IStringLocalizer<SharedResource> _sharedLocalizer;
 
-        public RegisterController(UsersService sharedService, IStringLocalizer<SharedResource> sharedLocalizer)
+        public RegisterController(UsersService usersService, RanksService ranksService ,IStringLocalizer<SharedResource> sharedLocalizer)
         {
-            _sharedService = sharedService;
+            _usersService = usersService;
+            _ranksService = ranksService;
             _sharedLocalizer = sharedLocalizer;
         }
 
         [HttpGet]
-        public virtual IActionResult Register(string returnUrl)
+        public virtual IActionResult Register(string returnUrl, RegisterViewModel model)
         {
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
@@ -32,7 +35,9 @@ namespace ProgettoHMI.web.Features.Register
                 return RedirectToAction(MVC.Home.Index());
             }
 
-            return View();
+            model.Ranks = _ranksService.Query(new RanksInfoQuery { }).GetAwaiter().GetResult();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -52,7 +57,7 @@ namespace ProgettoHMI.web.Features.Register
                     Console.WriteLine("Address: " + model.Address);
                     Console.WriteLine("ImgProfile: " + model.ImgProfile);
 
-                    var userId = await _sharedService.Handle(new AddOrUpdateUserCommand
+                    var userId = await _usersService.Handle(new AddOrUpdateUserCommand
                     {
                         Id = null,
                         Email = model.Email,
@@ -66,18 +71,16 @@ namespace ProgettoHMI.web.Features.Register
                         ImgProfile = model.ImgProfile
                     });
 
-
-                    // Redirect to login page after successful registration
-                    Console.Write("Ciaoooo");
-                    
+                    return RedirectToAction(MVC.Login.Login());
                 }
                 catch (Exception e)
                 {
                     ModelState.AddModelError(string.Empty, e.Message);
+                    // metttere dei messaggi di errore
+                    // togliere tutti gli errori input
                 }
             }
-
-            return RedirectToAction(MVC.Login.Login());
+            return RedirectToAction(MVC.Register.Register());
         }
     }
 }

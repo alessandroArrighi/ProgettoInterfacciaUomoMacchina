@@ -163,7 +163,7 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Bronzo",
                     MinPoints = 0,
                     MaxPoints = 599,
-                    Description = "Bronzo",
+                    Description = "Giocatore che ha appena superato le prime avversità.",
                     ImgRank = "bronze.svg"
                 },
                 new Rank
@@ -172,7 +172,7 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Argento",
                     MinPoints = 600,
                     MaxPoints = 1199,
-                    Description = "Argento",
+                    Description = "Giocatore capace di sferrare bei solidi colpi, ma fatica a trovare continuità.",
                     ImgRank = "silver.svg"
                 },
                 new Rank
@@ -181,7 +181,7 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Oro",
                     MinPoints = 1200,
                     MaxPoints = 2499,
-                    Description = "Oro",
+                    Description = "Giocatore che riesce a controllare i propri colpi, con un buon servizio.",
                     ImgRank = "gold.svg"
                 },
                 new Rank
@@ -190,7 +190,7 @@ namespace ProgettoHMI.Infrastructure
                     Name = "Diamante",
                     MinPoints = 2500,
                     MaxPoints = 15000,
-                    Description = "Diamante",
+                    Description = "Giocatore esperto, capace di sferrare vincenti in ogni zona del campo.",
                     ImgRank = "diamond.svg"
                 });
 
