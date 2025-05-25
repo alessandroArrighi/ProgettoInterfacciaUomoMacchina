@@ -83,24 +83,24 @@
                     <div class="container-fluid">
                         <img src="~/images/wimbledon.jpg" class="d-block w-100 rounded-4" alt="...">
                         <div class="ps-2 pt-3 pb-3 text-center">
-				            <p class="h3 pb-2">@Model.Tournaments[0].TournamentName</p>
-                            <p class="home-tournament-date">@Model.Tournaments[0].Date</p>
-							<p>@Model.Tournaments[0].FieldName</p>
+				            <p class="h3 pb-2">@Model.Tournaments[0].Name</p>
+                            <p class="home-tournament-date">@Model.Tournaments[0].StartDate</p>
+							<p>@Model.Tournaments[0].Club</p>
 						</div>
                     </div>
                 </div>
 
-                @for (var i = 1; i < Model.Players.Length; ++i)
+                @for (var i = 1; i < Model.Tournaments.Length; ++i)
                 {
-                    var player = Model.Tournaments[i];
+                    var tournament = Model.Tournaments[i];
 
                     <div class="carousel-item">
                         <div class="container-fluid">
                             <img src="~/images/wimbledon.jpg" class="d-block w-100 rounded-4" alt="...">
                             <div class="ps-2 pt-3 pb-3 text-center">
-                                <p class="h3 pb-2">@player.TournamentName</p>
-                                <p class="home-tournament-date">@player.Date</p>
-                                <p>@player.FieldName</p>
+                                <p class="h3 pb-2">@tournament.Name</p>
+                                <p class="home-tournament-date">@tournament.StartDate</p>
+                                <p>@tournament.Club</p>
                             </div>
                         </div>
                     </div>
