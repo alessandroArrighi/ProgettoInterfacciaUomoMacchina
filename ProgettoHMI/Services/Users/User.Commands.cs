@@ -36,7 +36,7 @@ namespace ProgettoHMI.Services.Users
                 {
                     Id = Guid.NewGuid(),
                     Email = cmd.Email,
-                    Password = cmd.Password,
+                    Password = User.EncodePasswordSha256Base64(cmd.Password),
                     Name = cmd.Name,
                     Surname = cmd.Surname,
                     Rank = cmd.Rank,

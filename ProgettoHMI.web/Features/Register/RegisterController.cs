@@ -42,6 +42,16 @@ namespace ProgettoHMI.web.Features.Register
             {
                 try
                 {
+                    Console.WriteLine("Registering user...");
+                    Console.WriteLine("Email: " + model.Email);
+                    Console.WriteLine("Password: " + model.Password);
+                    Console.WriteLine("Name: " + model.Name);
+                    Console.WriteLine("Surname: " + model.Surname);
+                    Console.WriteLine("PhoneNumber: " + model.PhoneNumber);
+                    Console.WriteLine("TaxID: " + model.TaxID);
+                    Console.WriteLine("Address: " + model.Address);
+                    Console.WriteLine("ImgProfile: " + model.ImgProfile);
+
                     var userId = await _sharedService.Handle(new AddOrUpdateUserCommand
                     {
                         Id = null,
@@ -55,6 +65,7 @@ namespace ProgettoHMI.web.Features.Register
                         Nationality = model.Nationality,
                         ImgProfile = model.ImgProfile
                     });
+
 
                     // Redirect to login page after successful registration
                     Console.Write("Ciaoooo");

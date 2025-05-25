@@ -47,5 +47,15 @@ namespace ProgettoHMI.Services.Users
 
             return Password == testPassword;
         }
+
+        public static string EncodePasswordSha256Base64(string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+                return null;
+
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var hashBytes = sha256.ComputeHash(System.Text.Encoding.ASCII.GetBytes(password));
+            return Convert.ToBase64String(hashBytes);
+        }
     }
 }

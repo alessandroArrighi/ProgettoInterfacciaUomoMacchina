@@ -11,7 +11,7 @@
     <div class="container-fluid"> <!-- centrare -->
         <div class="p-4 rounded mt-5" v-bind:style="{backgroundColor: selectSection == 3 ? '#729D9D' : '#E1E1E1'}">
 
-            <form method="post" role="form" autocomplete="off">
+            <form asp-action="Register" asp-controller="Register" method="post">
                 <!-- Prima sezione -->
                 <div v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">
                     <label asp-for=Name class="form-label"></label>
@@ -123,7 +123,7 @@
                     <p id="progress" class="mb-0">{{ selectSection }} di 3</p>
                     <div>
                         <button type="button" id="prevBtn" class="btn btn-secondary me-2" v-on:click="selectSection = selectSection - 1" v-show="selectSection != 1">Indietro</button>
-                        <button v-bind:type="button" id="nextBtn" class="btn btn-primary" v-on:click="selectSection < 3 ? selectSection++ : null">{{ selectSection == 3 ? 'Invia' : 'Avanti' }}</button>
+                        <button type="button" id="nextBtn" class="btn btn-primary" v-on:click="selectSection < 3 ? selectSection++ : null">{{ selectSection == 3 ? 'Invia' : 'Avanti' }}</button>
                         <button type="submit" class="btn btn primary">dadaaaaaaaaaaaaaaaaaaaaaa</button>
                     </div>
                 </div>

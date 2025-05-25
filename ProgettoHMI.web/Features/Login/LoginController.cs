@@ -92,6 +92,7 @@ namespace ProgettoHMI.web.Features.Login
                 catch (LoginException e)
                 {
                     ModelState.AddModelError(LoginErrorModelStateKey, e.Message);
+                    Console.WriteLine($"Login failed credenziali: {e.Message}");
                 }
             }
 
