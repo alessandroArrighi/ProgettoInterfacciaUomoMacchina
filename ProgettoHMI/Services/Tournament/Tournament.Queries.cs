@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using ProgettoHMI.Services.Ranks;
 using ProgettoHMI.Services.Shared;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services.Tournament
 {
@@ -39,20 +41,24 @@ namespace ProgettoHMI.Services.Tournament
         public DateTime EndDate { get; set; }
         public string Image { get; set; }
         public string City { get; set; }
-        public string Rank { get; set; }
+        public RankDTO Rank { get; set; }
         public Status Status { get; set; }
     }
 
     public partial class TournamentService
     {
+        // Query to get all tournaments between the current date and the specified start date
         public async Task<TournamentsDTO> Query(TournamentsSelectQuery qry)
         {
             var queryable = _dbContext.Tournaments
-                .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == 1);
+                // If date is not started and it's erilier than the qry.StartDate
+                .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == -1 && DateTime.Compare(x.StartDate, DateTime.Now) == 1);
 
-            return new TournamentsDTO {
+            return new TournamentsDTO
+            {
                 Tournaments = await queryable
-                .Select(x => new TournamentsDTO.Tournament {
+                .Select(x => new TournamentsDTO.Tournament
+                {
                     Id = x.Id,
                     Name = x.Name,
                     Club = x.Club,
@@ -66,7 +72,8 @@ namespace ProgettoHMI.Services.Tournament
         public async Task<TournamentsIdDTO> Query(TournamentsIdQuery qry) {
             return await _dbContext.Tournaments
                 .Where(x => x.Id == qry.Id)
-                .Select(x => new TournamentsIdDTO {
+                .Select(x => new TournamentsIdDTO
+                {
                     Id = x.Id,
                     Name = x.Name,
                     Club = x.Club,
@@ -74,10 +81,35 @@ namespace ProgettoHMI.Services.Tournament
                     EndDate = x.EndDate,
                     Image = x.Image,
                     City = x.City,
-                    Rank = x.Rank,
+                    Rank = new RankDTO
+                    {
+                        Id = x.Rank
+                    },
                     Status = x.Status
                 })
-                .FirstOrDefaultAsync();
+                .Join(
+                    _dbContext.Ranks,
+                    tournament => tournament.Rank.Id,
+                    rank => rank.Id,
+                    (tournament, rank) => new TournamentsIdDTO
+                    {
+                        Id = tournament.Id,
+                        Name = tournament.Name,
+                        Club = tournament.Club,
+                        StartDate = tournament.StartDate,
+                        EndDate = tournament.EndDate,
+                        Image = tournament.Image,
+                        City = tournament.City,
+                        Rank = new RankDTO
+                        {
+                            Id = rank.Id,
+                            Name = rank.Name,
+                            ImgRank = rank.ImgRank
+
+                        },
+                        Status = tournament.Status
+                    }
+                ).FirstOrDefaultAsync();
         }
     }
 }
