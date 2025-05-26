@@ -79,7 +79,7 @@ namespace ProgettoHMI.Infrastructure
                     EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
                     Image = "...",
                     City = "Milano",
-                    Rank = "Diamante",
+                    Rank = 4,
                     Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
@@ -91,7 +91,7 @@ namespace ProgettoHMI.Infrastructure
                     EndDate = new DateTime(2026, 1, 14, 18, 0, 0),
                     Image = "...",
                     City = "Torino",
-                    Rank = "Oro",
+                    Rank = 2,
                     Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
@@ -103,7 +103,7 @@ namespace ProgettoHMI.Infrastructure
                     EndDate = new DateTime(2026, 1, 21, 18, 0, 0),
                     Image = "...",
                     City = "Bologna",
-                    Rank = "Argento",
+                    Rank = 1,
                     Status = Services.Tournament.Status.BeforeStart
                 },
                 new Tournament
@@ -115,7 +115,31 @@ namespace ProgettoHMI.Infrastructure
                     EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
                     Image = "...",
                     City = "Roma",
-                    Rank = "Bronzo",
+                    Rank = 3,
+                    Status = Services.Tournament.Status.BeforeStart
+                },
+                new Tournament
+                {
+                    Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                    Name = "Torneo di Napoli",
+                    Club = "Circolo di Napoli",
+                    StartDate = DateTime.Now.AddDays(7),
+                    EndDate = DateTime.Now.AddDays(14),
+                    Image = "...",
+                    City = "Napoli",
+                    Rank = 4,
+                    Status = Services.Tournament.Status.BeforeStart
+                },
+                new Tournament
+                {
+                    Id = Guid.Parse("00000000-0000-0000-0000-000000000005"),
+                    Name = "Torneo di Palermo",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "...",
+                    City = "Palermo",
+                    Rank = 2,
                     Status = Services.Tournament.Status.BeforeStart
                 }
             );
