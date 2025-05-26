@@ -4,14 +4,14 @@
     ViewData["isNotRegister"] = false;
 }
 
-<div class="bg-primary pb-5 pt-3">
+<div id="reg" class="bg-primary pb-5 pt-3">
 
     <p class="text-dark fw-bold fs-4 text-center mb-2 disabled" v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
 
     <div class="container-fluid" style="max-width: 650px;"> <!-- centrare -->
         <div class="p-4 rounded mt-5" v-bind:style="{backgroundColor: selectSection == 3 ? '#729D9D' : '#E1E1E1'}">
 
-            <form asp-action="Register" asp-controller="Register" method="post">
+            <form asp-action="Register" asp-controller="Register" method="post" role="form">
                 <!-- Prima sezione -->
                 <div v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">
                     <label asp-for=Name class="form-label"></label>
@@ -63,13 +63,14 @@
                 </div>
 
                 <!-- Terza sezione -->
+                <h2 class="text-center mb-3" v-show="selectSection== 3">Scegli il tuo livello</h2>
                 <div v-bind:class="selectSection == 3 ? 'd-block' : 'd-none'">
-                    <h2 class="text-center mb-3">Scegli il tuo livello</h2>
+                    @* <h2 class="text-center mb-3">Scegli il tuo livello</h2> *@
                     @for (int i = 0; i < Model.Ranks.Ranks.Count(); i++)
                     {
                         var rank = Model.Ranks.Ranks.ElementAt(i);
                         <div>
-                            <div class="bg-secondary row align-items-center mb-2 p-3 rounded-4" v-bind:class="selectRank == @(i + 1) ? 'selected-register' : ''">
+                            <div id="card-register" class="bg-secondary row align-items-center mb-2 p-3 rounded-4" v-bind:class="selectRank == @(i + 1) ? 'selected-register' : ''" style="min-height: 128px; max-height:128px;" >
                                 <div class="col-auto">
                                     <img src="~/images/@rank.ImgRank" alt="@rank.Name" />
                                 </div>
@@ -78,7 +79,7 @@
                                     <p class="fs-p-register">@rank.Description</p>
                                 </div>
                                 <div class="col-auto form-check">
-                                    <input class="form-check-input p-2" type="radio" asp-for="RankId" value="@rank.Id" v-on:click="selectRank = @(i + 1)">
+                                    <input class="form-check-input p-3" type="radio" asp-for="RankId" value="@rank.Id" v-on:click="selectRank = @(i + 1)">
                                 </div>
                             </div>
                         </div>
@@ -96,6 +97,21 @@
         </div>
     </div>
 </div>
+
+@section styles {
+    <style>
+        @@media (min-height: 800px) {
+            footer{
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+            }
+            #reg {
+                height: 92vh;
+            }
+        }
+    </style>
+}
 
 @section Scripts {
     <script src="~/js/bundle-vue.js" asp-append-version="true"></script>

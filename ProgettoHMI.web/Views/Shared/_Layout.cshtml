@@ -12,7 +12,7 @@
 @section styles {
     @RenderSection("styles", false)
 }
-<div id="pageId" class="min-vh-100">
+<div id="pageId">
     @if (ViewData["isNotRegister"] as bool? ?? true) 
     {
         @if (ViewData["isHomePage"] as bool? ?? false)
