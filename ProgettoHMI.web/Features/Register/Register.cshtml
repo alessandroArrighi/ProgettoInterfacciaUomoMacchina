@@ -11,12 +11,12 @@
     <div class="container-fluid" style="max-width: 750px;"> <!-- centrare -->
         <div class="p-4 rounded" v-bind:class="selectSection == 3 ? '' : 'mt-5'" v-bind:style="{backgroundColor: selectSection == 3 ? '#729D9D' : '#E1E1E1'}">
 
-            <form asp-action="Register" asp-controller="Register" method="post" role="form">
+            <form asp-action="Register" asp-controller="Register" method="post" role="form" autocomplete="off">
                 <!-- Prima sezione -->
                 <div v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">
                     <label asp-for=Name class="form-label"></label>
                     <input asp-for="Name" class="form-control" type="text" required/>
-                    <span asp-validation-for="Name" class="text-danger"> ddwdddd</span>
+                    <span asp-validation-for="Name" class="text-danger"> </span>
                     <div class="mb-3"></div>
 
                     <label asp-for=Surname class="form-label"></label>

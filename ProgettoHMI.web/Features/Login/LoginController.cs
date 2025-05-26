@@ -68,12 +68,6 @@ namespace ProgettoHMI.web.Features.Login
             return View(model);
         }
 
-        [HttpGet]
-        public virtual IActionResult Prova()
-        {
-            return View(new LoginViewModel { });
-        }
-
         [HttpPost]
         public async virtual Task<ActionResult> Login(LoginViewModel model)
         {
