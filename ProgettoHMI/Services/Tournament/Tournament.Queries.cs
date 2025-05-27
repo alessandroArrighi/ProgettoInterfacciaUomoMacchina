@@ -12,8 +12,10 @@ using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services.Tournament
 {
-    public class TournamentsSelectQuery {
+    public class TournamentsSelectQuery
+    {
         public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
     public class TournamentsDTO
     {
@@ -45,14 +47,33 @@ namespace ProgettoHMI.Services.Tournament
         public Status Status { get; set; }
     }
 
+    public class TournamentsFiltersQuery
+    {
+        public List<string> City { get; set; } = [];
+        public List<int> Rank { get; set; } = [];
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+    }
+
+    public class TournamentsFiltersDTO
+    {
+        public IEnumerable<Tournament> Tournaments { get; set; }
+        public class Tournament
+        {
+            public Guid Id { get; set; }
+            public string Name { get; set; }
+            public RankDTO Rank { get; set; }
+        }
+    }
+
     public partial class TournamentService
     {
         // Query to get all tournaments between the current date and the specified start date
         public async Task<TournamentsDTO> Query(TournamentsSelectQuery qry)
         {
             var queryable = _dbContext.Tournaments
-                // If date is not started and it's erilier than the qry.StartDate
-                .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == -1 && DateTime.Compare(x.StartDate, DateTime.Now) == 1);
+                // Take the record if x.StartDate is bigger that the qry.StartDate and smaller than qry.EndDate
+                .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == 1 && DateTime.Compare(qry.EndDate, x.StartDate) == 1);
 
             return new TournamentsDTO
             {
@@ -69,7 +90,8 @@ namespace ProgettoHMI.Services.Tournament
             };
         }
 
-        public async Task<TournamentsIdDTO> Query(TournamentsIdQuery qry) {
+        public async Task<TournamentsIdDTO> Query(TournamentsIdQuery qry)
+        {
             return await _dbContext.Tournaments
                 .Where(x => x.Id == qry.Id)
                 .Select(x => new TournamentsIdDTO
@@ -110,6 +132,46 @@ namespace ProgettoHMI.Services.Tournament
                         Status = tournament.Status
                     }
                 ).FirstOrDefaultAsync();
+        }
+
+        public async Task<TournamentsFiltersDTO> Query(TournamentsFiltersQuery qry)
+        {
+            var queryable = _dbContext.Tournaments
+                .Where(x => (qry.City.Count == 0 || qry.City.Contains(x.City)) &&
+                            (qry.Rank.Count == 0 || qry.Rank.Contains(x.Rank)) &&
+                            (DateTime.Compare(x.StartDate, qry.StartDate ?? x.StartDate) >= 0) &&
+                            (DateTime.Compare(qry.EndDate ?? x.StartDate, x.StartDate) >= 0));
+
+            return new TournamentsFiltersDTO
+            {
+                Tournaments = await queryable
+                .Select(x => new TournamentsFiltersDTO.Tournament
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Rank = new RankDTO
+                    {
+                        Id = x.Rank
+                    }
+                })
+                .Join(
+                    _dbContext.Ranks,
+                    tournament => tournament.Rank.Id,
+                    rank => rank.Id,
+                    (tournament, rank) => new TournamentsFiltersDTO.Tournament
+                    {
+                        Id = tournament.Id,
+                        Name = tournament.Name,
+                        Rank = new RankDTO
+                        {
+                            Id = rank.Id,
+                            Name = rank.Name,
+                            ImgRank = rank.ImgRank
+                        }
+                    }
+                )
+                .ToArrayAsync()
+            };
         }
     }
 }
