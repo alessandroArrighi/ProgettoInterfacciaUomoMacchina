@@ -33,6 +33,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
         [HttpPost]
         public virtual async Task<IActionResult> TournamentsFilters([FromBody] TournamentsFiltersQueryViewModel query)
         {
+            query ??= new TournamentsFiltersQueryViewModel{ };
+
             var tournament = await _tournamentService.Query(new TournamentsFiltersQuery
             {
                 City = query.City,
