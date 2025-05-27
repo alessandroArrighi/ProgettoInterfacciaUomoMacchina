@@ -70,7 +70,7 @@
                         <hr class="mb-5" />
                         @if (ViewData["isLogin"] as bool? ?? false)
                         {
-                            <form asp-action="Logout" asp-controller="Login" method="post">
+                        <form asp-area="" asp-action="Logout" asp-controller="Login" method="post">
                                 <button type="submit" class="btn btn-secondary w-50 ms-auto">Logout</button>
                             </form>
 				        }

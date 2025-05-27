@@ -14,52 +14,52 @@
             <form asp-action="Register" asp-controller="Register" method="post" role="form" autocomplete="off">
                 <!-- Prima sezione -->
                 <div v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">
-                    <label asp-for=Name class="form-label"></label>
-                    <input asp-for="Name" class="form-control" type="text" required/>
-                    <span asp-validation-for="Name" class="text-danger"> </span>
+                    <label asp-for=Name class="form-label ms-2"></label>
+                    <input asp-for="Name" class="form-control" type="text" />
+                    <span asp-validation-for="Name" class="text-danger ms-2"> </span>
                     <div class="mb-3"></div>
 
-                    <label asp-for=Surname class="form-label"></label>
-                    <input asp-for="Surname" class="form-control" type="text" required />
-                    <span asp-validation-for="Surname" class="text-danger"> </span>
+                    <label asp-for=Surname class="form-label ms-2"></label>
+                    <input asp-for="Surname" class="form-control" type="text" />
+                    <span asp-validation-for="Surname" class="text-danger ms-2"> </span>
                     <div class="mb-3"></div>
 
-                    <label asp-for=Email class="form-label"></label>
-                    <input asp-for="Email" class="form-control" type="email" required />
-                    <span asp-validation-for="Email" class="text-danger"> </span>
+                    <label asp-for=Email class="form-label ms-2"></label>
+                    <input asp-for="Email" class="form-control" type="email" />
+                    <span asp-validation-for="Email" class="text-danger ms-2"> </span>
                     <div class="mb-3"></div>
 
-                    <label asp-for=Password class="form-label"></label>
+                    <label asp-for=Password class="form-label ms-2"></label>
                     <input asp-for="Password" class="form-control" type="password" />
-                    <span asp-validation-for="Password" class="text-danger"> </span>
+                    <span asp-validation-for="Password" class="text-danger ms-2"> </span>
                     <div class="mb-3"></div>
                 </div>
 
                 <!-- Seconda sezione -->
                 <div v-bind:class="selectSection == 2 ? 'd-block' : 'd-none'">
-                    <label asp-for=PhoneNumber class="form-label"></label>
+                    <label asp-for=PhoneNumber class="form-label ms-2"></label>
                     <input asp-for="PhoneNumber" class="form-control" type="tel" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger"> </span>
+                    <span asp-validation-for="PhoneNumber" class="text-danger ms-2"> </span>
                     <div class="mb-3"></div>
 
-                    <label asp-for="TaxID" class="form-label"></label>
+                    <label asp-for="TaxID" class="form-label ms-2"></label>
                     <input asp-for="TaxID" class="form-control" type="text" />
-                    <span asp-validation-for="TaxID" class="text-danger"></span>
+                    <span asp-validation-for="TaxID" class="text-danger ms-2"></span>
                     <div class="mb-3"></div>
 
-                    <label asp-for="Address" class="form-label"></label>
+                    <label asp-for="Address" class="form-label ms-2"></label>
                     <input asp-for="Address" class="form-control" type="text" />
-                    <span asp-validation-for="Address" class="text-danger"></span>
+                    <span asp-validation-for="Address" class="text-danger ms-2"></span>
                     <div class="mb-3"></div>
 
-                    <label asp-for="Nationality" class="form-label"></label>
+                    <label asp-for="Nationality" class="form-label ms-2"></label>
                     <input asp-for="Nationality" class="form-control" type="text" />
-                    <span asp-validation-for="Nationality" class="text-danger"></span>
+                    <span asp-validation-for="Nationality" class="text-danger ms-2"></span>
                     <div class="mb-3"></div>
 
-                    <label asp-for="ImgProfile" class="form-label"></label>
+                    <label asp-for="ImgProfile" class="form-label ms-2"></label>
                     <input asp-for="ImgProfile" class="form-control" type="file" accept="image/*" />
-                    <span asp-validation-for="ImgProfile" class="text-danger"></span>
+                    <span asp-validation-for="ImgProfile" class="text-danger ms-2"></span>
                 </div>
 
                 <!-- Terza sezione -->
@@ -84,6 +84,7 @@
                             </div>
                         </div>
                     }
+                    <span asp-validation-for="RankId" class="text-danger ms-2 d-flex" style="height: 30px;"> </span>
                 </div>
                 <div class="d-flex justify-content-between align-items-center mt-3">
                     <p id="progress" class="mb-0">{{ selectSection }} di 3</p>

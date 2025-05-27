@@ -5,49 +5,44 @@ namespace ProgettoHMI.web.Features.Register
 {
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Il nome è obbligatorio")]
         [Display(Name = "Nome*")]
-        [DataType(DataType.Text)]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Il cognome è obbligatorio")]
         [Display(Name = "Cognome*")]
-        [DataType(DataType.Text)]
         public string Surname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "L’email è obbligatoria")]
+        [EmailAddress(ErrorMessage = "Formato email non valido")]
         [Display(Name = "Email*")]
-        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La password è obbligatoria")]
         [DataType(DataType.Password)]
         [Display(Name = "Password*")]
         public string Password { get; set; }
 
-        [Required]
-        [DataType(DataType.PhoneNumber)]
+        [Required(ErrorMessage = "Il telefono è obbligatorio")]
+        [Phone(ErrorMessage = "Numero di telefono non valido")]
         [Display(Name = "Telefono*")]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        [DataType(DataType.Text)]
+        [Required(ErrorMessage = "Il codice fiscale è obbligatorio")]
         [Display(Name = "Codice Fiscale*")]
         public string TaxID { get; set; }
 
-        [DataType(DataType.Text)]
+        // … campi facoltativi …
         [Display(Name = "Indirizzo (facoltativo)")]
         public string Address { get; set; }
 
-        [DataType(DataType.Text)]
         [Display(Name = "Nazionalità (facoltativo)")]
         public string Nationality { get; set; }
 
-        [DataType(DataType.ImageUrl)]
         [Display(Name = "Immagine del profilo (facoltativo)")]
         public string ImgProfile { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "La selezione del rank è richiesta!")]
         public int RankId { get; set; }
 
         public RanksInfoDTO Ranks { get; set; }
