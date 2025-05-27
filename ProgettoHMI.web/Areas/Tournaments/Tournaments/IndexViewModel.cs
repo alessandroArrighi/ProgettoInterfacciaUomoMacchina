@@ -38,4 +38,14 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
         public int RankId { get; set; }
         public string ImgRank { get; set; }
     }
+
+
+    [TypeScriptModule("Tournaments.Tournaments.Server")]
+    public class TournamentsFiltersQueryViewModel
+    {
+        public List<string> City { get; set; } = [];
+        public List<int> Rank { get; set; } = [];
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
+    }
 }
