@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
+using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Infrastructure;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
@@ -9,43 +9,19 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
     [TypeScriptModule("Tournaments.Tournaments.Server")]
     public class IndexViewModel
     {
-        public IEnumerable<TournamentListViewModel> Tournaments { get; set; }
+        public IEnumerable<TournamentViewModel> Tournaments { get; set; }
 
-        public IndexViewModel(string name, string rank)
+        public IndexViewModel() { }
+
+        public void SetTournaments(TournamentsFiltersDTO tournaments)
         {
-            this.Tournaments = new List<TournamentListViewModel>
+            Tournaments = tournaments.Tournaments.Select(t => new TournamentViewModel
             {
-                new TournamentListViewModel
-                {
-                    Name = name,
-                    Rank = rank
-                },
-                new TournamentListViewModel
-                {
-                    Name = "provaName2",
-                    Rank = "Gold"
-                },
-                new TournamentListViewModel
-                {
-                    Name = "provaName3",
-                    Rank = "Silver"
-                },
-                new TournamentListViewModel
-                {
-                    Name = "provaName4",
-                    Rank = "Bronze"
-                },
-                new TournamentListViewModel
-                {
-                    Name = "provaName5",
-                    Rank = "Gold"
-                },
-                new TournamentListViewModel
-                {
-                    Name = "provaName6",
-                    Rank = "Diamond"
-                }
-            };
+                Id = t.Id,
+                Name = t.Name,
+                RankId = t.Rank.Id,
+                ImgRank = t.Rank.ImgRank
+            });
         }
 
         public string ToJson()
@@ -55,9 +31,11 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
     }
 
     [TypeScriptModule("Tournaments.Tournaments.Server")]
-    public class TournamentListViewModel
+    public class TournamentViewModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
-        public string Rank { get; set; }
+        public int RankId { get; set; }
+        public string ImgRank { get; set; }
     }
 }
