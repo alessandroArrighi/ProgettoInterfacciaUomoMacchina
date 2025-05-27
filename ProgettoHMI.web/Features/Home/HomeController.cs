@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
+using ProgettoHMI.Services.Tournament;
+using ProgettoHMI.Services.Users;
 //using ProgettoHMI.Services.Players;
 //using ProgettoHMI.Services.Shared.Tournaments;
 
@@ -10,25 +14,24 @@ namespace ProgettoHMI.web.Features.Home
 {
     public partial class HomeController : Controller
     {
-        public HomeController()
+        private readonly UsersService _playerService;
+        private readonly TournamentService _tournamentService;
+        public HomeController(UsersService playerService, TournamentService tournamentsService)
         {
+            _playerService = playerService;
+            _tournamentService = tournamentsService;
         }
 
         [HttpGet]
-        public virtual IActionResult Index()
+        public virtual async Task<IActionResult> Index()
         {
             var model = new HomeViewModel();
-            var players = new PlayerDTO[]
-            {
-                new PlayerDTO { Name = "John", Surname = "Doe", Rank = "1", Points = "1500", Img = "/images/john.jpg" },
-                new PlayerDTO { Name = "Jane", Surname = "Smith", Rank = "2", Points = "1400", Img = "/images/jane.jpg" }
-            };
 
-            var tournaments = new TournamentDTO[]
+            var players = await _playerService.Query();
+            var tournaments = await _tournamentService.Query(new TournamentsSelectQuery
             {
-                new TournamentDTO { TournamentName = "Spring Open", FieldName = "Central Court", Date = "2023-10-15", Img = "/images/spring_open.jpg" },
-                new TournamentDTO { TournamentName = "Summer Cup", FieldName = "Court 1", Date = "2023-11-20", Img = "/images/summer_cup.jpg" }
-            };
+                StartDate = DateTime.Now.AddMonths(1)
+            });
 
             model.setPlayers(players);
             model.setTournaments(tournaments);

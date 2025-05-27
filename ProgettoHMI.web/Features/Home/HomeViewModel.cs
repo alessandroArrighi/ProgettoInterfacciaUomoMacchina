@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
+using ProgettoHMI.Services.Tournament;
+using ProgettoHMI.Services.Users;
 //using ProgettoHMI.Services.Players;
 //using ProgettoHMI.Services.Tournaments;
 
@@ -14,75 +17,50 @@ namespace ProgettoHMI.web.Features.Home
             Tournaments = Array.Empty<TournamentViewModel>();
         }
 
-        public void setPlayers(PlayerDTO[] players)
+        public void setPlayers(UserHomeDTO players)
         {
-            this.Players = new PlayerViewModel[players.Length];
-            for (int i = 0; i < players.Length; i++)
-            {
-                this.Players[i] = new PlayerViewModel(players[i]);
-            }
+            Players = players.Users.Select(x => new PlayerViewModel(x)).ToArray();
         }
 
-        public void setTournaments(TournamentDTO[] tournaments)
+        public void setTournaments(TournamentsDTO tournaments)
         {
-            this.Tournaments = new TournamentViewModel[tournaments.Length];
-            for (int i = 0; i < tournaments.Length; i++)
-            {
-                this.Tournaments[i] = new TournamentViewModel(tournaments[i]);
-            }
+            Tournaments = tournaments.Tournaments.Select(x => new TournamentViewModel(x)).ToArray();
         }
     }
-
-    public class TournamentDTO
-    {
-        public string TournamentName { get; set; }
-        public string FieldName { get; set; }
-        public string Date { get; set; }
-        public string Img { get; set; }
-      
-    }
-
-    public class PlayerDTO
-    {
-        public string Name { get; set; }
-        public string Surname { get; set; }
-        public string Rank { get; set; }
-        public string Points { get; set; }
-        public string Img { get; set; }
-
-    }
-
     public class PlayerViewModel
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Rank { get; set; }
+        public string ImgRank { get; set; }
         public string Points { get; set; }
-        public string Img { get; set; }
+        public string PlayerImg { get; set; }
 
         public PlayerViewModel() { }
 
-        public PlayerViewModel(PlayerDTO dto)
+        public PlayerViewModel(UserHomeDTO.User user)
         {
-            this.Name = dto.Name;
-            this.Surname = dto.Surname;
-            this.Rank = dto.Rank;
-            this.Points = dto.Points;
-            this.Img = dto.Img;
+            this.Name = user.Name;
+            this.Surname = user.Surname;
+            this.ImgRank = user.Rank.ImgRank;
+            this.Points = user.Rank.Points.ToString();
+            this.PlayerImg = user.ImgProfile;
         }
     }
 
     public class TournamentViewModel
     {
-        public string TournamentName { get; set; }
-        public string FieldName { get; set; }
-        public string Date { get; set; }
+        public string Name { get; set; }
+        public string Club { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public string Img { get; set; }
 
-        public TournamentViewModel(TournamentDTO dto) {
-            this.TournamentName = dto.TournamentName;
-            this.FieldName = dto.FieldName;
-            this.Date = dto.Date;
+        public TournamentViewModel(TournamentsDTO.Tournament dto)
+        {
+            this.Name = dto.Name;
+            this.Club = dto.Club;
+            this.StartDate = dto.StartDate.ToString("dd/MM/yyyy");
+            this.EndDate = dto.EndDate.ToString("dd/MM/yyyy");
             this.Img = dto.Img;
         }
     }
