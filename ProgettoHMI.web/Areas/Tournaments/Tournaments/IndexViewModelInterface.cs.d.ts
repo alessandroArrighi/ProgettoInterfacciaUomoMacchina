@@ -16,4 +16,9 @@
         public startDate: Date;
         public endDate: Date;
     }
+
+    interface TournamentFiltersViewModelInterface {
+        public value: string;
+        public selected: boolean;
+    }
 }
