@@ -31,11 +31,16 @@
     font-size: 13px;
 }
 
+/* REGISTER */
+#card-register {
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
 .selected-register {
     background-color: #A3A0A0 !important;
     transform: scale(0.95);
-    transition: transform 0.2s ease-in-out;
 }
+/* --REGISTER-- */
 
 .btn-sel-draw {
     background-color: #CACACA;

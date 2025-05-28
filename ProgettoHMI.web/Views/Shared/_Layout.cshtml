@@ -54,7 +54,7 @@
                 </div>
             </nav>
         }
-            <div class="offcanvas offcanvas-start bg-primary" data-bs-backdrop="static" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="width:60% !important;">
+            <div class="offcanvas offcanvas-start bg-primary" data-bs-backdrop="true" tabindex="-1" id="staticBackdrop" aria-labelledby="staticBackdropLabel" style="width:60% !important; max-width: 400px; min-width: 200px;">
                 <div class="offcanvas-header">
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
@@ -65,11 +65,22 @@
                         <a href="#" class="nav-link mb-1">Live</a>
                         <hr />
                             <a href="@Url.Action(MVC.Tournaments.Tournaments.Index())" class="nav-link mb-1">Tornei</a>
-                        <hr />
+                        <hr /> <!--class="w-75 m-auto mb-4"-->
                         <a href="#" class="nav-link mb-1">Gradi</a>
                         <hr class="mb-5" />
-                        <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary d-block mb-3">Registrati</a>
-                        <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary d-block">Accedi</a>
+                        @if (ViewData["isLogin"] as bool? ?? false)
+                        {
+                        <form asp-area="" asp-action="Logout" asp-controller="Login" method="post">
+                                <button type="submit" class="btn btn-secondary w-50 ms-auto">Logout</button>
+                            </form>
+				        }
+				        else
+				        {
+                            <div class="d-flex flex-column align-items-center">
+                                <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary mb-2 w-50" style="max-width: 180px;">Registrati</a>
+                                <a href="@Url.Action(MVC.Login.Login())" class="btn btn-secondary w-50" style="max-width: 180px;">Accedi</a>
+                            </div>
+				        }
                     </div>
                 </div>
             </div>
@@ -84,7 +95,7 @@
     }
     @* @RenderSection("pageSubtitle", false) *@
     @RenderBody()
-    <footer>
+    <footer class="bg-primary d-flex justify-content-center align-items-center">
         <p>Footer Copyright</p>
     </footer>
 </div>

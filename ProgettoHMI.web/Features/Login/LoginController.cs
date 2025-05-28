@@ -43,6 +43,8 @@ namespace ProgettoHMI.web.Features.Login
                 IsPersistent = rememberMe,
             });
 
+            Alerts.AddSuccess(this, "Hai effettuato correttamente l'accesso!");
+
             if (string.IsNullOrWhiteSpace(returnUrl) == false)
                 return Redirect(returnUrl);
 
@@ -68,12 +70,6 @@ namespace ProgettoHMI.web.Features.Login
             return View(model);
         }
 
-        [HttpGet]
-        public virtual IActionResult Prova()
-        {
-            return View(new LoginViewModel { });
-        }
-
         [HttpPost]
         public async virtual Task<ActionResult> Login(LoginViewModel model)
         {
@@ -92,6 +88,8 @@ namespace ProgettoHMI.web.Features.Login
                 catch (LoginException e)
                 {
                     ModelState.AddModelError(LoginErrorModelStateKey, e.Message);
+                    Console.WriteLine($"Login failed credenziali: {e.Message}");
+                    Alerts.AddError(this, e.Message);
                 }
             }
 
@@ -104,7 +102,7 @@ namespace ProgettoHMI.web.Features.Login
             HttpContext.SignOutAsync();
 
             Alerts.AddSuccess(this, "Utente scollegato correttamente");
-            return RedirectToAction(MVC.Login.Login());
+            return RedirectToAction(MVC.Home.Index());
         }
     }
 }

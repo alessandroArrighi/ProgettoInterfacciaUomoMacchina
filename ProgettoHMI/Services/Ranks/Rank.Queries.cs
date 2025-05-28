@@ -23,6 +23,7 @@ namespace ProgettoHMI.Services.Ranks
             public int MinPoints { get; set; }
             public int MaxPoints { get; set; }
             public string Description { get; set; }
+            public string ImgRank { get; set; }
         }
     }
     
@@ -37,7 +38,8 @@ namespace ProgettoHMI.Services.Ranks
                     Name = x.Name,
                     MinPoints = x.MinPoints,
                     MaxPoints = x.MaxPoints,
-                    Description = x.Description
+                    Description = x.Description,
+                    ImgRank = x.ImgRank
                 })
                 .ToListAsync();
             return new RanksInfoDTO
