@@ -1,8 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-	ViewData["Title"] = "Tabellone";
+﻿@{
+    ViewData["Title"] = "Tabellone";
 }
 
 <div class="container-fluid bg-secondary pb-5">
@@ -12,9 +9,9 @@
     <div class="d-flex justify-content-center mt-4">
         <form class="d-flex w-75 text-center">
             <input class="form-control me-3 rounded-4" type="search" placeholder="Cerca un giocatore..." aria-label="Search">
-            <button class="btn btn-primary rounded-5" type="submit"><img src="~/images/Search.svg" style="width:32px; height:32px;"/></button>
-		</form>
-	</div>
+            <button class="btn btn-primary rounded-5" type="submit"><img src="~/images/Search.svg" style="width:32px; height:32px;" /></button>
+        </form>
+    </div>
 
     <div class="container mt-5">
         <div class="d-flex gap-2 justify-content-center">
@@ -32,29 +29,33 @@
             <button class="btn btn-sel-draw d-flex align-items-center justify-content-center" style="width: 80px; height: 120px;" v-on:click="selectBtn = 5" v-bind:class="selectBtn == 5? 'selected-draw' : ''"><img src="~/images/Trophy.svg" /></button>
         </div>
     </div>
-     
+
     <!--Primo card-->
-    <div class="tennis-card p-4 py-5 rounded-4 bg-white mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="d-flex">
-                <img src="~/images/Diamond.svg" style="width: 28px; height: 28px;" /><span class="ms-3 fw-bold">J. Sinner</span>
+    <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-4 mt-3" style="max-width: 750px; margin: 0 auto;">
+
+        <!-- Colonna sinistra: nomi e separatore -->
+        <div class="col-name d-flex flex-column justify-content-center">
+            <div class="d-flex align-items-center mb-4 ms-1">
+                <img src="~/images/Diamond.svg" class="player-icon" />
+                <span class="ms-2">J. Sinner</span>
             </div>
-            <div class="d-flex gap-2 pe-3">
-                <span class="fw-bold">6</span><span>3</span><span class="fw-bold">6</span><span class="fw-bold">6</span>
+
+            <hr class="separator my-1" />
+
+            <div class="d-flex align-items-center mt-4 ms-1">
+                <img src="~/images/Diamond.svg" class="player-icon" />
+                <span class="ms-2">H. Rune</span>
             </div>
         </div>
-        <div class="d-flex align-items-center mb-2">
-            <hr class="separator">
-            <div class="d-flex gap-2 me-1">
-                <span class="styled-span">1</span><span class="styled-span">2</span><span class="styled-span">3</span><span class="styled-span">4</span><span class="styled-span">5</span>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <img src="~/images/Diamond.svg" style="width: 28px; height: 28px;" /><span class="ms-3">H. Rune</span>
-            </div>
-            <div class="d-flex gap-2 pe-3">
-                <span>3</span><span class="fw-bold">6</span><span>4</span><span>4</span>
+
+        <!-- Colonna destra: punteggi -->
+        <div class="col-points d-flex justify-content-center gap-1 gap-sm-2 gap-md-4" style=" height: 120px; flex: 1;">
+            <div v-for="(set, index) in sets"
+                 :key="index"
+                 class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
+                <div class="score-player">{{ set[0] }}</div>  <!-- Giocatore 1 -->
+                <div class="set-label">{{ index + 1 }}</div> <!-- Etichetta -->
+                <div class="score-player">{{ set[1] }}</div>          <!-- Giocatore 2 -->
             </div>
         </div>
     </div>
@@ -100,7 +101,7 @@
                 <img src="~/images/Gold.svg" style="width: 28px; height: 28px;" /><span class="ms-3">F. Lutterotti</span>
             </div>
             <div class="d-flex gap-2 pe-0">
-                <span>5</span><span class="fw-bold">6</span><span>2</span><span class="fw-bold">6</span><span >5</span>
+                <span>5</span><span class="fw-bold">6</span><span>2</span><span class="fw-bold">6</span><span>5</span>
             </div>
         </div>
         <div class="d-flex align-items-center mb-2">
@@ -156,7 +157,14 @@
             el: '#pageId',
             data: {
                 selectBtn: -1,
-            }
+                sets: [
+                  [6, 3],
+                  [3, 6],
+                  [6, 4],
+                  [6, 4],
+                  [5, 7]
+                ]
+            },
         });
     </script>
 }
@@ -168,11 +176,41 @@
             color: #206B6A;
         }
 
+        .player-icon {
+            width: 32px;
+            height: 32px;
+        }
+
         .separator {
-            flex-grow: 1;
-            margin: 0 16px;
-            border-top: 1px solid #000;
+            border: none;
+            height: 1px;
+            background-color: #333;
+            width: 100%;
+        }
+
+        .col-name {
+			flex: 0 0 60%;
+        }
+
+        @@media (max-width: 425px) {
+			.col-name {
+				flex: 0 0 40%;
+		    }
+        }
+
+        .score-box {
+            background-color: #f8f9fa;
+            min-width: 30px;
+			height: 100%;
+        }
+
+        .set-label {
+            font-size: 0.75rem;
+        }
+
+        .score-player {
+            font-size: 1rem;
+            line-height: 1.2;
         }
     </style>
 }
-
