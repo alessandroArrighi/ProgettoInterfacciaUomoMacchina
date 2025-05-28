@@ -29,13 +29,13 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Prova"
                     Name = "Filippo",
                     Surname = "Lutterotti",
-                    Rank = 2,
+                    Rank = 3,
                     Points = 1200, 
                     PhoneNumber = "1234567890",
                     TaxID = "LTTFPP",
                     Address = "Via Roma 1",
                     Nationality = "Italian",
-                    ImgProfile = "..."
+                    ImgProfile = "monfils.jpg"
                 },
                 new User
                 {
@@ -44,13 +44,13 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Test"
                     Name = "Alessandro",
                     Surname = "Arrighi",
-                    Rank = 2,
+                    Rank = 1,
                     Points = 1800,
                     PhoneNumber = "1234567890",
                     TaxID = "RRGLSS",
                     Address = "Via Roma 1",
                     Nationality = "Italian",
-                    ImgProfile = "..."
+                    ImgProfile = "monfils.jpg"
                 },
                 new User
                 {
@@ -59,13 +59,13 @@ namespace ProgettoHMI.Infrastructure
                     Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Test"
                     Name = "Jannik",
                     Surname = "Sinner",
-                    Rank = 1,
+                    Rank = 4,
                     Points = 2950,
                     PhoneNumber = "1234567890",
                     TaxID = "SNRJNK",
                     Address = "Via Roma 1",
                     Nationality = "Italian",
-                    ImgProfile = "..."
+                    ImgProfile = "monfils.jpg"
                 }
             );
 
@@ -77,7 +77,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Milano",
                     StartDate = new DateTime(2026, 1, 1, 15, 0, 0),
                     EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Milano",
                     Rank = 4,
                     Status = Services.Tournament.Status.BeforeStart
@@ -89,7 +89,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Torino",
                     StartDate = new DateTime(2026, 1, 8, 15, 0, 0),
                     EndDate = new DateTime(2026, 1, 14, 18, 0, 0),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Torino",
                     Rank = 2,
                     Status = Services.Tournament.Status.BeforeStart
@@ -101,7 +101,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Bologna",
                     StartDate = new DateTime(2026, 1, 15, 15, 0, 0),
                     EndDate = new DateTime(2026, 1, 21, 18, 0, 0),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Bologna",
                     Rank = 1,
                     Status = Services.Tournament.Status.BeforeStart
@@ -113,7 +113,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Roma",
                     StartDate = new DateTime(2026, 1, 22, 15, 0, 0),
                     EndDate = new DateTime(2026, 1, 7, 18, 0, 0),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Roma",
                     Rank = 3,
                     Status = Services.Tournament.Status.BeforeStart
@@ -125,7 +125,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Napoli",
                     StartDate = DateTime.Now.AddDays(7),
                     EndDate = DateTime.Now.AddDays(14),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Napoli",
                     Rank = 4,
                     Status = Services.Tournament.Status.BeforeStart
@@ -137,7 +137,7 @@ namespace ProgettoHMI.Infrastructure
                     Club = "Circolo di Palermo",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
-                    Image = "...",
+                    Image = "wimbledon.jpg",
                     City = "Palermo",
                     Rank = 2,
                     Status = Services.Tournament.Status.BeforeStart
