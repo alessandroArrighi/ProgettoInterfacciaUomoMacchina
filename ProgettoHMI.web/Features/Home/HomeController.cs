@@ -30,7 +30,8 @@ namespace ProgettoHMI.web.Features.Home
             var players = await _playerService.Query();
             var tournaments = await _tournamentService.Query(new TournamentsSelectQuery
             {
-                StartDate = DateTime.Now.AddMonths(1)
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddMonths(1)
             });
 
             model.setPlayers(players);

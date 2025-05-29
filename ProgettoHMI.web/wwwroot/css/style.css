@@ -15,6 +15,27 @@
         margin-bottom: 10%;
         margin-left: 50%;
     }
+
+    .tournament-filter {
+        display: none;
+    }
+
+    .tournament-md-filter {
+        display: inline-block !important;
+    }
+}
+
+.tournament-dropdown-menu {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.offcanvas-bottom {
+    height: 80% !important;
+}
+
+.tournament-md-filter {
+    display: none;
 }
 
 .home-tournament-date {
