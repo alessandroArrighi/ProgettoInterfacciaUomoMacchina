@@ -5,7 +5,15 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="Areas\Tournaments\Draw\Draw.ts" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.11" />
+		<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.8.3">
+		  <PrivateAssets>all</PrivateAssets>
+		  <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="SG4MVC" Version="0.9.4-beta" />
 	</ItemGroup>
@@ -25,6 +33,10 @@
 	<ItemGroup>
 	  <Folder Include="Areas\Example\" />
 	  <Folder Include="Areas\Tournaments\Live\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <TypeScriptCompile Include="Areas\Tournaments\Draw\Draw.ts" />
 	</ItemGroup>
 
 </Project>

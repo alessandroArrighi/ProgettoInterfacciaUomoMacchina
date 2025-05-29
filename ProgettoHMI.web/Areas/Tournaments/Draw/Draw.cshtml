@@ -30,141 +30,61 @@
         </div>
     </div>
 
-    <!--Primo card-->
-    <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-4 mt-3" style="max-width: 750px; margin: 0 auto;">
+    <section class="mt-5">
+        <div class="cards-container">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3" style="max-width: 650px;">
+				<!-- Colonna sinistra: indicatori di stato -->
+                <div class="position-absolute m-2 d-flex align-items-center" v-if="false" style="top: 0px; left: 13px;">
+                    <span class="text-danger fw-bold">LIVE</span>
+                    <div class="ms-2 live-dot"></div>
+                </div>
+                <!-- Colonna sinistra: nomi e separatore -->
+                <div class="col-name d-flex flex-column justify-content-center">
+                    <div class="d-flex align-items-center mb-4 ms-1">
+                        <img src="~/images/Diamond.svg" class="player-icon" />
+                        <span class="ms-2">J. Sinner</span>
+                    </div>
 
-        <!-- Colonna sinistra: nomi e separatore -->
-        <div class="col-name d-flex flex-column justify-content-center">
-            <div class="d-flex align-items-center mb-4 ms-1">
-                <img src="~/images/Diamond.svg" class="player-icon" />
-                <span class="ms-2">J. Sinner</span>
-            </div>
+                    <hr class="separator my-1" />
 
-            <hr class="separator my-1" />
+                    <div class="d-flex align-items-center mt-4 ms-1">
+                        <img src="~/images/Diamond.svg" class="player-icon" />
+                        <span class="ms-2">H. Rune</span>
+                    </div>
+                </div>
 
-            <div class="d-flex align-items-center mt-4 ms-1">
-                <img src="~/images/Diamond.svg" class="player-icon" />
-                <span class="ms-2">H. Rune</span>
+                <!-- Colonna destra: punteggi -->
+                <div class="col-points d-flex justify-content-center gap-1 gap-sm-3 gap-md-3" style=" height: 120px; flex: 1;">
+                    <div v-for="(set, index) in model.sets"
+                         :key="index"
+                         class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
+                        <div class="score-player">{{ set[0] }}</div>  
+                        <div class="set-label">{{ index + 1 }}</div> 
+                        <div class="score-player">{{ set[1] }}</div>     
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Colonna destra: punteggi -->
-        <div class="col-points d-flex justify-content-center gap-1 gap-sm-2 gap-md-4" style=" height: 120px; flex: 1;">
-            <div v-for="(set, index) in sets"
-                 :key="index"
-                 class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
-                <div class="score-player">{{ set[0] }}</div>  <!-- Giocatore 1 -->
-                <div class="set-label">{{ index + 1 }}</div> <!-- Etichetta -->
-                <div class="score-player">{{ set[1] }}</div>          <!-- Giocatore 2 -->
-            </div>
-        </div>
-    </div>
-
-    <!--Secondo card-->
-    <div class="tennis-card p-4 py-5 rounded-4 bg-white mt-3 mb-1 position-relative">
-        <div class="position-absolute m-2 d-flex align-items-center" style="top: 0px; left: 13px;">
-            <span class="text-danger fw-bold">LIVE</span>
-            <div class="ms-2 live-dot"></div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="d-flex">
-                <img src="~/images/Bronze.svg" style="width: 28px; height: 28px;" />
-                <span class="ms-3">R. Medri</span>
-                <img class="ms-2" src="~/images/ToServe.svg" />
-            </div>
-            <div class="d-flex gap-2 pe-3">
-                <span class="fw-bold">6</span><span>3</span><span class="fw-bold">6</span><span>5</span>
-            </div>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <hr class="separator">
-            <div class="d-flex gap-2 me-1">
-                <span class="styled-span">1</span><span class="styled-span">2</span><span class="styled-span">3</span><span class="styled-span">4</span><span class="styled-span">5</span>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <img src="~/images/Bronze.svg" style="width: 28px; height: 28px;" />
-                <span class="ms-3">T. Bagnolini</span>
-            </div>
-            <div class="d-flex gap-2 pe-3">
-                <span>3</span><span class="fw-bold">6</span><span>4</span><span>4</span>
-            </div>
-        </div>
-    </div>
-
-
-    <!--Terzo card-->
-    <div class="tennis-card p-4 py-5 rounded-4 bg-white mt-5">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="d-flex">
-                <img src="~/images/Gold.svg" style="width: 28px; height: 28px;" /><span class="ms-3">F. Lutterotti</span>
-            </div>
-            <div class="d-flex gap-2 pe-0">
-                <span>5</span><span class="fw-bold">6</span><span>2</span><span class="fw-bold">6</span><span>5</span>
-            </div>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <hr class="separator">
-            <div class="d-flex gap-2 me-1">
-                <span class="styled-span">1</span><span class="styled-span">2</span><span class="styled-span">3</span><span class="styled-span">4</span><span class="styled-span">5</span>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <img src="~/images/Gold.svg" style="width: 28px; height: 28px;" /><span class="ms-3 fw-bold">A. Alessandro</span>
-            </div>
-            <div class="d-flex gap-2 pe-0">
-                <span class="fw-bold">7</span><span>1</span><span class="fw-bold">6</span><span>3</span><span class="fw-bold">7</span>
-            </div>
-        </div>
-    </div>
-
-    <!--Quarto card-->
-    <div class="tennis-card p-4 py-5 rounded-4 bg-white mt-3">
-        <div class="d-flex justify-content-between align-items-center mb-2">
-            <div class="d-flex">
-                <img src="~/images/Silver.svg" style="width: 28px; height: 28px;" /><span class="ms-3 fw-bold">G. Monfils</span>
-            </div>
-            <div class="d-flex gap-2 pe-3">
-                <span class="fw-bold">6</span><span>3</span><span class="fw-bold">6</span><span class="fw-bold">6</span>
-            </div>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <hr class="separator">
-            <div class="d-flex gap-2 me-1">
-                <span class="styled-span">1</span><span class="styled-span">2</span><span class="styled-span">3</span><span class="styled-span">4</span><span class="styled-span">5</span>
-            </div>
-        </div>
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <img src="~/images/Silver.svg" style="width: 28px; height: 28px;" /><span class="ms-3">M. Berrettini</span>
-            </div>
-            <div class="d-flex gap-2 pe-3">
-                <span>3</span><span class="fw-bold">6</span><span>4</span><span>4</span>
-            </div>
-        </div>
-    </div>
+		</div>
+    </section>
 
 
 </div>
 
 @section Scripts {
     <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+    <script src="~/Areas/Tournaments/Draw/Draw.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+        @* @Html.Raw(Model.ToJson()) *@
+    </script>
 
     <script type="text/javascript">
+
+        var drawModel = new Tournaments.Draw.drawVueModel([], -1);
+
         new Vue({
             el: '#pageId',
-            data: {
-                selectBtn: -1,
-                sets: [
-                  [6, 3],
-                  [3, 6],
-                  [6, 4],
-                  [6, 4],
-                  [5, 7]
-                ]
-            },
+            data: drawModel
         });
     </script>
 }
@@ -192,7 +112,7 @@
 			flex: 0 0 60%;
         }
 
-        @@media (max-width: 425px) {
+        @@media (max-width: 468px) {
 			.col-name {
 				flex: 0 0 40%;
 		    }
@@ -211,6 +131,26 @@
         .score-player {
             font-size: 1rem;
             line-height: 1.2;
+        }
+
+        .cards-container {
+            display: block;
+        }
+        .cards-container .tennis-card {
+			margin: 0 auto;
+        }
+
+        @@media (min-width: 1250px) {
+            .cards-container {
+                display: grid; 
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+                justify-content: center;
+            }
+
+            .cards-container .tennis-card {
+                margin: 0;
+            }
         }
     </style>
 }
