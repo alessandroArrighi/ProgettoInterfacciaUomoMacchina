@@ -7,7 +7,7 @@
         public id: number;
         public name: string;
         public rankId: string;
-        public rankImg: string;
+        public imgRank: string;
     }
 
     interface TournamentsFilterQueryViewModelInterface {

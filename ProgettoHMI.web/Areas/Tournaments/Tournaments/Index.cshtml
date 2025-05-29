@@ -7,6 +7,7 @@
 <div class="container-fluid bg-secondary vh-100">
     <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei </h1>
 	<a v-if="filtersCount > 0" class="ms-md-4 ms-2 mb-4" type="button" style="color: red;" @@click="resetFilters(); performTournamentReq()">Azzera Filtri</a>
+	<span v-else class="ms-md-4 ms-2 mb-4" type="button" style="visibility: hidden;">palceholder</span>
     <div class="row">
         <div class="row">
 			<div class="col-1"></div>
@@ -118,24 +119,23 @@
 		</div>
     </div>
 	<div class="pt-5"></div>
-	<div>
+
+	<div class="row">
 		<template v-for="data in model.tournaments" >
-			<div class="container-fluid bg-white py-4 rounded-4">
-				<div class="row">
-					<div class="col-1"></div>
-					<div class="col-8">
-						<div class="pb-2"></div>
-						<a href="@Url.Action(MVC.Tournaments.Tournaments.Draw())" class="h4">{{ data.name }}</a>
-					</div>
-					<div class="col-3">
-						<img v-if="data.rank == 'Bronze'" src="~/images/Bronze.svg" alt="icona rank">
-						<img v-if="data.rank == 'Diamond'" src="~/images/Diamond.svg" alt="icona rank">
-						<img v-if="data.rank == 'Silver'" src="~/images/Silver.svg" alt="icona rank">
-						<img v-if="data.rank == 'Gold'" src="~/images/Gold.svg" alt="icona rank">
+			<div class="col-12 col-md-6 col-lg-4 mb-4">
+				<div class="container-fluid bg-white py-4 rounded-4">
+					<div class="row">
+						<div class="col-1"></div>
+						<div class="col-8">
+							<div class="pb-2"></div>
+							<a href="@Url.Action(MVC.Tournaments.Tournaments.Draw())" class="h4">{{ data.name }}</a>
+						</div>
+						<div class="col-3">
+							<img :src="'/images/' + data.imgRank" alt="icona rank">
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="pb-3"></div>
 		</template>
 	</div>
 	
