@@ -6,73 +6,74 @@
 
 <div class="container-fluid bg-secondary vh-100">
     <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei </h1>
+	<a v-if="filtersCount > 0" class="ms-md-4 ms-2 mb-4" type="button" style="color: red;" @@click="resetFilters(); performTournamentReq()">Azzera Filtri</a>
     <div class="row">
-        <div class="col-11 row">
+        <div class="row">
 			<div class="col-1"></div>
 			<div class="dropdown tournament-md-filter col-3">
-				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
 					Città
 					<span class="badge bg-light text-dark mx-1">{{ selectedCities.length > 0 ? selectedCities.length : "" }}</span>
 				</button>
-				<ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
+				<ul class="dropdown-menu tournament-dropdown-menu" aria-labelledby="dropdownMenuButton1">
 					<template v-for="city in cities">
 						<li>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" v-model="city.selected" @@change="handleCitySelectionChange(city)" />
-								<label class="form-check-label">{{ city.value }}</label>
-							</div>
+							<button class="dropdown-item ps-4 py-2 border-bottom" type="button" @@click="handleCityOnClick(city)">
+								<div class="form-check">
+									<input class="form-check-input fs-5" type="checkbox" v-model="city.selected" />
+									<label class="form-check-label fs-5">{{ city.value }}</label>
+								</div>
+							</button>
 						</li>
 					</template>
 				</ul>
 			</div>
-			
+
 			<div class="col-3 tournament-filter">
 				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomCity" aria-controls="offcanvasBottom">
 					Città
 					<span class="badge bg-light text-dark mx-1">{{ selectedCities.length > 0 ? selectedCities.length : "" }}</span>
 				</button>
 			</div>
-
 			<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottomCity" aria-labelledby="offcanvasBottomLabelCity">
 				<div class="offcanvas-header">
 					<h5 class="offcanvas-title" id="offcanvasBottomLabelCity">Seleziona una o più città</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
-				<div class="offcanvas-body small">
-					<ul>
-						<template v-for="city in cities">
-							<li style="list-style-type: none;">
+
+				<ul style="padding-left: 0px;">
+					<template v-for="city in cities">
+						<li style="list-style-type: none;">
+							<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleCityOnClick(city)" style="padding-left: 40px;">
 								<div class="form-check my-3">
 									<input class="form-check-input fs-2" type="checkbox" v-model="city.selected" @@change="handleCitySelectionChange(city)" />
 									<label class="form-check-label fs-2">{{ city.value }}</label>
 								</div>
-							</li>
-						</template>
-					</ul>
-				</div>
-			</div>
-
-
-
-
-			<div class="col-1"></div>
-			<div class="dropdown tournament-md-filter col-3">
-				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-					Rank
-					<span class="badge bg-light text-dark mx-1">{{ selectedRanks.length > 0 ? selectedRanks.length : "" }}</span>
-				</button>
-				<ul class="dropdown-menu p-3" aria-labelledby="dropdownMenuButton1">
-					<template v-for="rank in ranks">
-						<li>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" v-model="rank.selected" @@change="handleRankSelectionChange(rank)" />
-								<label class="form-check-label">{{ rank.value }}</label>
-							</div>
+							</button>
 						</li>
 					</template>
 				</ul>
 			</div>
 
+			<div class="col-1"></div>
+			<div class="dropdown tournament-md-filter col-3">
+				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+					Rank
+					<span class="badge bg-light text-dark mx-1">{{ selectedRanks.length > 0 ? selectedRanks.length : "" }}</span>
+				</button>
+				<ul class="dropdown-menu tournament-dropdown-menu" aria-labelledby="dropdownMenuButton1">
+					<template v-for="rank in ranks">
+						<li>
+							<button class="dropdown-item ps-4 py-2 border-bottom" type="button" @@click="handleRankOnClick(rank)">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" v-model="rank.selected" />
+									<label class="form-check-label">{{ rank.value }}</label>
+								</div>
+							</button>
+						</li>
+					</template>
+				</ul>
+			</div>
 			
 			<div class="col-3 tournament-filter">
 				<button class="btn btn-secondary dropdown-toggle bg-primary px-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottomRank" aria-controls="offcanvasBottom">
@@ -80,31 +81,26 @@
 					<span class="badge bg-light text-dark mx-1">{{ selectedRanks.length > 0 ? selectedRanks.length : "" }}</span>
 				</button>
 			</div>
-
 			<div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottomRank" aria-labelledby="offcanvasBottomLabelRank">
 				<div class="offcanvas-header">
 					<h5 class="offcanvas-title" id="offcanvasBottomLabelRank">Seleziona uno o più rank</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body small">
-					<ul>
+					<ul style="padding-left: 0px;">
 						<template v-for="rank in ranks">
 							<li style="list-style-type: none;">
-								<div class="form-check my-3">
-									<input class="form-check-input fs-2" type="checkbox" v-model="rank.selected" @@change="handleRankSelectionChange(rank)" />
-									<label class="form-check-label fs-2">{{ rank.value }}</label>
-								</div>
+								<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleRankOnClick(rank)" style="padding-left: 40px;">
+									<div class="form-check my-3">
+										<input class="form-check-input fs-2" type="checkbox" v-model="rank.selected" />
+										<label class="form-check-label fs-2">{{ rank.value }}</label>
+									</div>
+								</button>
 							</li>
 						</template>
 					</ul>
 				</div>
 			</div>
-
-
-
-
-
-
 
 			<div class="col-1"></div>
 			<div class="dropdown col-3" style="display: inline;">
@@ -119,10 +115,7 @@
 					</form>
 				</div>
 			</div>
-
-
 		</div>
-		<div class="col-1"></div>
     </div>
 	<div class="pt-5"></div>
 	<div>

@@ -25,6 +25,11 @@
     }
 }
 
+.tournament-dropdown-menu {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
 .offcanvas-bottom {
     height: 80% !important;
 }
