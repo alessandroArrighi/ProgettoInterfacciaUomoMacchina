@@ -13,60 +13,60 @@
         </form>
     </div>
 
+
     <div class="container mt-5">
         <div class="d-flex gap-2 justify-content-center">
 
             <div class="d-flex flex-column" style="width: 80px; height: 120px;">
-                <button class="btn btn-sel-draw flex-fill" v-on:click="selectBtn = 0" v-bind:class="selectBtn == 0? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
-                <button class="btn btn-sel-draw flex-fill mt-2" v-on:click="selectBtn = 1" v-bind:class="selectBtn == 1? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
+                <button class="btn btn-sel-draw flex-fill" v-on:click="model.selectBtn = 5.1" v-bind:class="model.selectBtn == 5.1? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
+                <button class="btn btn-sel-draw flex-fill mt-2" v-on:click="model.selectBtn = 5.2" v-bind:class="model.selectBtn == 5.2? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
             </div>
 
-            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="selectBtn = 2" v-bind:class="selectBtn == 2? 'selected-draw' : ''"><img src="~/images/4R-Draw.svg" /></button>
-            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="selectBtn = 3" v-bind:class="selectBtn == 3? 'selected-draw' : ''"><img src="~/images/QF-Draw.svg" /></button>
-            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="selectBtn = 4" v-bind:class="selectBtn == 4? 'selected-draw' : ''"><img src="~/images/SF-Draw.svg" /></button>
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 4" v-bind:class="model.selectBtn == 4? 'selected-draw' : ''"><img src="~/images/4R-Draw.svg" /></button>
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 3" v-bind:class="model.selectBtn == 3? 'selected-draw' : ''"><img src="~/images/QF-Draw.svg" /></button>
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 2" v-bind:class="model.selectBtn == 2? 'selected-draw' : ''"><img src="~/images/SF-Draw.svg" /></button>
 
 
-            <button class="btn btn-sel-draw d-flex align-items-center justify-content-center" style="width: 80px; height: 120px;" v-on:click="selectBtn = 5" v-bind:class="selectBtn == 5? 'selected-draw' : ''"><img src="~/images/Trophy.svg" /></button>
+            <button class="btn btn-sel-draw d-flex align-items-center justify-content-center" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 1" v-bind:class="model.selectBtn == 1? 'selected-draw' : ''"><img src="~/images/Trophy.svg" /></button>
         </div>
     </div>
 
     <section class="mt-5">
         <div class="cards-container">
-            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3" style="max-width: 650px;">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px;" v-for="game in model.games.games">
 				<!-- Colonna sinistra: indicatori di stato -->
-                <div class="position-absolute m-2 d-flex align-items-center" v-if="false" style="top: 0px; left: 13px;">
+                <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
                     <span class="text-danger fw-bold">LIVE</span>
                     <div class="ms-2 live-dot"></div>
                 </div>
                 <!-- Colonna sinistra: nomi e separatore -->
                 <div class="col-name d-flex flex-column justify-content-center">
                     <div class="d-flex align-items-center mb-4 ms-1">
-                        <img src="~/images/Diamond.svg" class="player-icon" />
-                        <span class="ms-2">J. Sinner</span>
+                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" />
+                        <span class="ms-2">{{ game.player1.name }}</span>
                     </div>
 
                     <hr class="separator my-1" />
 
                     <div class="d-flex align-items-center mt-4 ms-1">
-                        <img src="~/images/Diamond.svg" class="player-icon" />
-                        <span class="ms-2">H. Rune</span>
+                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" />
+                        <span class="ms-2">{{ game.player2.name }}</span>
                     </div>
                 </div>
 
                 <!-- Colonna destra: punteggi -->
                 <div class="col-points d-flex justify-content-center gap-1 gap-sm-3 gap-md-3" style=" height: 120px; flex: 1;">
-                    <div v-for="(set, index) in model.sets"
+                    <div v-for="(set, index) in game.score.set"
                          :key="index"
                          class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
-                        <div class="score-player">{{ set[0] }}</div>  
+                        <div class="score-player" v-bind:class="{'fw-bold': ( set.score1 > set.score2 )}">{{ set.score1 }}</div>
                         <div class="set-label">{{ index + 1 }}</div> 
-                        <div class="score-player">{{ set[1] }}</div>     
+                        <div class="score-player" v-bind:class="{'fw-bold': ( set.score2 > set.score1 )}">{{ set.score2 }}</div>
                     </div>
                 </div>
             </div>
 		</div>
     </section>
-
 
 </div>
 
@@ -75,16 +75,25 @@
     <script src="~/Areas/Tournaments/Draw/Draw.js" asp-append-version="true"></script>
 
     <script type="application/json" id="Seed_JSON">
-        @* @Html.Raw(Model.ToJson()) *@
+         @Html.Raw(Model.ToJson())
     </script>
 
     <script type="text/javascript">
 
-        var drawModel = new Tournaments.Draw.drawVueModel([], -1);
+        var drawModel = new Tournaments.Draw.drawVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
 
         new Vue({
             el: '#pageId',
-            data: drawModel
+            data: drawModel,
+            watch: {
+                'model.selectBtn': function(newVal, oldVal) {
+                    if (newVal.toFixed(0) === oldVal.toFixed(0)) {
+                        drawModel.splitGamesInHalf(newVal);
+                    } else {
+                        drawModel.getSingleDrawPosition(newVal.toFixed(0));
+                    }
+                }
+            },
         });
     </script>
 }
@@ -126,6 +135,7 @@
 
         .set-label {
             font-size: 0.75rem;
+            color: #206B6A;
         }
 
         .score-player {

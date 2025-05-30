@@ -43,6 +43,11 @@ namespace ProgettoHMI.Services.Games
         public int DrawPosition { get; set; }
     }
 
+    public class GameActivePostionQuery
+    {
+        public Guid TournamentId { get; set; }
+    }
+
     public partial class GameService
     {
         public async Task<GameSelectDTO.Game[]> PlayersJoin(IQueryable<Game> queryable)
@@ -178,5 +183,18 @@ namespace ProgettoHMI.Services.Games
                 Games = games
             };
         }
+
+        public async Task<int> Query(GameActivePostionQuery qry)
+        {
+            var firstNotEnded = await _dbContext.Games
+                .Where(g => g.TournamentId == qry.TournamentId && g.Status != Status.End)
+                .OrderByDescending(g => g.DrawPosition)
+                .Select(g => g.DrawPosition)
+                .FirstOrDefaultAsync();
+
+            // Se tutte le partite sono End, restituisci 1
+            return firstNotEnded == 0 ? 1 : firstNotEnded;
+        }
+
     }
 }

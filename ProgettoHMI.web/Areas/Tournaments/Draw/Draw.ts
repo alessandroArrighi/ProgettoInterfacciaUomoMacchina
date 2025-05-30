@@ -1,7 +1,72 @@
 ﻿module Tournaments.Draw {
     export class drawVueModel {
-        constructor(public model: Torunaments.Draw.Server.drawViewModel, public selectBtn: number) {
-            model.sets = [[6,3],[6,3],[5,7],[6,4]];
+
+        loadingGetSingleDrawPosition: boolean = false;
+        sets: number[][] = [];
+        tempGames: Draw.Server.IGames | null = null;
+
+        constructor(public model: Draw.Server.drawViewModel) {
+            this.sets = [[6,3],[7,5]];
+            if (model.selectBtn == 5) {
+                model.selectBtn = 5.1
+            }
         }
+
+        public cons() {
+            console.log("dentro alla func");
+        }
+
+        public getSingleDrawPosition = async (pos: number) => {
+            try {
+                this.tempGames = null;
+                this.loadingGetSingleDrawPosition = true;
+
+                var url: string = this.model.urlRaw + "?position=" + pos;
+
+                await this.getJsonT<Draw.Server.IGames>(url).then((games) => {
+                    
+                    this.model.games = games;
+                    this.tempGames = JSON.parse(JSON.stringify(games));
+                    console.log(games);
+                });
+            }
+            catch (e) {
+                console.log(e);
+                this.loadingGetSingleDrawPosition = false;
+            }
+        }
+
+        public async getJson(url: string): Promise<Response> {
+            let res = await fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                credentials: "same-origin",
+            });
+
+            return res;
+        }
+
+        public async getJsonT<T>(url: string): Promise<T> {
+            const response = await this.getJson(url);
+            return await response.json();
+        }
+
+        public splitGamesInHalf(select: number): void {
+
+
+            const allGames = this.tempGames.games;
+            const half = Math.floor(allGames.length / 2);
+
+            if (select == 5.1) {
+                this.model.games.games = allGames.slice(0, half);
+            } else if (select == 5.2) {
+                this.model.games.games = allGames.slice(half);
+            }
+        }
+
+
     }
 }   

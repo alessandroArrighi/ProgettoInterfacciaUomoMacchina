@@ -35,7 +35,7 @@ namespace ProgettoHMI.Services.Games
     public class Score
     {
         private const int LEN = 5;
-        public List<ScoreSet> Set;
+        public List<ScoreSet> Set { get; set; }
 
         public Score()
         {
