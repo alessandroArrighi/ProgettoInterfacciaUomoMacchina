@@ -79,14 +79,19 @@ namespace ProgettoHMI.Services.Tournament
         }
     }
 
-    public class TournamentStatusQuery
+    public class TournamentFiltersStatusQuery
     {
+        public List<string> City { get; set; } = [];
+        public List<int> Rank { get; set; } = [];
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public Status Status;
     }
 
     public partial class TournamentService
     {
-        public async Task<IEnumerable<TournamentDTO>> RanksJoin(IQueryable<Tournament> queryable) {
+        public async Task<IEnumerable<TournamentDTO>> RanksJoin(IQueryable<Tournament> queryable)
+        {
             var res = await queryable.Select(x => new TournamentDTO
             {
                 Id = x.Id,
@@ -193,14 +198,18 @@ namespace ProgettoHMI.Services.Tournament
             };
         }
 
-        public async Task<TournamentsFiltersDTO> Query(TournamentStatusQuery qry)
+        public async Task<TournamentsFiltersDTO> Query(TournamentFiltersStatusQuery qry)
         {
             var queryable = _dbContext.Tournaments
-                .Where(x => x.Status == qry.Status);
+                .Where(x => (qry.Status == x.Status) &&
+                            (qry.City.Count == 0 || qry.City.Contains(x.City)) &&
+                            (qry.Rank.Count == 0 || qry.Rank.Contains(x.Rank)) &&
+                            (DateTime.Compare(x.StartDate, qry.StartDate ?? x.StartDate) >= 0) &&
+                            (DateTime.Compare(qry.EndDate ?? x.StartDate, x.StartDate) >= 0));
 
             var res = await RanksJoin(queryable);
 
-            var tournaments = new TournamentsFiltersDTO
+            return new TournamentsFiltersDTO
             {
                 Tournaments = res.Select(x => new TournamentsFiltersDTO.Tournament
                 {
@@ -209,8 +218,6 @@ namespace ProgettoHMI.Services.Tournament
                     Rank = x.Rank
                 })
             };
-
-            return tournaments;
-        } 
+        }
     }
 }
