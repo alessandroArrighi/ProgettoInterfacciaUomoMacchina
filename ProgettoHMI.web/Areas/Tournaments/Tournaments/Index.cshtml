@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Index";
 }
 
-<div class="container-fluid bg-secondary vh-100">
+<div class="container-fluid bg-secondary">
     <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei </h1>
 	<a v-if="filtersCount > 0" class="ms-md-4 ms-2 mb-4" type="button" style="color: red;" @@click="resetFilters(); performTournamentReq()">Azzera Filtri</a>
 	<span v-else class="ms-md-4 ms-2 mb-4" type="button" style="visibility: hidden;">palceholder</span>
@@ -138,8 +138,6 @@
 			</div>
 		</template>
 	</div>
-	
-	<div class="pb-5"></div>
 </div>
 
 @section scripts {

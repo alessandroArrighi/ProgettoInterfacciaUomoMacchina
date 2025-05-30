@@ -22,7 +22,7 @@ namespace ProgettoHMI.web.Features.Home
             Players = players.Users.Select(x => new PlayerViewModel(x)).ToArray();
         }
 
-        public void setTournaments(TournamentsDTO tournaments)
+        public void setTournaments(TournamentsSelectDTO tournaments)
         {
             Tournaments = tournaments.Tournaments.Select(x => new TournamentViewModel(x)).ToArray();
         }
@@ -55,7 +55,7 @@ namespace ProgettoHMI.web.Features.Home
         public string EndDate { get; set; }
         public string Img { get; set; }
 
-        public TournamentViewModel(TournamentsDTO.Tournament dto)
+        public TournamentViewModel(TournamentsSelectDTO.Tournament dto)
         {
             this.Name = dto.Name;
             this.Club = dto.Club;

@@ -12,12 +12,25 @@ using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services.Tournament
 {
+    public class TournamentDTO {
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Club { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public string Image { get; set; }
+        public string City { get; set; }
+        public RankDTO Rank { get; set; }
+        public Status Status { get; set; }
+    }
+
     public class TournamentsSelectQuery
     {
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
-    public class TournamentsDTO
+
+    public class TournamentsSelectDTO
     {
         public IEnumerable<Tournament> Tournaments { get; set; }
 
@@ -66,19 +79,67 @@ namespace ProgettoHMI.Services.Tournament
         }
     }
 
+    public class TournamentStatusQuery
+    {
+        public Status Status;
+    }
+
     public partial class TournamentService
     {
+        public async Task<IEnumerable<TournamentDTO>> RanksJoin(IQueryable<Tournament> queryable) {
+            var res = await queryable.Select(x => new TournamentDTO
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Club = x.Club,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                Image = x.Image,
+                City = x.City,
+                Rank = new RankDTO
+                {
+                    Id = x.Rank
+                },
+                Status = x.Status
+            })
+            .Join(
+                _dbContext.Ranks,
+                tournament => tournament.Rank.Id,
+                rank => rank.Id,
+                (tournament, rank) => new TournamentDTO
+                {
+                    Id = tournament.Id,
+                    Name = tournament.Name,
+                    Club = tournament.Club,
+                    StartDate = tournament.StartDate,
+                    EndDate = tournament.EndDate,
+                    Image = tournament.Image,
+                    City = tournament.City,
+                    Rank = new RankDTO
+                    {
+                        Id = rank.Id,
+                        Name = rank.Name,
+                        ImgRank = rank.ImgRank
+                    },
+                    Status = tournament.Status
+                }
+            )
+            .ToArrayAsync();
+
+            return res;
+        }
+
         // Query to get all tournaments between the current date and the specified start date
-        public async Task<TournamentsDTO> Query(TournamentsSelectQuery qry)
+        public async Task<TournamentsSelectDTO> Query(TournamentsSelectQuery qry)
         {
             var queryable = _dbContext.Tournaments
                 // Take the record if x.StartDate is bigger that the qry.StartDate and smaller than qry.EndDate
                 .Where(x => DateTime.Compare(x.StartDate, qry.StartDate) == 1 && DateTime.Compare(qry.EndDate, x.StartDate) == 1);
 
-            return new TournamentsDTO
+            return new TournamentsSelectDTO
             {
                 Tournaments = await queryable
-                .Select(x => new TournamentsDTO.Tournament
+                .Select(x => new TournamentsSelectDTO.Tournament
                 {
                     Id = x.Id,
                     Name = x.Name,
@@ -173,5 +234,25 @@ namespace ProgettoHMI.Services.Tournament
                 .ToArrayAsync()
             };
         }
+
+        public async Task<TournamentsFiltersDTO> Query(TournamentStatusQuery qry)
+        {
+            var queryable = _dbContext.Tournaments
+                .Where(x => x.Status == qry.Status);
+
+            var res = await RanksJoin(queryable);
+
+            var tournaments = new TournamentsFiltersDTO
+            {
+                Tournaments = res.Select(x => new TournamentsFiltersDTO.Tournament
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Rank = x.Rank
+                })
+            };
+
+            return tournaments;
+        } 
     }
 }
