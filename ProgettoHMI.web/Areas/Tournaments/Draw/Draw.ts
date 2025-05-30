@@ -20,6 +20,7 @@
             try {
                 this.tempGames = null;
                 this.loadingGetSingleDrawPosition = true;
+                const choice = this.model.selectBtn;
 
                 var url: string = this.model.urlRaw + "?position=" + pos;
 
@@ -27,6 +28,10 @@
                     
                     this.model.games = games;
                     this.tempGames = JSON.parse(JSON.stringify(games));
+                    if (choice == 5.1 || choice == 5.2) {
+                        this.splitGamesInHalf(choice);
+                    }
+                
                     console.log(games);
                 });
             }

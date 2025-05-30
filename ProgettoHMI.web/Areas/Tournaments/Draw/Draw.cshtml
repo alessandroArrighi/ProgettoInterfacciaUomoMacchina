@@ -2,7 +2,7 @@
     ViewData["Title"] = "Tabellone";
 }
 
-<div class="container-fluid bg-secondary pb-5">
+<div class="container-fluid bg-secondary pb-5 min-vh-100">
 
     <h2 class="text-center pt-5">Guarda tutti i risultati</h2>
 
@@ -32,8 +32,8 @@
     </div>
 
     <section class="mt-5">
-        <div class="cards-container">
-            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px;" v-for="game in model.games.games">
+        <div class="row">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in model.games.games">
 				<!-- Colonna sinistra: indicatori di stato -->
                 <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
                     <span class="text-danger fw-bold">LIVE</span>
@@ -127,6 +127,14 @@
 		    }
         }
 
+        @@media (min-height: 810px) {
+            footer {
+                width: 100%;
+                position: sticky;
+                bottom: 0;
+            }
+        }
+
         .score-box {
             background-color: #f8f9fa;
             min-width: 30px;
@@ -143,24 +151,24 @@
             line-height: 1.2;
         }
 
-        .cards-container {
-            display: block;
-        }
-        .cards-container .tennis-card {
-			margin: 0 auto;
-        }
+   /*      .cards-container { */
+   /*          display: block; */
+   /*      } */
+   /*      .cards-container .tennis-card { */
+			/* margin: 0 auto; */
+   /*      } */
 
-        @@media (min-width: 1250px) {
-            .cards-container {
-                display: grid; 
-                grid-template-columns: 1fr 1fr;
-                gap: 2rem;
-                justify-content: center;
-            }
+   /*      @@media (min-width: 1250px) { */
+   /*          .cards-container { */
+   /*              display: grid;  */
+   /*              grid-template-columns: 1fr 1fr; */
+   /*              gap: 2rem; */
+   /*              justify-content: center; */
+   /*          } */
 
-            .cards-container .tennis-card {
-                margin: 0;
-            }
-        }
+   /*          .cards-container .tennis-card { */
+   /*              margin: 0; */
+   /*          } */
+   /*      } */
     </style>
 }

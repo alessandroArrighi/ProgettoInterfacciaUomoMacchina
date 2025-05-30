@@ -12,10 +12,14 @@ var Tournaments;
                     try {
                         this.tempGames = null;
                         this.loadingGetSingleDrawPosition = true;
+                        const choice = this.model.selectBtn;
                         var url = this.model.urlRaw + "?position=" + pos;
                         await this.getJsonT(url).then((games) => {
                             this.model.games = games;
                             this.tempGames = JSON.parse(JSON.stringify(games));
+                            if (choice == 5.1 || choice == 5.2) {
+                                this.splitGamesInHalf(choice);
+                            }
                             console.log(games);
                         });
                     }

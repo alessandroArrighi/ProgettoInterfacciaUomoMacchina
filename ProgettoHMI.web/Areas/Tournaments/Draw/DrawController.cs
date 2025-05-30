@@ -49,6 +49,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
         [HttpGet]
         public async virtual Task<IActionResult> GetSingleDrawPosition(int position)
         {
+            Console.WriteLine($"GetSingleDrawPosition called with position: {position}");
             var qry = new GamesPositionQeury
             {
                 TournamentId = _tournamentId,
@@ -58,7 +59,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
             var result = await _gameService.Query(qry);
 
             var json = Infrastructure.JsonSerializer.ToJsonCamelCase(result);
-
+            Console.WriteLine(json);
             return Content(json, "application/json");
         }
     }

@@ -177,6 +177,10 @@ namespace ProgettoHMI.Services.Games
                             && qry.DrawPosition == x.DrawPosition);
 
             var games = await PlayersJoin(queryable);
+            Console.WriteLine($"Games trovati: {games.Length}");
+            foreach (var g in games)
+                Console.WriteLine($"GameId: {g.GameId}, Player1: {g.Player1?.Id}, Player2: {g.Player2?.Id}");
+
 
             return new GameSelectDTO
             {
