@@ -7,7 +7,7 @@ using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
 {
     [Area("Tournaments")]
-    public partial class TournamentsController : Controller, BaseTournamentController
+    public partial class TournamentsController : Controller, BaseTournamentController<TournamentsFiltersQueryViewModel>
     {
         private readonly TournamentService _tournamentService;
 
@@ -28,7 +28,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
         }
 
         [HttpPost]
-        public virtual async Task<IActionResult> TournamentsFilters([FromBody] BaseTournamentsFiltersQueryViewModelTs query)
+        public virtual async Task<IActionResult> TournamentsFilters([FromBody] TournamentsFiltersQueryViewModel query)
         {
             query ??= new TournamentsFiltersQueryViewModel{ };
 

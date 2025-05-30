@@ -26,5 +26,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
     public class TournamentViewModel : BaseTournamentViewModelTs {}
 
     [TypeScriptModule("Tournaments.Live.Server")]
-    public class TournamentsFiltersQueryViewModel : BaseTournamentsFiltersQueryViewModelTs {}
+    public class TournamentsFiltersQueryViewModel : BaseTournamentsFiltersQueryViewModelTs
+    {
+        public int Status { get; set; }
+    }
 }

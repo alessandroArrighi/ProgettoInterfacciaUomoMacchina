@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Net.Quic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Tournament;
@@ -8,7 +9,7 @@ using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 namespace ProgettoHMI.web.Areas.Tournaments.Live
 {
     [Area("Tournaments")]
-    public partial class LiveController : Controller, BaseTournamentController
+    public partial class LiveController : Controller, BaseTournamentController<TournamentsFiltersQueryViewModel>
     {
         private readonly TournamentService _tournamentService;
 
@@ -19,7 +20,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
 
         public virtual async Task<IActionResult> Index()
         {
-            var model = new IndexViewModel();
+            BaseTournamentViewModel model = new IndexViewModel();
 
             var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Status.Start });
 
@@ -28,7 +29,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
             return View(model);
         }
 
-        public virtual async Task<IActionResult> TournamentsFilters([FromBody] BaseTournamentsFiltersQueryViewModelTs query)
+        public virtual async Task<IActionResult> TournamentsFilters([FromBody] TournamentsFiltersQueryViewModel query)
         {
             query ??= new TournamentsFiltersQueryViewModel{ };
 
@@ -37,7 +38,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
                 City = query.City,
                 Rank = query.Rank,
                 StartDate = query.StartDate,
-                EndDate = query.EndDate
+                EndDate = query.EndDate,
+                Status = (Status) query.Status
             });
 
             if (tournament == null)

@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
 {
-    public interface BaseTournamentController
+    public interface BaseTournamentController<T>
     {
         public Task<IActionResult> Index();
 
-        public Task<IActionResult> TournamentsFilters([FromBody] BaseTournamentsFiltersQueryViewModelTs query);
+        public Task<IActionResult> TournamentsFilters([FromBody] T query);
     }
 }

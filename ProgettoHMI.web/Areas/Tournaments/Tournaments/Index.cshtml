@@ -1,4 +1,4 @@
-﻿@model ProgettoHMI.web.Areas.Tournaments.Tournaments.IndexViewModel
+﻿@model ProgettoHMI.web.Areas.Tournaments.Abstracts.BaseTournamentViewModel
 
 @{
 	ViewData["Title"] = "Index";
@@ -42,12 +42,12 @@
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 
-				<ul style="padding-left: 0px;">
+				<ul style="padding-left: 0px; overflow-y: auto;">
 					<template v-for="city in cities">
 						<li style="list-style-type: none;">
 							<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleCityOnClick(city)" style="padding-left: 40px;">
 								<div class="form-check my-3">
-									<input class="form-check-input fs-2" type="checkbox" v-model="city.selected" @@change="handleCitySelectionChange(city)" />
+									<input class="form-check-input fs-2" type="checkbox" v-model="city.selected" />
 									<label class="form-check-label fs-2">{{ city.value }}</label>
 								</div>
 							</button>
@@ -88,7 +88,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 				</div>
 				<div class="offcanvas-body small">
-					<ul style="padding-left: 0px;">
+					<ul style="padding-left: 0px; overflow-y: auto;">
 						<template v-for="rank in ranks">
 							<li style="list-style-type: none;">
 								<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleRankOnClick(rank)" style="padding-left: 40px;">

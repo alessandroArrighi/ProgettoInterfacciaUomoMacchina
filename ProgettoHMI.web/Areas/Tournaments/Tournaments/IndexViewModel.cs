@@ -24,11 +24,6 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
                 ImgRank = t.Rank.ImgRank
             });
         }
-
-        public string ToJson()
-        {
-            return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
-        }
     }
 
     [TypeScriptModule("Tournaments.Tournaments.Server")]
