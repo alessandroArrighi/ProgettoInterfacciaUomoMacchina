@@ -153,46 +153,23 @@ namespace ProgettoHMI.Services.Tournament
 
         public async Task<TournamentsIdDTO> Query(TournamentsIdQuery qry)
         {
-            return await _dbContext.Tournaments
-                .Where(x => x.Id == qry.Id)
-                .Select(x => new TournamentsIdDTO
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Club = x.Club,
-                    StartDate = x.StartDate,
-                    EndDate = x.EndDate,
-                    Image = x.Image,
-                    City = x.City,
-                    Rank = new RankDTO
-                    {
-                        Id = x.Rank
-                    },
-                    Status = x.Status
-                })
-                .Join(
-                    _dbContext.Ranks,
-                    tournament => tournament.Rank.Id,
-                    rank => rank.Id,
-                    (tournament, rank) => new TournamentsIdDTO
-                    {
-                        Id = tournament.Id,
-                        Name = tournament.Name,
-                        Club = tournament.Club,
-                        StartDate = tournament.StartDate,
-                        EndDate = tournament.EndDate,
-                        Image = tournament.Image,
-                        City = tournament.City,
-                        Rank = new RankDTO
-                        {
-                            Id = rank.Id,
-                            Name = rank.Name,
-                            ImgRank = rank.ImgRank
+            var queryable = _dbContext.Tournaments
+                .Where(x => x.Id == qry.Id);
 
-                        },
-                        Status = tournament.Status
-                    }
-                ).FirstOrDefaultAsync();
+            var res = await RanksJoin(queryable);
+
+            return res.Select(x => new TournamentsIdDTO
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Club = x.Club,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+                Image = x.Image,
+                City = x.City,
+                Rank = x.Rank,
+                Status = x.Status
+            }).FirstOrDefault();
         }
 
         public async Task<TournamentsFiltersDTO> Query(TournamentsFiltersQuery qry)
@@ -203,35 +180,16 @@ namespace ProgettoHMI.Services.Tournament
                             (DateTime.Compare(x.StartDate, qry.StartDate ?? x.StartDate) >= 0) &&
                             (DateTime.Compare(qry.EndDate ?? x.StartDate, x.StartDate) >= 0));
 
+            var res = await RanksJoin(queryable);
+
             return new TournamentsFiltersDTO
             {
-                Tournaments = await queryable
-                .Select(x => new TournamentsFiltersDTO.Tournament
+                Tournaments = res.Select(x => new TournamentsFiltersDTO.Tournament
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Rank = new RankDTO
-                    {
-                        Id = x.Rank
-                    }
+                    Rank = x.Rank
                 })
-                .Join(
-                    _dbContext.Ranks,
-                    tournament => tournament.Rank.Id,
-                    rank => rank.Id,
-                    (tournament, rank) => new TournamentsFiltersDTO.Tournament
-                    {
-                        Id = tournament.Id,
-                        Name = tournament.Name,
-                        Rank = new RankDTO
-                        {
-                            Id = rank.Id,
-                            Name = rank.Name,
-                            ImgRank = rank.ImgRank
-                        }
-                    }
-                )
-                .ToArrayAsync()
             };
         }
 
