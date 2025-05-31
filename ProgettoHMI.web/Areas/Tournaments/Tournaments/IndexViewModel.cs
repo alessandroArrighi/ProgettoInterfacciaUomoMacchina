@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProgettoHMI.Services.Tournament;
+using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 using ProgettoHMI.web.Infrastructure;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
 {
     [TypeScriptModule("Tournaments.Tournaments.Server")]
-    public class IndexViewModel
+    public class IndexViewModel : BaseTournamentViewModel
     {
-        public IEnumerable<TournamentViewModel> Tournaments { get; set; }
+        public IEnumerable<BaseTournamentViewModelTs> Tournaments { get; set; }
 
         public IndexViewModel() { }
 
@@ -23,29 +24,12 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
                 ImgRank = t.Rank.ImgRank
             });
         }
-
-        public string ToJson()
-        {
-            return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
-        }
     }
 
     [TypeScriptModule("Tournaments.Tournaments.Server")]
-    public class TournamentViewModel
-    {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-        public int RankId { get; set; }
-        public string ImgRank { get; set; }
-    }
+    public class TournamentViewModel : BaseTournamentViewModelTs {}
 
 
     [TypeScriptModule("Tournaments.Tournaments.Server")]
-    public class TournamentsFiltersQueryViewModel
-    {
-        public List<string> City { get; set; } = [];
-        public List<int> Rank { get; set; } = [];
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
-    }
+    public class TournamentsFiltersQueryViewModel : BaseTournamentsFiltersQueryViewModelTs{}
 }
