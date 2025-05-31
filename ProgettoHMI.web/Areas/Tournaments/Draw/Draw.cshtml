@@ -1,0 +1,174 @@
+﻿@{
+    ViewData["Title"] = "Tabellone";
+}
+
+<div class="container-fluid bg-secondary pb-5 min-vh-100">
+
+    <h2 class="text-center pt-5">Guarda tutti i risultati</h2>
+
+    <div class="d-flex justify-content-center mt-4">
+        <form class="d-flex w-75 text-center">
+            <input class="form-control me-3 rounded-4" type="search" placeholder="Cerca un giocatore..." aria-label="Search">
+            <button class="btn btn-primary rounded-5" type="submit"><img src="~/images/Search.svg" style="width:32px; height:32px;" /></button>
+        </form>
+    </div>
+
+
+    <div class="container mt-5">
+        <div class="d-flex gap-2 justify-content-center">
+
+            <div class="d-flex flex-column" style="width: 80px; height: 120px;">
+                <button class="btn btn-sel-draw flex-fill" v-on:click="model.selectBtn = 5.1" v-bind:class="model.selectBtn == 5.1? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
+                <button class="btn btn-sel-draw flex-fill mt-2" v-on:click="model.selectBtn = 5.2" v-bind:class="model.selectBtn == 5.2? 'selected-draw' : ''"><img src="~/images/6-LinesDraw.svg" /></button>
+            </div>
+
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 4" v-bind:class="model.selectBtn == 4? 'selected-draw' : ''"><img src="~/images/4R-Draw.svg" /></button>
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 3" v-bind:class="model.selectBtn == 3? 'selected-draw' : ''"><img src="~/images/QF-Draw.svg" /></button>
+            <button class="btn btn-sel-draw" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 2" v-bind:class="model.selectBtn == 2? 'selected-draw' : ''"><img src="~/images/SF-Draw.svg" /></button>
+
+
+            <button class="btn btn-sel-draw d-flex align-items-center justify-content-center" style="width: 80px; height: 120px;" v-on:click="model.selectBtn = 1" v-bind:class="model.selectBtn == 1? 'selected-draw' : ''"><img src="~/images/Trophy.svg" /></button>
+        </div>
+    </div>
+
+    <section class="mt-5">
+        <div class="row">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in model.games">
+				<!-- Colonna sinistra: indicatori di stato -->
+                <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
+                    <span class="text-danger fw-bold">LIVE</span>
+                    <div class="ms-2 live-dot"></div>
+                </div>
+                <!-- Colonna sinistra: nomi e separatore -->
+                <div class="col-name d-flex flex-column justify-content-center">
+                    <div class="d-flex align-items-center mb-4 ms-1">
+                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" />
+                        <span class="ms-2">{{ game.player1.name }}</span>
+                    </div>
+
+                    <hr class="separator my-1" />
+
+                    <div class="d-flex align-items-center mt-4 ms-1">
+                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" />
+                        <span class="ms-2">{{ game.player2.name }}</span>
+                    </div>
+                </div>
+
+                <!-- Colonna destra: punteggi -->
+                <div class="col-points d-flex justify-content-center gap-1 gap-sm-3 gap-md-3" style=" height: 120px; flex: 1;">
+                    <div v-for="(set, index) in game.score.set"
+                         :key="index"
+                         class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
+                        <div class="score-player" v-bind:class="{'fw-bold': ( set.score1 > set.score2 )}">{{ set.score1 }}</div>
+                        <div class="set-label">{{ index + 1 }}</div> 
+                        <div class="score-player" v-bind:class="{'fw-bold': ( set.score2 > set.score1 )}">{{ set.score2 }}</div>
+                    </div>
+                </div>
+            </div>
+		</div>
+    </section>
+
+</div>
+
+@section Scripts {
+    <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+    <script src="~/Areas/Tournaments/Draw/Draw.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+         @Html.Raw(Model.ToJson())
+    </script>
+
+    <script type="text/javascript">
+
+        var drawModel = new Tournaments.Draw.drawVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
+
+        new Vue({
+            el: '#pageId',
+            data: drawModel,
+            watch: {
+                'model.selectBtn': function(newVal, oldVal) {
+                    if (newVal.toFixed(0) === oldVal.toFixed(0)) {
+                        drawModel.splitGamesInHalf(newVal);
+                    } else {
+                        drawModel.getSingleDrawPosition(newVal.toFixed(0));
+                    }
+                }
+            },
+        });
+    </script>
+}
+
+@section Styles {
+    <style>
+        .styled-span {
+            font-size: 14px;
+            color: #206B6A;
+        }
+
+        .player-icon {
+            width: 32px;
+            height: 32px;
+        }
+
+        .separator {
+            border: none;
+            height: 1px;
+            background-color: #333;
+            width: 100%;
+        }
+
+        .col-name {
+			flex: 0 0 60%;
+        }
+
+        @@media (max-width: 468px) {
+			.col-name {
+				flex: 0 0 40%;
+		    }
+        }
+
+        @@media (min-height: 810px) {
+            footer {
+                width: 100%;
+                position: sticky;
+                bottom: 0;
+            }
+        }
+
+        .score-box {
+            background-color: #f8f9fa;
+            min-width: 30px;
+			height: 100%;
+        }
+
+        .set-label {
+            font-size: 0.75rem;
+            color: #206B6A;
+        }
+
+        .score-player {
+            font-size: 1rem;
+            line-height: 1.2;
+        }
+
+   /*      .cards-container { */
+   /*          display: block; */
+   /*      } */
+   /*      .cards-container .tennis-card { */
+			/* margin: 0 auto; */
+   /*      } */
+
+   /*      @@media (min-width: 1250px) { */
+   /*          .cards-container { */
+   /*              display: grid;  */
+   /*              grid-template-columns: 1fr 1fr; */
+   /*              gap: 2rem; */
+   /*              justify-content: center; */
+   /*          } */
+
+   /*          .cards-container .tennis-card { */
+   /*              margin: 0; */
+   /*          } */
+   /*      } */
+    </style>
+}

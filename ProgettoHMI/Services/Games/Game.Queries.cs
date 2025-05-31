@@ -29,8 +29,6 @@ namespace ProgettoHMI.Services.Games
             public Guid GameId { get; set; }
             public int DrawPosition { get; set; }
             public Status Status { get; set; }
-            public Guid Player1Id { get; set; }
-            public Guid Player2Id { get; set; }
             public User Player1 { get; set; }
             public User Player2 { get; set; }
             public Score Score { get; set; }
@@ -41,6 +39,11 @@ namespace ProgettoHMI.Services.Games
     {
         public Guid TournamentId { get; set; }
         public int DrawPosition { get; set; }
+    }
+
+    public class GameActivePostionQuery
+    {
+        public Guid TournamentId { get; set; }
     }
 
     public partial class GameService
@@ -172,11 +175,47 @@ namespace ProgettoHMI.Services.Games
                             && qry.DrawPosition == x.DrawPosition);
 
             var games = await PlayersJoin(queryable);
+            //var games = await queryable
+            //    .Select(g => new GameSelectDTO.Game
+            //    {
+            //        GameId = g.GameId,
+            //        DrawPosition = g.DrawPosition,
+            //        Status = g.Status,
+            //        Player1Id = g.Player1Id,
+            //        Player2Id = g.Player2Id,
+            //        Score = new Score(g.Player1Score, g.Player2Score)
+            //    })
+            //    .ToArrayAsync();
+            Console.WriteLine($"Games trovati: {games.Length}");
+            //foreach (var g in games)
+            //{
+            //    if (g.Player2Id != Guid.Empty)
+            //        Console.WriteLine($"GameId: {g.GameId}, Player2Id: {g.Player1Id}");
+            //    else
+            //        Console.WriteLine($"GameId: {g.GameId}, Player2Id is empty");
+
+
+            //    Console.WriteLine($"GameId: {g.GameId}, Player1: {g.Player1?.Id}, Player2: {g.Player2?.Id}");
+            //}
+
 
             return new GameSelectDTO
             {
                 Games = games
             };
         }
+
+        public async Task<int> Query(GameActivePostionQuery qry)
+        {
+            var firstNotEnded = await _dbContext.Games
+                .Where(g => g.TournamentId == qry.TournamentId && g.Status != Status.End)
+                .OrderByDescending(g => g.DrawPosition)
+                .Select(g => g.DrawPosition)
+                .FirstOrDefaultAsync();
+
+            // Se tutte le partite sono End, restituisci 1
+            return firstNotEnded == 0 ? 1 : firstNotEnded;
+        }
+
     }
 }
