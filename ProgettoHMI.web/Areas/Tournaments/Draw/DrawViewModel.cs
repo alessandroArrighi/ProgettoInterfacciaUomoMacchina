@@ -14,10 +14,22 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
 
 
         [TypeScriptModule("Tournaments.Draw.Server")]
-        public class GameViewModel : BaseGameViewModelTs
+        public class GameViewModel : BaseGameViewModelTs<ScoreSetViewModel>
         {
             public int DrawPosition { get; set; }
             public Status Status { get; set; }
         }
+
+        [TypeScriptModule("Tournaments.Draw.Server")]
+        public class UserViewModel : UserViewModelTs { }
+
+        [TypeScriptModule("Tournaments.Draw.Server")]
+        public class RankViewModel : RankViewModelTs { }
+
+        [TypeScriptModule("Tournaments.Draw.Server")]
+        public class ScoreViewModel : ScoreViewModelTs<ScoreSetViewModel> { }
+
+        [TypeScriptModule("Tournaments.Draw.Server")]
+        public class ScoreSetViewModel : ScoreSetViewModelTs { }
     }
 }

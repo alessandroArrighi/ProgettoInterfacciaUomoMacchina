@@ -21,12 +21,12 @@ namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
         }
     }
 
-    public abstract class BaseGameViewModelTs
+    public abstract class BaseGameViewModelTs<T>
     {
         public Guid GameId { get; set; }
         public UserViewModelTs Player1 { get; set; }
         public UserViewModelTs Player2 { get; set; }
-        public Score Score { get; set; }
+        public ScoreViewModelTs<T> Score { get; set; }
     }
 
     public abstract class UserViewModelTs
@@ -43,20 +43,15 @@ namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
         public string ImgRank { get; set; }
     }
 
-    public abstract class ScoreViewModelTs
+    public abstract class ScoreViewModelTs<T>
     {
-        public List<ScoreSetViewModelTs> Set { get; set; }
+        public List<T> Set { get; set; }
+
     }
 
     public abstract class ScoreSetViewModelTs
     {
-        public int Score1;
-        public int Score2;
-
-        public ScoreSetViewModelTs(int S1, int S2)
-        {
-            Score1 = S1;
-            Score2 = S2;
-        }
+        public int Score1 { get; set; }
+        public int Score2 { get; set; }
     }
 }
