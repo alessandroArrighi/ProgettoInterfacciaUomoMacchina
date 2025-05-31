@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyModel.Resolution;
 using ProgettoHMI.Services.Tournament;
+using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
 {
     [Area("Tournaments")]
-    public partial class TournamentsController : Controller
+    public partial class TournamentsController : Controller, BaseTournamentController<TournamentsFiltersQueryViewModel>
     {
         private readonly TournamentService _tournamentService;
 
@@ -19,7 +16,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
             _tournamentService = tournamentService;
         }
 
-        public virtual  async Task<IActionResult> Index()
+        public virtual async Task<IActionResult> Index()
         {
             var model = new IndexViewModel();
 
