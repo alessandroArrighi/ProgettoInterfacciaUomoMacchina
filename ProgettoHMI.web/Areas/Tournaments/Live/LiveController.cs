@@ -65,10 +65,45 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
 
             if (games == null)
             {
-                return Json(new GameStatusDTO { });
+                return Json(new GameViewModel { });
             }
 
-            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(games.Games);
+            var res = games.Games.Select(x => new GameViewModel
+            {
+                GameId = x.GameId,
+                Player1 = new UserViewModel
+                {
+                    Id = x.Player1.Id,
+                    Name = x.Player1.Name,
+                    Rank = new RankViewModel
+                    {
+                        Id = x.Player1.Rank.Id,
+                        Name = x.Player1.Rank.Name,
+                        ImgRank = x.Player1.Rank.ImgRank
+                    }
+                },
+                Player2 = new UserViewModel
+                {
+                    Id = x.Player2.Id,
+                    Name = x.Player2.Name,
+                    Rank = new RankViewModel
+                    {
+                        Id = x.Player2.Rank.Id,
+                        Name = x.Player2.Rank.Name,
+                        ImgRank = x.Player2.Rank.ImgRank
+                    }
+                },
+                Score = new ScoreViewModel
+                {
+                    Set = x.Score.Set.Select(set => new ScoreSetViewModel
+                    {
+                        Score1 = set.Score1,
+                        Score2 = set.Score2
+                    }).ToList()
+                }
+            });
+
+            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(res);
 
             return Content(json, "application/json");
         }
