@@ -10,7 +10,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
     public class DrawViewModel : BaseGameViewModel
     {
         public IEnumerable<GameSelectDTO.Game> Games { get; set; }
-        public int selectBtn { get; set; }
+        public int SelectBtn { get; set; }
 
 
         [TypeScriptModule("Tournaments.Draw.Server")]

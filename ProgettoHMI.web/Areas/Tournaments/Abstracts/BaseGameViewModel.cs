@@ -8,7 +8,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
 {
     public abstract class BaseGameViewModel
     {
-        public string urlRaw { get; set; }
+        public string UrlRaw { get; set; }
 
         public string ToJson()
         {
@@ -17,7 +17,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
 
         public void SetUrls(IUrlHelper url, IActionResult action)
         {
-            this.urlRaw = url.Action(action);
+            this.UrlRaw = url.Action(action);
         }
     }
 

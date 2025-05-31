@@ -31,12 +31,12 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
                 TournamentId = _tournamentId
             };
 
-            model.selectBtn = await _gameService.Query(qry);
+            model.SelectBtn = await _gameService.Query(qry);
 
             var qry1 = new GamesPositionQeury
             {
                 TournamentId = _tournamentId,
-                DrawPosition = model.selectBtn
+                DrawPosition = model.SelectBtn
             };
 
             model.SetUrls(Url, MVC.Tournaments.Draw.GetSingleDrawPosition());
