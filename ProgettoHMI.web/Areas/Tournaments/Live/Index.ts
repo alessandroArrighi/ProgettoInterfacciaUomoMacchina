@@ -69,6 +69,24 @@ module Tournaments.Live {
             }
         }
 
+        public getGames = async (tournamentId: any) => {
+            let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            if (res.ok) {
+                let data = await res.json();
+                this.model.games = <Live.Server.IGameModel[]>data
+                console.log(data)
+                console.log(this.model.games)
+            } else {
+                console.error("Failed to fetch tournaments:", res.statusText);
+            }
+        }
+
         public performTournamentReq = () => {
             let data = <Live.Server.TournamentsFilterQueryViewModelInterface>{
                 city: this.selectedCities,
