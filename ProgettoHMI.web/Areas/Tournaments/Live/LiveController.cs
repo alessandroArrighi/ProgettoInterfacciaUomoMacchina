@@ -1,8 +1,8 @@
 using System;
 using System.Linq;
-using System.Net.Quic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ProgettoHMI.Services.Games;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 
@@ -12,17 +12,19 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
     public partial class LiveController : Controller, BaseTournamentController<TournamentsFiltersQueryViewModel>
     {
         private readonly TournamentService _tournamentService;
+        private readonly GameService _gameService;
 
-        public LiveController(TournamentService tournamentService)
+        public LiveController(TournamentService tournamentService, GameService gameService)
         {
             _tournamentService = tournamentService;
+            _gameService = gameService;
         }
 
         public virtual async Task<IActionResult> Index()
         {
             BaseTournamentViewModel model = new IndexViewModel();
 
-            var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Status.Start });
+            var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Services.Tournament.Status.Start });
 
             model.SetTournaments(tournaments);
 
@@ -31,7 +33,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
 
         public virtual async Task<IActionResult> TournamentsFilters([FromBody] TournamentsFiltersQueryViewModel query)
         {
-            query ??= new TournamentsFiltersQueryViewModel{ };
+            query ??= new TournamentsFiltersQueryViewModel { };
 
             var tournament = await _tournamentService.Query(new TournamentFiltersStatusQuery
             {
@@ -39,7 +41,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
                 Rank = query.Rank,
                 StartDate = query.StartDate,
                 EndDate = query.EndDate,
-                Status = (Status) query.Status
+                Status = (Services.Tournament.Status)query.Status
             });
 
             if (tournament == null)
@@ -54,6 +56,21 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
                 RankId = t.Rank.Id,
                 ImgRank = t.Rank.ImgRank
             }));
+        }
+
+        [HttpGet]
+        public virtual async Task<IActionResult> GamesLive(Guid tournamentId)
+        {
+            var games = await _gameService.Query(new GameStatusQuery { Status = Services.Games.Status.Start, TournamentId = tournamentId });
+
+            if (games == null)
+            {
+                return Json(new GameStatusDTO { });
+            }
+
+            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(games.Games);
+
+            return Content(json, "application/json");
         }
     }
 }
