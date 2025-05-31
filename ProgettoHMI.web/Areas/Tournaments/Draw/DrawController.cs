@@ -40,7 +40,6 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
             };
 
             model.SetUrls(Url);
-
             model.Games = await _gameService.Query(qry1);
 
             return View(model);

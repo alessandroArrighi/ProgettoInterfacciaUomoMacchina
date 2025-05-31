@@ -177,9 +177,28 @@ namespace ProgettoHMI.Services.Games
                             && qry.DrawPosition == x.DrawPosition);
 
             var games = await PlayersJoin(queryable);
+            //var games = await queryable
+            //    .Select(g => new GameSelectDTO.Game
+            //    {
+            //        GameId = g.GameId,
+            //        DrawPosition = g.DrawPosition,
+            //        Status = g.Status,
+            //        Player1Id = g.Player1Id,
+            //        Player2Id = g.Player2Id,
+            //        Score = new Score(g.Player1Score, g.Player2Score)
+            //    })
+            //    .ToArrayAsync();
             Console.WriteLine($"Games trovati: {games.Length}");
-            foreach (var g in games)
-                Console.WriteLine($"GameId: {g.GameId}, Player1: {g.Player1?.Id}, Player2: {g.Player2?.Id}");
+            //foreach (var g in games)
+            //{
+            //    if (g.Player2Id != Guid.Empty)
+            //        Console.WriteLine($"GameId: {g.GameId}, Player2Id: {g.Player1Id}");
+            //    else
+            //        Console.WriteLine($"GameId: {g.GameId}, Player2Id is empty");
+
+
+            //    Console.WriteLine($"GameId: {g.GameId}, Player1: {g.Player1?.Id}, Player2: {g.Player2?.Id}");
+            //}
 
 
             return new GameSelectDTO

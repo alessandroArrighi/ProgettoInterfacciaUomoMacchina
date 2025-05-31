@@ -114,6 +114,7 @@ namespace ProgettoHMI.web
 
 
                 endpoints.MapAreaControllerRoute("Tournaments", "Tournaments", "Tournaments/{controller=Tournaments}/{action=Index}/{id?}");
+                endpoints.MapAreaControllerRoute("User", "User", "User/{controller=Profile}/{action=Profile}/{id?}");
                 endpoints.MapAreaControllerRoute("Example", "Example", "Example/{controller=Users}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}");
                 // endpoints.MapControllerRoute("default", "{controller=Login}/{action=Login}");

@@ -66,6 +66,21 @@ namespace ProgettoHMI.Infrastructure
                     Address = "Via Roma 1",
                     Nationality = "Italian",
                     ImgProfile = "monfils.jpg"
+                },
+                new User
+                {
+                    Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                    Email = string.Empty,
+                    Password = string.Empty,
+                    Name = "TBD",
+                    Surname = string.Empty,
+                    Rank = -1,
+                    Points = -1,
+                    PhoneNumber = string.Empty,
+                    TaxID = string.Empty,
+                    Address = string.Empty,
+                    Nationality = string.Empty,
+                    ImgProfile = "user.jpg"
                 }
             );
 
@@ -174,10 +189,19 @@ namespace ProgettoHMI.Infrastructure
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000034"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 3, Status = Services.Games.Status.End, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player1Score = [6, 7, 6], Player2Score = [4, 5, 4] },
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000010"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 2, Status = Services.Games.Status.End, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player1Score = [6, 4, 7, 4, 5], Player2Score = [3, 6, 6, 6, 7] },
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000020"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 2, Status = Services.Games.Status.Start, Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player1Score = [7, 6, 0], Player2Score = [3, 4, 4] },
-                new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000030"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 1, Status = Services.Games.Status.BeforeStart, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player1Score = [], Player2Score = [] }
+                new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000030"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 1, Status = Services.Games.Status.BeforeStart, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Player1Score = [], Player2Score = [] }
             );
 
             context.Ranks.AddRange(
+                new Rank
+                {
+                    Id = -1,
+                    Name = string.Empty,
+                    MinPoints = -1,
+                    MaxPoints = -1,
+                    Description = string.Empty,
+                    ImgRank = string.Empty
+                },
                 new Rank
                 {
                     Id = 1,

@@ -25,7 +25,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
         [TypeScriptModule("Tournaments.Draw.Server")]
         public class DrawViewModelServer
         {
-            
+            public IEnumerable<GameSelectDTO.Game> Games { get; set; }
         }
     }
 }

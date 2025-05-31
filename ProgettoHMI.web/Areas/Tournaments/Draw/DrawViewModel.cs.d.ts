@@ -14,8 +14,6 @@
         gameId: string;
         drawPosition: number;
         status: number;
-        player1Id: string;
-        player2Id: string;
         player1: User;
         player2: User;
         score: Score;
