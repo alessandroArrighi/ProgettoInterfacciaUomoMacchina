@@ -1,59 +1,86 @@
-﻿<div class="container mt-4">
+﻿<div class="">
+    <div class="header-section pt-2 w-100">
+        <div class="profile-header text-center mt-3 pb-2">
+            <img src="~/images/monfils.jpg" class="rounded-circle" width="100" height="100" />
+            <h2>Gael Monfils</h2>
+        </div>
 
-    <div class="profile-header text-center mb-4">
-        <img src="~/images/profile.jpg" class="rounded-circle" width="100" height="100" />
-        <h2>Nome Utente</h2>
-    </div>
 
-
-    <div class="d-md-none mb-3">
-        <div class="btn-group w-100" role="group">
-            <button class="btn btn-outline-primary" onclick="showSection('rank')">Rank</button>
-            <button class="btn btn-outline-primary" onclick="showSection('stats')">Statistiche</button>
-            <button class="btn btn-outline-primary" onclick="showSection('tournaments')">Miei Tornei</button>
-            <button class="btn btn-outline-primary" onclick="showSection('awards')">Premi</button>
+        <div class="d-md-none pb-3 container-fluid">
+            <div class="btn-group w-100" role="group">
+                <button class="btn btn-custom btn-outline-primary" v-on:click="selectedSection = 0" v-bind:class="{ 'active' : selectedSection == 0 }">Rank</button>
+                <button class="btn btn-custom btn-outline-primary" v-on:click="selectedSection = 1" v-bind:class="{ 'active' : selectedSection == 1 }">Stats</button>
+                <button class="btn btn-custom btn-outline-primary" v-on:click="selectedSection = 2" v-bind:class="{ 'active' : selectedSection == 2 }">Tornei</button>
+                <button class="btn btn-custom btn-outline-primary" v-on:click="selectedSection = 3" v-bind:class="{ 'active' : selectedSection == 3 }">Premi</button>
+            </div>
         </div>
     </div>
 
+    <div class="container-fluid mt-4">
+        <div class="row">
 
-    <div class="row">
+            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 0 }" id="section-rank">
+				<h2 class="text-center">Il tuo Rank</h2>
+                <div style="background-color: #BFB9B9; width: 120px; height: 120px; border-radius: 50%;" class="m-auto mt-3 text-center">
+					<img src="~/images/diamond.svg" alt="Rank" class="mt-2" style="width: 90%; height: 90%;">
+                </div>
+                <p class="mt-3 text-center fw-bold">1950</p>
 
-        <div class="col-md-6 mb-3 section-box" id="section-rank">
-            <div class="card p-3">Contenuto Rank</div>
-        </div>
+                <div>  
+                    @if (Model.Subscription != null)  
+                    {
+                        @foreach (var sub in Model.Subscription)
+                        {
+                            var cardClass = sub.PointsGained > 0 ? "card-green" : "card-red";
+                            var textClass = sub.PointsGained > 0 ? "text-success" : "text-danger";
+                            var sign = sub.PointsGained > 0 ? "+" : "";
+
+                            <div class="custom-card @cardClass">
+                                <div class="fw-bold">@sub.Name</div>
+                                <div>@sub.Point</div>
+                                <div class="@($"{textClass} fw-bold")">@($"{sign}{sub.PointsGained}")</div>
+                            </div>
+                        }
+                    }  
+                    else  
+                    {  
+                        <p>Nessuna sottoscrizione disponibile.</p>  
+                    }  
+                </div>
+
+            </div>
 
 
-        <div class="col-md-6 mb-3 section-box" id="section-stats">
-            <div class="card p-3">Contenuto Statistiche</div>
-        </div>
+            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 1 }" id="section-stats">
+                <div class="card p-3">Contenuto Statistiche</div>
+            </div>
 
 
-        <div class="col-md-6 mb-3 section-box" id="section-tournaments">
-            <div class="card p-3">Contenuto Tornei</div>
-        </div>
+            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 2 }" id="section-tournaments">
+                <div class="card p-3">Contenuto Tornei</div>
+            </div>
 
 
-        <div class="col-md-6 mb-3 section-box" id="section-awards">
-            <div class="card p-3">Contenuto Premi</div>
+            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 3 }" id="section-awards">
+                <div class="card p-3">Contenuto Premi</div>
+            </div>
         </div>
     </div>
 </div>
 
 
 @section scripts {
-    <script>
-        function showSection(sectionId) {
+    <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
 
-          document.querySelectorAll('.section-box').forEach(div => div.classList.remove('active'));
+    <script type="text/javascript">
 
+        //var drawModel = new Tournaments.Draw.drawVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
 
-          document.getElementById('section-' + sectionId).classList.add('active');
-        }
-
-        window.addEventListener("DOMContentLoaded", function () {
-          if (window.innerWidth < 768) {
-            showSection('rank');
-          }
+        new Vue({
+            el: '#pageId',
+            data: {
+				selectedSection: 0,
+            }
         });
     </script>
 }
@@ -69,6 +96,50 @@
                 display: block !important;
             }
 
+        }
+
+        .header-section {
+            background-color: #909090;
+			border-bottom-left-radius: 15px;
+			border-bottom-right-radius: 15px;
+        }
+
+        .btn-custom {
+            background-color: #B8CDCD;
+            color: black;
+        }
+
+        .btn-custom.active {
+            background-color: #729D9D;
+            color: #fff !important;
+            font-weight: bold;
+        }
+
+        .btn-group .btn {
+            margin-right: 0.5rem;
+        }
+
+        .btn-group .btn:last-child {
+            margin-right: 0;
+        }
+
+        .custom-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .card-green {
+            border: 2px solid green;
+            background-color: white;
+        }
+
+        .card-red {
+            border: 2px solid red;
+            background-color: white;
         }
     </style>
 }
