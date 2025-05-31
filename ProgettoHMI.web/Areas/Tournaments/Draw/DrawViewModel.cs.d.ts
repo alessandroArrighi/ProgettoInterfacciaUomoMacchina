@@ -8,8 +8,8 @@
 
     interface IGameModel {
         gameId: string;
-        drawPosition: number; // -1
-        status: number; // -1
+        drawPosition: number; 
+        status: number; 
         player1: User;
         player2: User;
         score: Score;
@@ -22,7 +22,6 @@
     }
 
     interface Rank {
-        points: number;
         id: number;
         name: string;
         imgRank: string;
