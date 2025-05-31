@@ -3,29 +3,21 @@ using ProgettoHMI.web.Infrastructure;
 using ProgettoHMI.Services.Games;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Draw
 {
-    public class DrawViewModel
+    public class DrawViewModel : BaseGameViewModel
     {
-        public GameSelectDTO Games { get; set; }
+        public IEnumerable<GameSelectDTO.Game> Games { get; set; }
         public int selectBtn { get; set; }
-        public string urlRaw { get; set; }
-        
-        public string ToJson()
-        {
-            return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
-        }
 
-        public void SetUrls(IUrlHelper url)
-        {
-            this.urlRaw = url.Action(MVC.Tournaments.Draw.GetSingleDrawPosition());
-        }
 
         [TypeScriptModule("Tournaments.Draw.Server")]
-        public class DrawViewModelServer
+        public class GameViewModel : BaseGameViewModelTs
         {
-            public IEnumerable<GameSelectDTO.Game> Games { get; set; }
+            public int DrawPosition { get; set; }
+            public Status Status { get; set; }
         }
     }
 }

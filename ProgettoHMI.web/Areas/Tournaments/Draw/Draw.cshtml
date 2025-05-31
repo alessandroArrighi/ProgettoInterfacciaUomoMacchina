@@ -33,7 +33,7 @@
 
     <section class="mt-5">
         <div class="row">
-            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in model.games.games">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in model.games">
 				<!-- Colonna sinistra: indicatori di stato -->
                 <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
                     <span class="text-danger fw-bold">LIVE</span>

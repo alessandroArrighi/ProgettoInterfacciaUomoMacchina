@@ -29,8 +29,6 @@ namespace ProgettoHMI.Services.Games
             public Guid GameId { get; set; }
             public int DrawPosition { get; set; }
             public Status Status { get; set; }
-            public Guid Player1Id { get; set; }
-            public Guid Player2Id { get; set; }
             public User Player1 { get; set; }
             public User Player2 { get; set; }
             public Score Score { get; set; }

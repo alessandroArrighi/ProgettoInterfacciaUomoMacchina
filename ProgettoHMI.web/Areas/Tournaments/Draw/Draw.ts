@@ -3,7 +3,7 @@
 
         loadingGetSingleDrawPosition: boolean = false;
         sets: number[][] = [];
-        tempGames: Draw.Server.IGames | null = null;
+        tempGames: Draw.Server.IGameModel[] | null = null;
 
         constructor(public model: Draw.Server.drawViewModel) {
             this.sets = [[6,3],[7,5]];
@@ -24,7 +24,7 @@
 
                 var url: string = this.model.urlRaw + "?position=" + pos;
 
-                await this.getJsonT<Draw.Server.IGames>(url).then((games) => {
+                await this.getJsonT<Draw.Server.IGameModel[]>(url).then((games) => {
                     
                     this.model.games = games;
                     this.tempGames = JSON.parse(JSON.stringify(games));
@@ -62,13 +62,13 @@
         public splitGamesInHalf(select: number): void {
 
 
-            const allGames = this.tempGames.games;
+            const allGames = this.tempGames;
             const half = Math.floor(allGames.length / 2);
 
             if (select == 5.1) {
-                this.model.games.games = allGames.slice(0, half);
+                this.model.games = allGames.slice(0, half);
             } else if (select == 5.2) {
-                this.model.games.games = allGames.slice(half);
+                this.model.games = allGames.slice(half);
             }
         }
 

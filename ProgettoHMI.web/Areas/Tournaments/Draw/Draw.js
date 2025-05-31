@@ -52,13 +52,13 @@ var Tournaments;
                 return await response.json();
             }
             splitGamesInHalf(select) {
-                const allGames = this.tempGames.games;
+                const allGames = this.tempGames;
                 const half = Math.floor(allGames.length / 2);
                 if (select == 5.1) {
-                    this.model.games.games = allGames.slice(0, half);
+                    this.model.games = allGames.slice(0, half);
                 }
                 else if (select == 5.2) {
-                    this.model.games.games = allGames.slice(half);
+                    this.model.games = allGames.slice(half);
                 }
             }
         }

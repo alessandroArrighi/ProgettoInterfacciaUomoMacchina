@@ -39,8 +39,9 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
                 DrawPosition = model.selectBtn
             };
 
-            model.SetUrls(Url);
-            model.Games = await _gameService.Query(qry1);
+            model.SetUrls(Url, MVC.Tournaments.Draw.GetSingleDrawPosition());
+            var games = await _gameService.Query(qry1);
+            model.Games = games.Games;
 
             return View(model);
         }
@@ -57,8 +58,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
 
             var result = await _gameService.Query(qry);
 
-            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(result);
-            Console.WriteLine(json);
+            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(result.Games);
+            //Console.WriteLine(json);
             return Content(json, "application/json");
         }
     }

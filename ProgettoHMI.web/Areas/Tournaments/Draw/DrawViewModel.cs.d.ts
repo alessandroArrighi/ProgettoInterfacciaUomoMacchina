@@ -1,19 +1,15 @@
 ﻿declare module Tournaments.Draw.Server {
 
     interface drawViewModel {
-        games: IGames;
+        games: IGameModel[];
         selectBtn: number;
         urlRaw: string;
     }
 
-    interface IGames {
-        games: IGameModel[];
-    }
-
     interface IGameModel {
         gameId: string;
-        drawPosition: number;
-        status: number;
+        drawPosition: number; // -1
+        status: number; // -1
         player1: User;
         player2: User;
         score: Score;
