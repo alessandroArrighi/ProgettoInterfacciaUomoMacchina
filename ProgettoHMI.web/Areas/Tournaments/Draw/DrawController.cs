@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json;
-using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Games;
 using ProgettoHMI.web.Infrastructure;
+using System.Collections.Generic;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Draw
 {
@@ -14,7 +14,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
     public partial class DrawController : Controller
     {
         public readonly GameService _gameService;
-        private readonly Guid _tournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"); // Example tournament ID
+        private Guid _tournamentId;
 
         public DrawController(GameService gameService)
         {
@@ -22,9 +22,11 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
         }
 
         [HttpGet]
-        public async virtual Task<ActionResult> Draw()
+        public async virtual Task<ActionResult> Draw(Guid TournamentId)
         {
             var model = new DrawViewModel();
+
+            _tournamentId = TournamentId;
 
             var qry = new GameActivePostionQuery
             {
@@ -56,11 +58,47 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
                 DrawPosition = position
             };
 
-            var result = await _gameService.Query(qry);
+            var result = await _gameService.Query(qry);;
 
-            var json = Infrastructure.JsonSerializer.ToJsonCamelCase(result.Games);
-            //Console.WriteLine(json);
-            return Content(json, "application/json");
+            var res = Infrastructure.JsonSerializer.ToJsonCamelCase(result.Games.Select(static x => new DrawViewModel.GameViewModel
+            {
+                GameId = x.GameId,
+                DrawPosition = x.DrawPosition,
+                Status = x.Status,
+                Player1 = new DrawViewModel.UserViewModel
+                {
+                    Id = x.Player1.Id,
+                    Name = x.Player1.Name,
+                    Rank = new DrawViewModel.RankViewModel
+                    {
+                        Id = x.Player1.Rank.Id,
+                        Name = x.Player1.Rank.Name,
+                        ImgRank = x.Player1.Rank.ImgRank
+                    }
+                },
+                Player2 = new DrawViewModel.UserViewModel
+                {
+                    Id = x.Player2.Id,
+                    Name = x.Player2.Name,
+                    Rank = new DrawViewModel.RankViewModel
+                    {
+                        Id = x.Player2.Rank.Id,
+                        Name = x.Player2.Rank.Name,
+                        ImgRank = x.Player2.Rank.ImgRank
+                    }
+                },
+                Score = new DrawViewModel.ScoreViewModel
+                {
+                    Set = x.Score.Set.Select(set => new DrawViewModel.ScoreSetViewModel
+                    {
+                        Score1 = set.Score1,
+                        Score2 = set.Score2
+                    }).ToList()
+                }
+
+            }));
+
+            return Content(res, "application/json");
         }
     }
 }
