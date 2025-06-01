@@ -1,4 +1,5 @@
 using System;
+using ProgettoHMI.Services.Ranks;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 
@@ -34,5 +35,21 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         public string Image { get; set; }
         public string City { get; set; }
         public Status Status { get; set; }
+    }
+
+    public class RankViewModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string ImgRank { get; set; }
+        public int Points { get; set; }
+    }
+
+    public class SubUserViewModel
+    {
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public RankViewModel Rank { get; set; }
+        public string ImgProfile { get; set; }
     }
 }
