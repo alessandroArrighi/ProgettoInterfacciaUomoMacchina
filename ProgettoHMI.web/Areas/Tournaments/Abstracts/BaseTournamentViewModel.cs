@@ -17,7 +17,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Abstracts
         }
     }
 
-    public class BaseTournamentViewModelTs
+    public abstract class BaseTournamentViewModelTs
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
