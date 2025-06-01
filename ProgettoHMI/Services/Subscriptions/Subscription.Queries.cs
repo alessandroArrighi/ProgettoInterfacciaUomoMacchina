@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProgettoHMI.Services.Users;
 
 namespace ProgettoHMI.Services.Subscriptions
 {
@@ -81,7 +80,7 @@ namespace ProgettoHMI.Services.Subscriptions
                 sub.Point = currentPoints;
                 currentPoints -= sub.PointsGained;
             }
-            
+
             return new SubscriptionUserDTO
             {
                 Subscriptions = subscriptions
@@ -103,6 +102,54 @@ namespace ProgettoHMI.Services.Subscriptions
             {
                 Subscriptions = subscriptions
             };
+        }
+
+        public async Task<UsersSubDTO> Query(UsersSubQuery qry)
+        {
+            var queryable = _dbContext.Subscriptions
+                .Where(x => x.IDTournament == qry.TournamentId);
+
+            var users = await queryable.Join(
+                        _dbContext.Users,
+                        sub => sub.IDUser,
+                        user => user.Id,
+                        (sub, user) => new UsersSubDTO.User
+                        {
+                            Name = user.Name,
+                            Surname = user.Surname,
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = user.Rank,
+                                Points = user.Points
+                            },
+                            ImgProfile = user.ImgProfile
+                        }
+                    )
+                    .Join(
+                        _dbContext.Ranks,
+                        user => user.Rank.Id,
+                        rank => rank.Id,
+                        (user, rank) => new UsersSubDTO.User
+                        {
+                            Name = user.Name,
+                            Surname = user.Surname,
+                            Rank = new UsersRankDTO.UserRank
+                            {
+                                Id = rank.Id,
+                                Name = rank.Name,
+                                ImgRank = rank.ImgRank,
+                                Points = user.Rank.Points
+                            }
+                        }
+                    )
+                    .ToArrayAsync();
+
+            var res = new UsersSubDTO
+            {
+                Users = users
+            };
+
+            return res;
         }
     }
 }
