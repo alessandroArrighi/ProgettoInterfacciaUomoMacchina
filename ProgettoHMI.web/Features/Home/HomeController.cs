@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.web.Infrastructure;
 //using ProgettoHMI.Services.Players;
 //using ProgettoHMI.Services.Shared.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
+    [Alerts]
     public partial class HomeController : Controller
     {
         private readonly UsersService _playerService;

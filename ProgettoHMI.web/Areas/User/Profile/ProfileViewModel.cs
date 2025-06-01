@@ -2,7 +2,9 @@
 using ProgettoHMI.Services.Statistics;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Users;
-using ProgettoHMI.Services.Subscriptions;
+using ProgettoHMI.web.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ProgettoHMI.web.Areas.User.Profile
 {
@@ -14,6 +16,8 @@ namespace ProgettoHMI.web.Areas.User.Profile
         public StatsUserDTO.Statistic Stats { get; set; }
 
         public IEnumerable<TournamentsSubsDTO.Tournament> Tournaments { get; set; }
+
+        public string UrlRaw { get; set; }
 
 
         public void SetUser(UserRankDTO user)
@@ -40,6 +44,17 @@ namespace ProgettoHMI.web.Areas.User.Profile
         public string ToJson()
         {
             return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
+        }
+
+        public void SetUrls(IUrlHelper url, IActionResult action)
+        {
+            this.UrlRaw = url.Action(action);
+        }
+
+        [TypeScriptModule("User.Profile.Server")]
+        public class MessageDto
+        {
+            public string message { get; set; }
         }
     }
 }

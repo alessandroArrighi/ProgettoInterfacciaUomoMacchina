@@ -131,14 +131,15 @@
                     <div class="container-fluid border-custom ">
                         <h2 class="text-center">I tuoi Tornei</h2>
                         
-                        <select>
+                        <select v-model="selectedFilter" v-if="$data.tournaments.length != 0">
                             <option value="all">Tutti i Tornei</option>
-                            <option value="gold">GOLD</option>
-                            <option value="silver">SILVER</option>
-                            <option value="bronze">BRONZE</option>
+                            <option value="bronzo">Bronzo</option>
+                            <option value="argento">Argento</option>
+                            <option value="oro">Oro</option>
+                            <option value="diamante">Diamante</option>
                         </select>
-                        <div style="max-height: 500px; overflow-y: auto;">
-                            <div class="tournament-card" v-for="(t, index) in tournaments">
+                        <div style="max-height: 600px; overflow-y: auto;" class="p-1" v-if="$data.tournaments.length != 0">
+                            <div class="tournament-card" v-for="(t, index) in $data.tournaments">
                                 <img :src="'/images/' + t.image" alt="Torneo" class="tournament-image">
                                 <div class="tournament-info">
                                     <h6 class="mb-2">{{ t.name }}</h6>
@@ -149,8 +150,9 @@
                                 <img :src="'/images/' + t.rank.imgRank" alt="Rank Icon" class="torunament-rank-icon ms-3">
                             </div>
                         </div>
+                        <button class="btn btn-primary w-100 mt-3" v-if="$data.tournaments.length != 0" v-on:click="$data.loadMoreTournaments()">Carica altri tornei</button>
 
-						<div class="alert alert-warning mt-3 text-center" v-if="tournaments.length == 0">Nessun torneo disponibile</div>
+                        <div class="alert alert-warning mt-3 text-center" v-if="$data.tournaments.length == 0">Nessun torneo disponibile</div>
                     </div>
                 </div>
 
@@ -204,11 +206,11 @@
     <script type="text/javascript">
 
 
-        var profileModel = new User.Profile.profileVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText),0);
+        var profileModel = new User.Profile.profileVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText),0,4);
 
         new Vue({
             el: '#pageId',
-            data: profileModel
+            data: profileModel,
         });
     </script>
 }

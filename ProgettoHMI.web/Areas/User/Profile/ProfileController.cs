@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Statistics;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.web.Infrastructure;
 
 namespace ProgettoHMI.web.Areas.User.Profile
 {
     [Area("User")]
+    [Alerts]
     public partial class ProfileController: Controller
     {
         private readonly UsersService _usersService;
@@ -57,13 +59,17 @@ namespace ProgettoHMI.web.Areas.User.Profile
                 IDUser = Guid.Parse(userId)
             }));
 
-            foreach (var t in model.Tournaments)
-            {
-                Console.WriteLine($"Tournament found: {t.Name}, Club: {t.Club}, Start: {t.StartDate:dd/MM/yyyy}, End: {t.EndDate:dd/MM/yyyy}, Rank: {t.Rank?.Name}");
-            }
-
+            model.SetUrls(Url, MVC.User.Profile.AlertsStamp());
 
             return View(model);
+        }
+
+        [HttpPost]
+        public virtual IActionResult AlertsStamp([FromBody] ProfileViewModel.MessageDto dto)
+        {
+            Console.WriteLine($"AlertsStamp called with message: {dto.message}");
+            Alerts.AddInfo(this, $"{dto.message}");
+            return Ok();
         }
 
     }
