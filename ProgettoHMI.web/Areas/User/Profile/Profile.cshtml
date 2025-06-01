@@ -1,4 +1,4 @@
-﻿<div class="">
+﻿<div class="bg-secondary">
     <div class="header-section pt-2 w-100">
         <div class="profile-header text-center mt-3 pb-2">
             <div class="profile-img-container m-auto mt-3" style="width: 100px; height: 100px;">
@@ -22,60 +22,190 @@
     <div class="container-fluid mt-4">
         <div class="row">
 
-            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 0 }" id="section-rank">
-				<h2 class="text-center">Il tuo Rank</h2>
-                @{
-                    string borderClass = Model.User.Rank.Id switch
-                    {
-                        1 => "rank-border-bronze",
-                        2 => "rank-border-silver",
-                        3 => "rank-border-gold",
-                        4 => "rank-border-diamond",
-                        _ => ""
-                    };
-                }
-                <div style="background-color: #BFB9B9; width: 120px; height: 120px; border-radius: 50%;" class="m-auto mt-3 text-center @borderClass">
-                    <img src="~/images/@Model.User.Rank.ImgRank" alt="Rank" class="mt-2" style="width: 90%; height: 90%;">
-                </div>
-                <p class="mt-3 text-center fw-bold">@Model.User.Rank.Points</p>
-
-                <div>  
-                    @if (Model.Subscription != null)  
-                    {
-                        @foreach (var sub in Model.Subscription)
+            <div class="col-md-6 col-xxl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 0 }" id="section-rank">
+                <div class="container-fluid border-custom ">
+				    <h2 class="text-center">Il tuo Rank</h2>
+                    @{
+                        string borderClass = Model.User.Rank.Id switch
                         {
-                            var cardClass = sub.PointsGained > 0 ? "card-green" : "card-red";
-                            var textClass = sub.PointsGained > 0 ? "text-success" : "text-danger";
-                            var sign = sub.PointsGained > 0 ? "+" : "";
+                            1 => "rank-border-bronze",
+                            2 => "rank-border-silver",
+                            3 => "rank-border-gold",
+                            4 => "rank-border-diamond",
+                            _ => ""
+                        };
+                    }
+                    <div style="background-color: #BFB9B9; width: 120px; height: 120px; border-radius: 50%;" class="m-auto mt-3 text-center @borderClass">
+                        <img src="~/images/@Model.User.Rank.ImgRank" alt="Rank" class="mt-2" style="width: 90%; height: 90%;">
+                    </div>
+                    <p class="mt-3 text-center fw-bold">@Model.User.Rank.Points</p>
 
-                            <div class="custom-card @cardClass">
-                                <div class="fw-bold">@sub.Name</div>
-                                <div>@sub.Point</div>
-                                <div class="@($"{textClass} fw-bold")">@($"{sign}{sub.PointsGained}")</div>
-                            </div>
-                        }
-                    }  
-                    else  
-                    {  
-                        <p>Nessuna sottoscrizione disponibile.</p>  
-                    }  
+                    <div>  
+                        @if (Model.Subscription != null)  
+                        {
+                            @foreach (var sub in Model.Subscription)
+                            {
+                                var cardClass = sub.PointsGained > 0 ? "card-green" : "card-red";
+                                var textClass = sub.PointsGained > 0 ? "text-success" : "text-danger";
+                                var sign = sub.PointsGained > 0 ? "+" : "";
+
+                                <div class="custom-card @cardClass">
+                                    <div class="fw-bold">@sub.Name</div>
+                                    <div>@sub.Point</div>
+                                    <div class="@($"{textClass} fw-bold")">@($"{sign}{sub.PointsGained}")</div>
+                                </div>
+                            }
+                        }  
+                        else  
+                        {  
+                            <p>Nessuna sottoscrizione disponibile.</p>  
+                        }  
+                    </div>
                 </div>
 
             </div>
 
+            <div class="col-md-6 col-xxl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 1 }" id="section-stats">
+                <div class="container-fluid border-custom ">
+                    <h2 class="text-center">Le tue statistiche</h2>
 
-            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 1 }" id="section-stats">
-                <div class="card p-3">Contenuto Statistiche</div>
+                    <div class="card-custom mt-5 mb-5">
+                        <h5 class="text-center fw-bold mb-3">Servizio</h5>
+
+                        <div class="row-item">
+                            <div>Aces</div>
+                            <div>123</div>
+                        </div>
+                        <div class="row-item">
+                            <div>Doppi falli</div>
+                            <div>321</div>
+                        </div>
+                        <div class="row-item">
+                            <div>1° di servizio</div>
+                            <div>60%</div>
+                        </div>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-bar-custom" style="width: 60%;"></div>
+                        </div>
+
+                        <div class="row-item">
+                            <div>2° di servizio</div>
+                            <div>20%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-custom" style="width: 20%;"></div>
+                        </div>
+
+                        <h5 class="text-center fw-bold mb-3 mt-5">Servizio</h5>
+
+                        <div class="row-item">
+                            <div>Aces</div>
+                            <div>123</div>
+                        </div>
+                        <div class="row-item">
+                            <div>Doppi falli</div>
+                            <div>321</div>
+                        </div>
+                        <div class="row-item">
+                            <div>1° di servizio</div>
+                            <div>60%</div>
+                        </div>
+                        <div class="progress mb-2">
+                            <div class="progress-bar progress-bar-custom" style="width: 60%;"></div>
+                        </div>
+
+                        <div class="row-item">
+                            <div>2° di servizio</div>
+                            <div>20%</div>
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-custom" style="width: 20%;"></div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xxl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 2 }" id="section-tournaments">
+                <div class="container-fluid border-custom ">
+                    <h2 class="text-center">I tuoi Tornei</h2>
+                    <div>
+                        <div class="tournament-card">
+                            <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
+                            <div class="tournament-info">
+                                <h6 class="mb-2">Torneo di Cesena</h6>
+                                <div><span class="text-label">Inizio:</span> 01/01/2025</div>
+                                <div><span class="text-label">Fine:</span> 01/02/2025</div>
+                                <div><span class="text-label">Rank:</span> GOLD</div>
+                            </div>
+                            <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
+                        </div>
+                        <div class="tournament-card mt-2">
+                            <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
+                            <div class="tournament-info">
+                                <h6 class="mb-2">Torneo di Cesena</h6>
+                                <div><span class="text-label">Inizio:</span> 01/01/2025</div>
+                                <div><span class="text-label">Fine:</span> 01/02/2025</div>
+                                <div><span class="text-label">Rank:</span> GOLD</div>
+                            </div>
+                            <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
+                        </div>
+                        <div class="tournament-card mt-2">
+                            <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
+                            <div class="tournament-info">
+                                <h6 class="mb-2">Torneo di Cesena</h6>
+                                <div><span class="text-label">Inizio:</span> 01/01/2025</div>
+                                <div><span class="text-label">Fine:</span> 01/02/2025</div>
+                                <div><span class="text-label">Rank:</span> GOLD</div>
+                            </div>
+                            <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
+                        </div>
+                        <div class="tournament-card mt-2">
+                            <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
+                            <div class="tournament-info">
+                                <h6 class="mb-2">Torneo di Cesena</h6>
+                                <div><span class="text-label">Inizio:</span> 01/01/2025</div>
+                                <div><span class="text-label">Fine:</span> 01/02/2025</div>
+                                <div><span class="text-label">Rank:</span> GOLD</div>
+                            </div>
+                            <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
-            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 2 }" id="section-tournaments">
-                <div class="card p-3">Contenuto Tornei</div>
-            </div>
+            <div class="col-md-6 col-xxl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 3 }" id="section-awards">
+                <div class="container-fluid border-custom ">
+                    <h2 class="text-center">Il tuo Rank</h2>
 
+                    <div style="background-color: #BFB9B9; width: 120px; height: 120px; border-radius: 50%;" class="m-auto mt-3 text-center @borderClass">
+                        <img src="~/images/@Model.User.Rank.ImgRank" alt="Rank" class="mt-2" style="width: 90%; height: 90%;">
+                    </div>
+                    <p class="mt-3 text-center fw-bold">@Model.User.Rank.Points</p>
 
-            <div class="col-md-6 col-xl-3 mb-3 section-box" v-bind:class="{ 'active' : selectedSection == 3 }" id="section-awards">
-                <div class="card p-3">Contenuto Premi</div>
+                    <div>
+                        @if (Model.Subscription != null)
+                        {
+                            @foreach (var sub in Model.Subscription)
+                            {
+                                var cardClass = sub.PointsGained > 0 ? "card-green" : "card-red";
+                                var textClass = sub.PointsGained > 0 ? "text-success" : "text-danger";
+                                var sign = sub.PointsGained > 0 ? "+" : "";
+
+                                <div class="custom-card @cardClass">
+                                    <div class="fw-bold">@sub.Name</div>
+                                    <div>@sub.Point</div>
+                                    <div class="@($"{textClass} fw-bold")">@($"{sign}{sub.PointsGained}")</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <p>Nessuna sottoscrizione disponibile.</p>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -100,6 +230,16 @@
 
 @section styles {
 	<style>
+
+        @@media (min-width: 768px) {
+            .border-custom {
+				border: 1px solid #ccc;
+				border-radius: 10px;
+                background-color: #fff;
+				width: 90%;
+				margin: 0 auto;
+            }
+        }
         @@media (max-width: 767.98px) {
             .section-box {
                 display: none;
@@ -161,6 +301,7 @@
             padding: 1rem 1.5rem;
             border-radius: 10px;
             margin-bottom: 1rem;
+
         }
 
         .card-green {
@@ -187,6 +328,53 @@
 
         .rank-border-diamond {
             border: 4px solid #5bc0eb !important;
+        }
+
+        .tournament-card {
+            display: flex;
+            background-color: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .tournament-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 1rem;
+        }
+
+        .tournament-info {
+            flex-grow: 1;
+        }
+
+        .torunament-rank-icon {
+            width: 30px;
+            height: 30px;
+        }
+
+        .text-label {
+            font-weight: 600;
+        }
+
+        .row-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #d1e0e0;
+            padding: 6px 0;
+        }
+
+        .progress {
+            height: 4px;
+            background-color: #e0e0e0;
+        }
+
+        .progress-bar-custom {
+            background-color: #6a9ba8;
         }
    
 

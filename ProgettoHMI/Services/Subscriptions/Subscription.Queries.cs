@@ -46,11 +46,17 @@ namespace ProgettoHMI.Services.Subscriptions
         {
             var subscriptions = await _dbContext.Subscriptions
                 .Where(subs => subs.IDUser == qry.IDUser)
-                .Select(subs => new SubscriptionUserDTO.Subscription
-                {
-                    IDTournament = subs.IDTournament,
-                    PointsGained = subs.PointsGained
-                })
+                .Join(
+                    _dbContext.Tournaments,
+                    subs => subs.IDTournament,
+                    t => t.Id,
+                    (subs, t) => new SubscriptionUserDTO.Subscription
+                    {
+                        IDTournament = subs.IDTournament,
+                        PointsGained = subs.PointsGained,
+                        Name = t.Name
+                    }
+                )
                 .ToListAsync();
 
             var actualPoints = await _dbContext.Users
