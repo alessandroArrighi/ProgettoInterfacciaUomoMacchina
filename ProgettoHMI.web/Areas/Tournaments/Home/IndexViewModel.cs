@@ -6,7 +6,24 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
 {
     public class IndexViewModel
     {
-        
+        TournamentViewModel Tournament { get; set; }
+
+        public IndexViewModel(TournamentsIdDTO tournament)
+        {
+            Tournament = new TournamentViewModel
+            {
+                Id = tournament.Id,
+                Name = tournament.Name,
+                RankId = tournament.Rank.Id,
+                ImgRank = tournament.Rank.ImgRank,
+                Club = tournament.Club,
+                StartDate = tournament.StartDate,
+                EndDate = tournament.EndDate,
+                Image = tournament.Image,
+                City = tournament.City,
+                Status = tournament.Status
+            };
+        }
     }
 
     public class TournamentViewModel : BaseTournamentViewModelTs
