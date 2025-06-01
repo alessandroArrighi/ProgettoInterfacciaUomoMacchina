@@ -39,6 +39,24 @@ namespace ProgettoHMI.Services.Subscriptions
         }
     }
 
+    public class UsersSubQuery
+    {
+        public Guid TournamentId;
+    }
+
+    public class UsersSubDTO
+    {
+        public IEnumerable<User> Users { get; set; }
+
+        public class User
+        {
+            public string Name { get; set; }
+            public string Surname { get; set; }
+            public UsersRankDTO.UserRank Rank { get; set; }
+            public string ImgProfile { get; set; }
+        }
+    }
+
     public partial class SubscriptionService
     {
         public async Task<SubscriptionUserDTO> Query(SubscriptionUserQuery qry)
