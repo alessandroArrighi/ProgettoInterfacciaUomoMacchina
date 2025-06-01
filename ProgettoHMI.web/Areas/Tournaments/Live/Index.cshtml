@@ -1,10 +1,14 @@
-@model ProgettoHMI.web.Areas.Tournaments.Abstracts.BaseTournamentViewModel
+@model ProgettoHMI.web.Areas.Tournaments.Live.IndexViewModel
 
 @{
 	ViewData["Title"] = "Index";
 }
 
-<div class="container-fluid bg-secondary">
+<div class="container-fluid bg-secondary position-relative">
+	<div class="position-absolute d-flex align-items-center" style="top: 10px; left: 13px;">
+		<span class="text-danger fw-bold">LIVE</span>
+		<div class="ms-2 live-dot"></div>
+	</div>
     <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei Live</h1>
 	<a v-if="filtersCount > 0" class="ms-md-4 ms-2 mb-4" type="button" style="color: red;" @@click="resetFilters(); performTournamentReq()">Azzera Filtri</a>
 	<span v-else class="ms-md-4 ms-2 mb-4" type="button" style="visibility: hidden;">palceholder</span>
@@ -121,24 +125,85 @@
 	<div class="pt-5"></div>
 
 	<div class="row">
-		<template v-for="data in model.tournaments" >
-			<div class="col-12 col-md-6 col-lg-4 mb-4">
-				<div class="container-fluid bg-white py-4 rounded-4">
+		<template v-for="(data, index) in model.tournaments" >
+			<div class="col-md-2"></div>
+			<div class="col-12 col-md-8 mb-4">
+				<div class="container-fluid py-4 rounded-4" :class="popUpTournament == data.id ? 'bg-primary' : 'bg-white'">
 					<div class="row">
-						<div class="col-1"></div>
-						<div class="col-8">
-							<div class="pb-2"></div>
-							<a href="@Url.Action(MVC.Tournaments.Tournaments.Draw())" class="h4">{{ data.name }}</a>
+						<div class="col-md-1"></div>
+						<div class="col-2">
+							<img :src="'/images/' + data.imgRank" alt="icona rank" />
 						</div>
-						<div class="col-3">
-							<img :src="'/images/' + data.imgRank" alt="icona rank">
+						<div class="col-7 col-md-5">
+							<div class="pb-2"></div>
+							<a :href="`${drawUrl}?TournamentId=${data.id}`" class="h4">{{ data.name }}</a>
+						</div>
+						<div class="col-1 col-md-2"></div>
+						<div class="col-2 col-md-2">
+							<button v-if="popUpTournament != data.id" class="btn btn-primary" @@click="performeGamesReq(data.id)">
+								<img src="~/images/arrow-down.svg" alt="fraccia in giù" />
+							</button>
+							<button v-else class="btn btn-primary" @@click="performeGamesReq(data.id)">
+								<img src="~/images/arrow-up.svg" alt="fraccia in su" />
+							</button>
+						</div>
+					</div>
+					<div v-if ="popUpTournament == data.id" id="dropDown" >
+						<section class="mt-5">
+							<div class="cards-container">
+								<div class="m-auto tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-4 mt-3 position-relative" style="max-width: 650px;" v-for="game in model.games">
+									<!-- Colonna sinistra: indicatori di stato -->
+									@* <div class="position-absolute m-2 d-flex align-items-center" style="top: 0px; left: 13px;">
+										<span class="text-danger fw-bold">LIVE</span>
+										<div class="ms-2 live-dot"></div>
+									</div> *@
+									<!-- Colonna sinistra: nomi e separatore -->
+									<div class="col-name d-flex flex-column justify-content-center">
+										<div class="d-flex align-items-center mb-3 ms-1">
+											<img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" />
+											<span class="ms-2">{{ game.player1.name }}</span>
+										</div>
+
+										<hr class="separator my-1" />
+
+										<div class="d-flex align-items-center mt-3 ms-1">
+											<img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" />
+											<span class="ms-2">{{ game.player2.name }}</span>
+										</div>
+									</div>
+
+									<!-- Colonna destra: punteggi -->
+									<div class="col-points d-flex justify-content-center gap-3 gap-sm-3 gap-md-3" style=" height: 115px; flex: 1;">
+										<div v-for="(set, index) in game.score.set"
+											:key="index"
+											class="score-box d-flex flex-column justify-content-between align-items-center rounded text-center h-100">
+											<div class="score-player" v-bind:class="{'fw-bold': ( set.score1 > set.score2 )}">{{ set.score1 }}</div>
+											<div class="set-label">{{ index + 1 }}</div> 
+											<div class="score-player" v-bind:class="{'fw-bold': ( set.score2 > set.score1 )}">{{ set.score2 }}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<div class="text-center pt-3">
+							<a :href="`${drawUrl}?TournamentId=${data.id}`" style="color: black;" class="mx-auto">Vai al Tabellone</a>
 						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-md-2"></div>
 		</template>
 	</div>
 </div>
+
+@section styles {
+	<style>
+		#dropDown {
+			overflow-y: auto;
+			max-height: 450px;
+		}
+	</style>
+}
 
 @section scripts {
 	<script src="~/js/bundle-vue.js" asp-append-version="true"></script>
@@ -149,7 +214,7 @@
 	</script>
 	
 	<script type="text/javascript">
-		var viewModel = new Tournaments.Live.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText))
+		var viewModel = new Tournaments.Live.indexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText), "@Model.UrlRaw")
 
 		var vueModel = new Vue({
 			el: '#pageId',
