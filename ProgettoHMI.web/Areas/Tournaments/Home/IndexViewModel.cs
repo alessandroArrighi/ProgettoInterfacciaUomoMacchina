@@ -1,5 +1,7 @@
 using System;
-using ProgettoHMI.Services.Ranks;
+using System.Collections.Generic;
+using System.Linq;
+using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 
@@ -8,8 +10,9 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
     public class IndexViewModel
     {
         TournamentViewModel Tournament { get; set; }
+        IEnumerable<SubUserViewModel> Users { get; set; }
 
-        public IndexViewModel(TournamentsIdDTO tournament)
+        public IndexViewModel(TournamentsIdDTO tournament, UsersSubDTO users)
         {
             Tournament = new TournamentViewModel
             {
@@ -24,6 +27,20 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
                 City = tournament.City,
                 Status = tournament.Status
             };
+
+            Users = users.Users.Select(x => new SubUserViewModel
+            {
+                Name = x.Name,
+                Surname = x.Surname,
+                Rank = new RankViewModel
+                {
+                    Id = x.Rank.Id,
+                    Name = x.Rank.Name,
+                    ImgRank = x.Rank.ImgRank,
+                    Points = x.Rank.Points
+                },
+                ImgProfile = x.ImgProfile
+            }).ToArray();
         }
     }
 
@@ -37,11 +54,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         public Status Status { get; set; }
     }
 
-    public class RankViewModel
+    public class RankViewModel : RankViewModelTs
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string ImgRank { get; set; }
         public int Points { get; set; }
     }
 
