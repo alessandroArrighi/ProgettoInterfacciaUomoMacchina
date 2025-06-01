@@ -36,6 +36,8 @@ namespace ProgettoHMI.web.Areas.User.Profile
             {
                 return NotFound();
             }
+            ViewData["isLogin"] = true;
+
             model.SetUser(user);
 
             Console.WriteLine($"User found: {model.User.Name} {model.User.Surname} with points: {model.User.Rank.Points}");

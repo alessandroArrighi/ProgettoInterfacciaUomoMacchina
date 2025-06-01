@@ -34,6 +34,11 @@ namespace ProgettoHMI.web.Features.Home
                 EndDate = DateTime.Now.AddMonths(1)
             });
 
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
+
             model.setPlayers(players);
             model.setTournaments(tournaments);
 
