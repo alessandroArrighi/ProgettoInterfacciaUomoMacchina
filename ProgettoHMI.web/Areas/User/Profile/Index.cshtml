@@ -1,5 +1,6 @@
-﻿<div class="bg-secondary container-fluid pb-5">
-    <div class="row h-100">
+﻿@using ProgettoHMI.Infrastructure
+<div class="bg-secondary container-fluid" style="min-height: 90vh;">
+    <div class="row">
 
         <div class="header-section col-12 col-md-3 col-xl-3">
             <div class="profile-header text-center mt-3 pb-2">
@@ -129,53 +130,27 @@
                 <div class="section-box" v-bind:class="{ 'active' : selectedSection == 2 }" id="section-tournaments">
                     <div class="container-fluid border-custom ">
                         <h2 class="text-center">I tuoi Tornei</h2>
-                        @if (Model != null)
-                        {
-                            <div>
-                                <div class="tournament-card">
-                                    <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
-                                    <div class="tournament-info">
-                                        <h6 class="mb-2">Torneo di Cesena</h6>
-                                        <div><span class="text-label">Inizio:</span> 01/01/2025</div>
-                                        <div><span class="text-label">Fine:</span> 01/02/2025</div>
-                                        <div><span class="text-label">Rank:</span> GOLD</div>
-                                    </div>
-                                    <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
+                        
+                        <select>
+                            <option value="all">Tutti i Tornei</option>
+                            <option value="gold">GOLD</option>
+                            <option value="silver">SILVER</option>
+                            <option value="bronze">BRONZE</option>
+                        </select>
+                        <div style="max-height: 500px; overflow-y: auto;">
+                            <div class="tournament-card" v-for="(t, index) in tournaments">
+                                <img :src="'/images/' + t.image" alt="Torneo" class="tournament-image">
+                                <div class="tournament-info">
+                                    <h6 class="mb-2">{{ t.name }}</h6>
+                                    <div><span class="text-label">Inizio:</span>{{ t.startDate }}</div>
+                                    <div><span class="text-label">Fine:</span>{{ t.endDate }}</div>
+                                    <div><span class="text-label">Rank:</span>{{ t.rank.name }}</div>
                                 </div>
-                                <div class="tournament-card mt-2">
-                                    <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
-                                    <div class="tournament-info">
-                                        <h6 class="mb-2">Torneo di Cesena</h6>
-                                        <div><span class="text-label">Inizio:</span> 01/01/2025</div>
-                                        <div><span class="text-label">Fine:</span> 01/02/2025</div>
-                                        <div><span class="text-label">Rank:</span> GOLD</div>
-                                    </div>
-                                    <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
-                                </div>
-                                <div class="tournament-card mt-2">
-                                    <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
-                                    <div class="tournament-info">
-                                        <h6 class="mb-2">Torneo di Cesena</h6>
-                                        <div><span class="text-label">Inizio:</span> 01/01/2025</div>
-                                        <div><span class="text-label">Fine:</span> 01/02/2025</div>
-                                        <div><span class="text-label">Rank:</span> GOLD</div>
-                                    </div>
-                                    <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
-                                </div>
-                                <div class="tournament-card mt-2">
-                                    <img src="~/images/wimbledon.jpg" alt="Torneo" class="tournament-image">
-                                    <div class="tournament-info">
-                                        <h6 class="mb-2">Torneo di Cesena</h6>
-                                        <div><span class="text-label">Inizio:</span> 01/01/2025</div>
-                                        <div><span class="text-label">Fine:</span> 01/02/2025</div>
-                                        <div><span class="text-label">Rank:</span> GOLD</div>
-                                    </div>
-                                    <img src="~/images/Gold.svg" alt="Rank Icon" class="torunament-rank-icon ms-3">
-                                </div>
+                                <img :src="'/images/' + t.rank.imgRank" alt="Rank Icon" class="torunament-rank-icon ms-3">
                             </div>
-                        } else {
-							<div class="alert alert-warning mt-3">Nessun torneo disponibile</div>
-                        }
+                        </div>
+
+						<div class="alert alert-warning mt-3 text-center" v-if="tournaments.length == 0">Nessun torneo disponibile</div>
                     </div>
                 </div>
 
@@ -220,16 +195,20 @@
 
 @section scripts {
     <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+    <script src="~/Areas/User/Profile/Index.js" asp-append-version="true"></script>
+    <script type="application/json" id="Seed_JSON">
+        @Html.Raw(JsonSerializer.ToJsonCamelCase(Model.Tournaments))
+    </script>
+
 
     <script type="text/javascript">
 
-        //var drawModel = new Tournaments.Draw.drawVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText));
+
+        var profileModel = new User.Profile.profileVueModel(JSON.parse(document.getElementById("Seed_JSON").innerText),0);
 
         new Vue({
             el: '#pageId',
-            data: {
-				selectedSection: 0,
-            }
+            data: profileModel
         });
     </script>
 }

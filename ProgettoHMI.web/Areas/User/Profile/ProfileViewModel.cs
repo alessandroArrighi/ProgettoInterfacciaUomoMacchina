@@ -2,6 +2,7 @@
 using ProgettoHMI.Services.Statistics;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.Services.Subscriptions;
 
 namespace ProgettoHMI.web.Areas.User.Profile
 {
@@ -11,6 +12,8 @@ namespace ProgettoHMI.web.Areas.User.Profile
         public IEnumerable<SubscriptionUserDTO.Subscription> Subscription { get; set; }
 
         public StatsUserDTO.Statistic Stats { get; set; }
+
+        public IEnumerable<TournamentsSubsDTO.Tournament> Tournaments { get; set; }
 
 
         public void SetUser(UserRankDTO user)
@@ -26,6 +29,17 @@ namespace ProgettoHMI.web.Areas.User.Profile
         public void SetStats(StatsUserDTO stats)
         {
             Stats = stats.Stats;
+        }
+
+        public void SetTournaments(TournamentsSubsDTO tournaments)
+        {
+            Tournaments = tournaments.Tournaments;
+
+        }
+
+        public string ToJson()
+        {
+            return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
         }
     }
 }

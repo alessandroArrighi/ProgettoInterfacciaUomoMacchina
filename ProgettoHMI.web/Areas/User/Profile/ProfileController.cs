@@ -21,7 +21,7 @@ namespace ProgettoHMI.web.Areas.User.Profile
             _statisticsService = statisticsService;
         }
 
-        public virtual async Task<ActionResult> Profile()
+        public virtual async Task<ActionResult> Index()
         {
             var model = new ProfileViewModel();
 
@@ -52,9 +52,14 @@ namespace ProgettoHMI.web.Areas.User.Profile
                 IDUser = Guid.Parse(userId)
             }));
 
-            foreach(var sub in model.Subscription)
+            model.SetTournaments(await _subscriptionService.Query(new TournamentsSubsQuery
             {
-                Console.WriteLine($"Subscription found: {sub.Name}, Points Gained: {sub.PointsGained}, Current Points: {sub.Point}");
+                IDUser = Guid.Parse(userId)
+            }));
+
+            foreach (var t in model.Tournaments)
+            {
+                Console.WriteLine($"Tournament found: {t.Name}, Club: {t.Club}, Start: {t.StartDate:dd/MM/yyyy}, End: {t.EndDate:dd/MM/yyyy}, Rank: {t.Rank?.Name}");
             }
 
 
