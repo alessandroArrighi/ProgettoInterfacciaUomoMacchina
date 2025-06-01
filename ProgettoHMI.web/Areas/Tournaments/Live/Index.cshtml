@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Index";
 }
 
-<div class="container-fluid bg-secondary position-relative min-vh-100">
+<div class="container-fluid bg-secondary position-relative min-vh-100" :class="popUpTournament != null ? 'more-height' : ''">
 	<div class="position-absolute d-flex align-items-center" style="top: 10px; left: 13px;">
 		<span class="text-danger fw-bold">LIVE</span>
 		<div class="ms-2 live-dot"></div>
@@ -196,10 +196,8 @@
 			max-height: 450px;
 		}
 
-		footer {
-			position: sticky;
-			bottom: 0;
-			width: 100%;
+		.more-height {
+			height: 120vh !important;
 		}
 	</style>
 }
