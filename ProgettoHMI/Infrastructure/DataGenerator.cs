@@ -156,6 +156,66 @@ namespace ProgettoHMI.Infrastructure
                     City = "Palermo",
                     Rank = 2,
                     Status = Services.Tournament.Status.BeforeStart
+                },
+                new Tournament
+                {
+                    Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    Name = "Torneo di Cesena",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "wimbledon.jpg",
+                    City = "Palermo",
+                    Rank = 2,
+                    Status = Services.Tournament.Status.Start
+                },
+                new Tournament
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Torneo di Venezia",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "wimbledon.jpg",
+                    City = "Palermo",
+                    Rank = 2,
+                    Status = Services.Tournament.Status.Start
+                },
+                new Tournament
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Torneo di Pisa",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "wimbledon.jpg",
+                    City = "Palermo",
+                    Rank = 2,
+                    Status = Services.Tournament.Status.Start
+                },
+                new Tournament
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Torneo di Livorno",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "wimbledon.jpg",
+                    City = "Palermo",
+                    Rank = 2,
+                    Status = Services.Tournament.Status.Start
+                },
+                new Tournament
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Torneo di Genova",
+                    Club = "Circolo di Palermo",
+                    StartDate = DateTime.Now.AddDays(14),
+                    EndDate = DateTime.Now.AddDays(21),
+                    Image = "wimbledon.jpg",
+                    City = "Palermo",
+                    Rank = 2,
+                    Status = Services.Tournament.Status.Start
                 }
             );
 
@@ -189,7 +249,63 @@ namespace ProgettoHMI.Infrastructure
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000034"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 3, Status = Services.Games.Status.End, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player1Score = [6, 7, 6], Player2Score = [4, 5, 4] },
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000010"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 2, Status = Services.Games.Status.End, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player1Score = [6, 4, 7, 4, 5], Player2Score = [3, 6, 6, 6, 7] },
                 new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000020"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 2, Status = Services.Games.Status.Start, Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"), Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player1Score = [7, 6, 0], Player2Score = [3, 4, 4] },
-                new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000030"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 1, Status = Services.Games.Status.BeforeStart, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Player1Score = [], Player2Score = [] }
+                new Game { GameId = Guid.Parse("00000000-0000-0000-0000-000000000030"), TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000003"), DrawPosition = 1, Status = Services.Games.Status.BeforeStart, Player1Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"), Player2Id = Guid.Parse("00000000-0000-0000-0000-000000000001"), Player1Score = [], Player2Score = [] },
+
+                new Game
+                {
+                    GameId = Guid.NewGuid(),
+                    TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    DrawPosition = 1,
+                    Status = Services.Games.Status.Start,
+                    Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
+                    Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
+                    Player1Score = [7, 6, 0],
+                    Player2Score = [3, 4, 4]
+                },
+                new Game
+                {
+                    GameId = Guid.NewGuid(),
+                    TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    DrawPosition = 1,
+                    Status = Services.Games.Status.Start,
+                    Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
+                    Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
+                    Player1Score = [7, 6, 0],
+                    Player2Score = [3, 4, 4]
+                },
+                new Game
+                {
+                    GameId = Guid.NewGuid(),
+                    TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    DrawPosition = 1,
+                    Status = Services.Games.Status.Start,
+                    Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
+                    Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
+                    Player1Score = [7, 6, 0],
+                    Player2Score = [3, 4, 4]
+                },
+                new Game
+                {
+                    GameId = Guid.NewGuid(),
+                    TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    DrawPosition = 1,
+                    Status = Services.Games.Status.Start,
+                    Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
+                    Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
+                    Player1Score = [7, 6, 0],
+                    Player2Score = [3, 4, 4]
+                },
+                new Game
+                {
+                    GameId = Guid.NewGuid(),
+                    TournamentId = Guid.Parse("00000000-0000-0000-0000-000000000006"),
+                    DrawPosition = 1,
+                    Status = Services.Games.Status.Start,
+                    Player1Id = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
+                    Player2Id = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
+                    Player1Score = [7, 6, 0],
+                    Player2Score = [3, 4, 4]
+                }
             );
 
             context.Ranks.AddRange(

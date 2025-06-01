@@ -10,6 +10,7 @@ module Tournaments.Live {
         public filtersCount: number = 0;
         public popUpTournament: any = null
         public drawUrl: string
+        public cardWidth: string = ""
 
         public constructor(model: Live.Server.IndexViewModelInterface, drawUrl: string) {
             this.model = model;

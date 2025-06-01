@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Index";
 }
 
-<div class="container-fluid bg-secondary position-relative">
+<div class="container-fluid bg-secondary position-relative min-vh-100">
 	<div class="position-absolute d-flex align-items-center" style="top: 10px; left: 13px;">
 		<span class="text-danger fw-bold">LIVE</span>
 		<div class="ms-2 live-dot"></div>
@@ -125,21 +125,19 @@
 	<div class="pt-5"></div>
 
 	<div class="row">
-		<template v-for="(data, index) in model.tournaments" >
-			<div class="col-md-2"></div>
-			<div class="col-12 col-md-8 mb-4">
-				<div class="container-fluid py-4 rounded-4" :class="popUpTournament == data.id ? 'bg-primary' : 'bg-white'">
+		<template v-for="(data, index) in model.tournaments">
+			<div class="col-12 col-md-6 col-lg-4 mb-4" style="position: relative;">
+				<div :class="popUpTournament == data.id ? 'position-absolute' : '' " style="z-index: 10;">
+				<div class="container-fluid py-4 rounded-4 tournamentCard" :class="popUpTournament == data.id ? 'bg-primary' : 'bg-white'" :style="popUpTournament == data.id ? cardWidth : ''">
 					<div class="row">
-						<div class="col-md-1"></div>
 						<div class="col-2">
 							<img :src="'/images/' + data.imgRank" alt="icona rank" />
 						</div>
-						<div class="col-7 col-md-5">
+						<div class="col-7">
 							<div class="pb-2"></div>
-							<a :href="`${drawUrl}?TournamentId=${data.id}`" class="h4">{{ data.name }}</a>
+							<a :href="`${drawUrl}?TournamentId=${data.id}`" class="h5">{{ data.name }}</a>
 						</div>
-						<div class="col-1 col-md-2"></div>
-						<div class="col-2 col-md-2">
+						<div class="col-3">
 							<button v-if="popUpTournament != data.id" class="btn btn-primary" @@click="performeGamesReq(data.id)">
 								<img src="~/images/arrow-down.svg" alt="fraccia in giù" />
 							</button>
@@ -152,11 +150,6 @@
 						<section class="mt-5">
 							<div class="cards-container">
 								<div class="m-auto tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-4 mt-3 position-relative" style="max-width: 650px;" v-for="game in model.games">
-									<!-- Colonna sinistra: indicatori di stato -->
-									@* <div class="position-absolute m-2 d-flex align-items-center" style="top: 0px; left: 13px;">
-										<span class="text-danger fw-bold">LIVE</span>
-										<div class="ms-2 live-dot"></div>
-									</div> *@
 									<!-- Colonna sinistra: nomi e separatore -->
 									<div class="col-name d-flex flex-column justify-content-center">
 										<div class="d-flex align-items-center mb-3 ms-1">
@@ -191,7 +184,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-2"></div>
+			</div>
 		</template>
 	</div>
 </div>
@@ -201,6 +194,12 @@
 		#dropDown {
 			overflow-y: auto;
 			max-height: 450px;
+		}
+
+		footer {
+			position: sticky;
+			bottom: 0;
+			width: 100%;
 		}
 	</style>
 }
@@ -218,7 +217,19 @@
 
 		var vueModel = new Vue({
 			el: '#pageId',
-			data: viewModel
+			data: viewModel,
+			mounted() {
+				this.$nextTick(() => {
+					const element = document.querySelector('body');
+
+					const resizeObserver = new ResizeObserver(entries => {
+						const width = document.querySelector(".tournamentCard").clientWidth
+						this._data.cardWidth = `width: ${width}px;`
+					});
+
+					resizeObserver.observe(element);
+				})
+			}
 		});
 	</script>
 }

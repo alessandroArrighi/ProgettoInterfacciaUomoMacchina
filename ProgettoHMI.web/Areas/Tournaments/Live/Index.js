@@ -10,6 +10,7 @@ var Tournaments;
                 this.endDate = null;
                 this.filtersCount = 0;
                 this.popUpTournament = null;
+                this.cardWidth = "";
                 this.initCities = () => {
                     this.cities = [
                         { value: "Milano", selected: false },
