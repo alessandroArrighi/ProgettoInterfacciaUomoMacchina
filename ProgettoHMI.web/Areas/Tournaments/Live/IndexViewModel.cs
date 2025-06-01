@@ -6,7 +6,7 @@ using ProgettoHMI.web.Infrastructure;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Live
 {
-    public class IndexViewModel : BaseTournamentViewModel
+    public class IndexViewModel : BaseGameViewModel, BaseTournamentViewModel
     {
         public IEnumerable<BaseTournamentViewModelTs> Tournaments { get; set; }
 

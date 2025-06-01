@@ -22,7 +22,9 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
 
         public virtual async Task<IActionResult> Index()
         {
-            BaseTournamentViewModel model = new IndexViewModel();
+            var model = new IndexViewModel();
+            
+            model.SetUrls(Url, MVC.Tournaments.Draw.Draw());
 
             var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Services.Tournament.Status.Start });
 

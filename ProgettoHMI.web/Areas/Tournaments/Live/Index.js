@@ -3,12 +3,13 @@ var Tournaments;
     var Live;
     (function (Live) {
         class indexViewModel {
-            constructor(model) {
+            constructor(model, drawUrl) {
                 this.selectedCities = [];
                 this.selectedRanks = [];
                 this.startDate = null;
                 this.endDate = null;
                 this.filtersCount = 0;
+                this.popUpTournament = null;
                 this.initCities = () => {
                     this.cities = [
                         { value: "Milano", selected: false },
@@ -40,6 +41,7 @@ var Tournaments;
                     this.endDate = null;
                     this.filtersCount = 0;
                 };
+                /* -------- Tournaments -------- */
                 this.getTournaments = async (filters) => {
                     let res = await fetch("/Tournaments/Live/TournamentsFilters", {
                         method: "POST",
@@ -123,9 +125,35 @@ var Tournaments;
                     }
                     this.performTournamentReq();
                 };
+                /* -------- Games -------- */
+                this.getGames = async (tournamentId) => {
+                    let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                    });
+                    if (res.ok) {
+                        let data = await res.json();
+                        this.model.games = data;
+                    }
+                    else {
+                        this.model.games = [];
+                        console.error("Failed to fetch tournaments:", res.statusText);
+                    }
+                };
+                this.performeGamesReq = (tournamentId) => {
+                    if (this.popUpTournament != tournamentId)
+                        this.popUpTournament = tournamentId;
+                    else
+                        this.popUpTournament = null;
+                    this.getGames(tournamentId);
+                };
                 this.model = model;
+                this.model.games = [];
                 this.initCities();
                 this.initRanks();
+                this.drawUrl = drawUrl;
             }
         }
         Live.indexViewModel = indexViewModel;

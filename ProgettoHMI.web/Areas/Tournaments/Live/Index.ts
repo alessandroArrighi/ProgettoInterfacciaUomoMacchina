@@ -8,12 +8,17 @@ module Tournaments.Live {
         public startDate: Date | null = null;
         public endDate: Date | null = null;
         public filtersCount: number = 0;
+        public popUpTournament: any = null
+        public drawUrl: string
 
-        public constructor(model: Live.Server.IndexViewModelInterface) {
+        public constructor(model: Live.Server.IndexViewModelInterface, drawUrl: string) {
             this.model = model;
+            this.model.games = []
 
             this.initCities()
             this.initRanks()
+
+            this.drawUrl = drawUrl
         }
 
         private initCities = () => {
@@ -52,6 +57,7 @@ module Tournaments.Live {
             this.filtersCount = 0
         }
 
+        /* -------- Tournaments -------- */
         public getTournaments = async (filters: Live.Server.TournamentsFilterQueryViewModelInterface) => {
             let res = await fetch("/Tournaments/Live/TournamentsFilters", {
                 method: "POST",
@@ -64,24 +70,6 @@ module Tournaments.Live {
             if (res.ok) {
                 let data = await res.json();
                 this.model.tournaments = <Live.Server.TournamentViewModelInterface[]>data;
-            } else {
-                console.error("Failed to fetch tournaments:", res.statusText);
-            }
-        }
-
-        public getGames = async (tournamentId: any) => {
-            let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
-                method: "GET",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            });
-
-            if (res.ok) {
-                let data = await res.json();
-                this.model.games = <Live.Server.IGameModel[]>data
-                console.log(data)
-                console.log(this.model.games)
             } else {
                 console.error("Failed to fetch tournaments:", res.statusText);
             }
@@ -161,6 +149,33 @@ module Tournaments.Live {
             }
 
             this.performTournamentReq();
+        }
+
+        /* -------- Games -------- */
+        public getGames = async (tournamentId: any) => {
+            let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            });
+
+            if (res.ok) {
+                let data = await res.json();
+                this.model.games = <Live.Server.IGameModel[]>data
+            } else {
+                this.model.games = []
+                console.error("Failed to fetch tournaments:", res.statusText);
+            }
+        }
+
+        public performeGamesReq = (tournamentId: any) => {
+            if(this.popUpTournament != tournamentId)
+                this.popUpTournament = tournamentId
+            else
+                this.popUpTournament = null
+
+            this.getGames(tournamentId)
         }
     }
     
