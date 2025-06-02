@@ -6,8 +6,8 @@
 
 <div class="container-fluid bg-secondary position-relative min-vh-100" :class="popUpTournament != null ? 'more-height' : ''">
 	<div class="position-absolute d-flex align-items-center" style="top: 10px; left: 13px;">
-		<span class="text-danger fw-bold">LIVE</span>
-		<div class="ms-2 live-dot"></div>
+		<span class="text-danger fw-bold fs-5">LIVE</span>
+		<div class="ms-2 live-dot p-2"></div>
 	</div>
     <h1 class="text-center pt-5 pb-4">Guarda tutti i tornei Live</h1>
 	<a v-if="filtersCount > 0" class="ms-md-4 ms-2 mb-4" type="button" style="color: red;" @@click="resetFilters(); performTournamentReq()">Azzera Filtri</a>

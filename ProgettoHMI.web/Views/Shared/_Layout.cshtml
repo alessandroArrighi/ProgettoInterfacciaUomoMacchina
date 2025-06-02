@@ -10,8 +10,15 @@
     @RenderSection("metas", false)
 }
 @section styles {
-    @RenderSection("styles", false)
-}
+    <style>
+        .navbar {
+			position: sticky;
+			top: 0;
+			z-index: 1;
+        }
+    </style>
+	@RenderSection("styles", false)
+} 
 <div id="pageId">
     @if (ViewData["isNotRegister"] as bool? ?? true) 
     {
@@ -93,9 +100,9 @@
     @RenderBody()
     <footer class="bg-primary text-white py-3">
         <div class="container d-flex flex-column align-items-center">
-            <span style="font-size: 16px; margin: 0; color: black;">&copy; @DateTime.Now.Year TennisLab. All rights reserved.</span>
-            <p style="font-size: 16px; margin: 0; color: black;">Progetto sviluppato da Alessandro Arrighi e Filippo Lutterotti</p>
-            <p style="font-size: 16px; margin: 0; color: black;">Corso Laboratorio di Interfaccia Uomo-Macchina - Campus Cesena Università di Bologna</p>
+            <span class="text-center" style="font-size: 16px; margin: 0; color: black;">&copy; @DateTime.Now.Year TennisLab. All rights reserved.</span>
+            <p class="text-center" style="font-size: 16px; margin: 0; color: black;">Progetto sviluppato da Alessandro Arrighi e Filippo Lutterotti</p>
+            <p class="text-center" style="font-size: 16px; margin: 0; color: black;">Corso Laboratorio di Interfaccia Uomo-Macchina - Campus Cesena Università di Bologna</p>
         </div>
     </footer>
 </div>
