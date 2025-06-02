@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Tournament;
 
@@ -23,8 +22,18 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         {
             var tournament = await _tournamentService.Query(new TournamentsIdQuery { Id = TournamentId });
             var users = await _subscriptionService.Query(new UsersSubQuery { TournamentId = TournamentId });
+            var logged = false;
 
-            var model = new IndexViewModel(tournament, users);
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                logged = true;
+            }
+
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            var model = new IndexViewModel(tournament, users, logged, userId);
+
+            model.setRegisterUrl(Url, MVC.Tournaments.Home.Register());
 
             return View(model);
         }

@@ -1,6 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
@@ -11,8 +12,11 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
     {
         public TournamentViewModel Tournament { get; set; }
         public SubUserViewModel[] Users { get; set; }
+        public bool IsLogged { get; set; }
+        public string UserId { get; set; }
+        public string RegisterUrl { get; set; }
 
-        public IndexViewModel(TournamentsIdDTO tournament, UsersSubDTO users)
+        public IndexViewModel(TournamentsIdDTO tournament, UsersSubDTO users, bool isLogged, string userId)
         {
             Tournament = new TournamentViewModel
             {
@@ -31,6 +35,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
 
             Users = users.Users.Select(x => new SubUserViewModel
             {
+                Id = x.Id,
                 Name = x.Name,
                 Surname = x.Surname,
                 Rank = new RankViewModel
@@ -42,6 +47,19 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
                 },
                 ImgProfile = x.ImgProfile
             }).ToArray();
+
+            IsLogged = isLogged;
+            UserId = userId;
+        }
+
+        public string ToJson()
+        {
+            return Infrastructure.JsonSerializer.ToJsonCamelCase(this);
+        }
+
+        public void setRegisterUrl(IUrlHelper url, IActionResult action)
+        {
+            this.RegisterUrl = url.Action(action);
         }
     }
 
@@ -63,6 +81,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
 
     public class SubUserViewModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public RankViewModel Rank { get; set; }
