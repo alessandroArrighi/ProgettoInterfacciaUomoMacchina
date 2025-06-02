@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using ProgettoHMI.Services.Subscriptions;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
+using ProgettoHMI.web.Infrastructure;
 
 namespace ProgettoHMI.web.Areas.Tournaments.Home
 {
@@ -63,6 +64,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         }
     }
 
+    [TypeScriptModule("Tournaments.Home.Server")]
     public class TournamentViewModel : BaseTournamentViewModelTs
     {
         public string Club { get; set; }
@@ -74,11 +76,13 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         public string RankName { get; set; }
     }
 
+    [TypeScriptModule("Tournaments.Home.Server")]
     public class RankViewModel : RankViewModelTs
     {
         public int Points { get; set; }
     }
 
+    [TypeScriptModule("Tournaments.Home.Server")]
     public class SubUserViewModel
     {
         public Guid Id { get; set; }
