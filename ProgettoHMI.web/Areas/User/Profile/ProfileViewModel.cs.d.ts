@@ -11,6 +11,7 @@
         endDate: Date;
         rank: Rank;
         image: string;
+        status: number;
     }
 
     interface Rank {

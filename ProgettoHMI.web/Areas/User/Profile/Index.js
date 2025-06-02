@@ -6,14 +6,24 @@ var User;
             constructor(tournaments, selectedSection, tournamentsToShow) {
                 this.selectedSection = selectedSection;
                 this.selectedFilter = "all";
+                this.sortOrder = "desc";
+                this.statusFilter = "all";
                 this.allTournaments = tournaments;
                 this.tournamentsToShow = tournamentsToShow !== null && tournamentsToShow !== void 0 ? tournamentsToShow : 4;
             }
             get filteredTournaments() {
-                if (this.selectedFilter === "all")
-                    return this.allTournaments;
-                // Filtro per nome rank (adatta se serve per id)
-                return this.allTournaments.filter(t => t.rank && t.rank.name && t.rank.name.toLowerCase() === this.selectedFilter);
+                let filtered = this.selectedFilter === "all"
+                    ? this.allTournaments
+                    : this.allTournaments.filter(t => t.rank && t.rank.name && t.rank.name.toLowerCase() === this.selectedFilter);
+                if (this.statusFilter !== "all") {
+                    filtered = filtered.filter(t => t.status.toString() === this.statusFilter);
+                }
+                filtered = filtered.slice().sort((a, b) => {
+                    const dateA = new Date(a.startDate).getTime();
+                    const dateB = new Date(b.startDate).getTime();
+                    return this.sortOrder === "asc" ? dateA - dateB : dateB - dateA;
+                });
+                return Array.isArray(filtered) ? filtered : [];
             }
             get tournaments() {
                 return this.filteredTournaments.slice(0, this.tournamentsToShow);
@@ -39,6 +49,13 @@ var User;
                     position: 'left',
                     duration: 3000
                 }).showToast();
+            }
+            formatDate(dateStr) {
+                if (!dateStr)
+                    return '';
+                const date = new Date(dateStr);
+                //return date.toLocaleDateString('it-IT') + ' ' + date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+                return date.toLocaleDateString('it-IT');
             }
         }
         Profile.profileVueModel = profileVueModel;

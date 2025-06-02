@@ -56,5 +56,8 @@ namespace ProgettoHMI.web.Areas.User.Profile
         {
             public string message { get; set; }
         }
+
+        [TypeScriptModule("User.Profile.Server")]
+        public class TournamentViewModelTs { }
     }
 }
