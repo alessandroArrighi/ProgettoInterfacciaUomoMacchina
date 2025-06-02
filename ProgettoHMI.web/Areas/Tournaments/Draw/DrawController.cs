@@ -14,7 +14,6 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
     public partial class DrawController : Controller
     {
         public readonly GameService _gameService;
-        private Guid _tournamentId;
 
         public DrawController(GameService gameService)
         {
@@ -24,41 +23,49 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
         [HttpGet]
         public async virtual Task<ActionResult> Draw(Guid TournamentId)
         {
-            var model = new DrawViewModel();
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
 
-            _tournamentId = TournamentId;
+            var model = new DrawViewModel();
 
             var qry = new GameActivePostionQuery
             {
-                TournamentId = _tournamentId
+                TournamentId = TournamentId
             };
 
             model.SelectBtn = await _gameService.Query(qry);
 
             var qry1 = new GamesPositionQeury
             {
-                TournamentId = _tournamentId,
+                TournamentId = TournamentId,
                 DrawPosition = model.SelectBtn
             };
 
             model.SetUrls(Url, MVC.Tournaments.Draw.GetSingleDrawPosition());
             var games = await _gameService.Query(qry1);
             model.Games = games.Games;
-
+            model.TournamentId = TournamentId.ToString();
             return View(model);
         }
 
         [HttpGet]
-        public async virtual Task<IActionResult> GetSingleDrawPosition(int position)
+        public async virtual Task<IActionResult> GetSingleDrawPosition(int position, Guid tournamentId)
         {
             Console.WriteLine($"GetSingleDrawPosition called with position: {position}");
+            Console.WriteLine($"TournamentId: {tournamentId}");
             var qry = new GamesPositionQeury
             {
-                TournamentId = _tournamentId,
+                TournamentId = tournamentId,
                 DrawPosition = position
             };
 
             var result = await _gameService.Query(qry);;
+
+            foreach ( var item in result.Games ) {
+                Console.WriteLine($"GameId: {item.GameId}, DrawPosition: {item.DrawPosition}, Status: {item.Status}");
+            }
 
             var res = Infrastructure.JsonSerializer.ToJsonCamelCase(result.Games.Select(static x => new DrawViewModel.GameViewModel
             {

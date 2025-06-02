@@ -41,6 +41,7 @@ namespace ProgettoHMI.Services.Users
             public string Surname { get; set; }
             public UserRank Rank { get; set; }
             public string Nationality { get; set; }
+            public string ImgProfile { get; set; }
         }
 
         public class UserRank : RankDTO
@@ -110,34 +111,6 @@ namespace ProgettoHMI.Services.Users
 
     public partial class UsersService
     {
-        /// <summary>
-        /// Returns users for a select field
-        /// </summary>
-        /// <param name="qry"></param>
-        /// <returns></returns>
-        //public async Task<UsersSelectDTO> Query(UsersSelectQuery qry)
-        //{
-        //    var queryable = _dbContext.Users
-        //        .Where(x => x.Id != qry.IdCurrentUser);
-
-        //    if (string.IsNullOrWhiteSpace(qry.Filter) == false)
-        //    {
-        //        queryable = queryable.Where(x => x.Email.Contains(qry.Filter, StringComparison.OrdinalIgnoreCase));
-        //    }
-
-        //    return new UsersSelectDTO
-        //    {
-        //        Users = await queryable
-        //        .Select(x => new UsersSelectDTO.User
-        //        {
-        //            Id = x.Id,
-        //            Email = x.Email
-        //        })
-        //        .ToArrayAsync(),
-        //        Count = await queryable.CountAsync(),
-        //    };
-        //}
-
 
         public async Task<IEnumerable<UserDTO>> RankJoin(IQueryable<User> users)
         {
@@ -171,37 +144,6 @@ namespace ProgettoHMI.Services.Users
             return res;
         }
 
-        // public async Task<List<UsersRankDTO.User>> RankJoin(IQueryable<User> users)
-        // {
-        //     var res = await users.Join(
-        //             _dbContext.Ranks,
-        //             user => user.Rank,
-        //             rank => rank.Id,
-        //             (user, rank) => new UsersRankDTO.User
-        //             {
-        //                 Id = user.Id,
-        //                 Name = user.Name,
-        //                 Surname = user.Surname,
-        //                 Rank = new UsersRankDTO.UserRank
-        //                 {
-        //                     Id = rank.Id,
-        //                     Name = rank.Name,
-        //                     ImgRank = rank.ImgRank,
-        //                     Points = user.Points
-        //                 },
-        //                 Nationality = user.Nationality
-        //             }
-        //         )
-        //         .ToListAsync();
-
-        //     return res;
-        // }
-
-        /// <summary>
-        /// Returns the detail of the user who matches the Id passed in the qry parameter
-        /// </summary>
-        /// <param name="qry"></param>
-        /// <returns></returns>
         public async Task<UserDetailDTO> Query(UserDetailQuery qry)
         {
             return await _dbContext.Users
@@ -292,7 +234,8 @@ namespace ProgettoHMI.Services.Users
                         ImgRank = x.Rank.ImgRank,
                         Points = x.Rank.Points
                     },
-                    Nationality = x.Nationality
+                    Nationality = x.Nationality,
+                    ImgProfile = x.ImgProfile
                 })
                 .FirstOrDefault()
             };
@@ -301,6 +244,7 @@ namespace ProgettoHMI.Services.Users
         public async Task<UserHomeDTO> Query()
         {
             var users = _dbContext.Users
+                .Where(x => x.Name != "TBD")
                 .OrderByDescending(x => x.Points)
                 .Take(10);
 

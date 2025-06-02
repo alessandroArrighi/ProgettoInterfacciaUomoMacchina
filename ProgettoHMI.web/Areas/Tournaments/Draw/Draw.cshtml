@@ -8,11 +8,9 @@
 
     <div class="d-flex justify-content-center mt-4">
         <form class="d-flex w-75 text-center">
-            <input class="form-control me-3 rounded-4" type="search" placeholder="Cerca un giocatore..." aria-label="Search">
-            <button class="btn btn-primary rounded-5" type="submit"><img src="~/images/Search.svg" style="width:32px; height:32px;" /></button>
+            <input class="form-control me-3 rounded-4" type="search" placeholder="Cerca un giocatore..." v-model="playerNameFilter" aria-label="Search">
         </form>
     </div>
-
 
     <div class="container mt-5">
         <div class="d-flex gap-2 justify-content-center">
@@ -31,13 +29,13 @@
         </div>
     </div>
 
-	<div class="d-flex justify-content-center mt-3">
-		<span class="styled-span fs-5 mt-5">Le partite non sono ancora state caricate</span>
+	<div class="d-flex justify-content-center mt-3" v-if="model.games.length == 0">
+        <div class="alert alert-warning mt-3">Le partite non sono ancora state caricate!</div>
 	</div>
 
     <section class="mt-5">
         <div class="row">
-            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in model.games">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in $data.filteredGames">
 				<!-- Colonna sinistra: indicatori di stato -->
                 <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
                     <span class="text-danger fw-bold">LIVE</span>
@@ -46,14 +44,14 @@
                 <!-- Colonna sinistra: nomi e separatore -->
                 <div class="col-name d-flex flex-column justify-content-center">
                     <div class="d-flex align-items-center mb-4 ms-1">
-                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" />
+                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" v-show="game.player1.name != 'TBD'" />
                         <span class="ms-2">{{ game.player1.name }}</span>
                     </div>
 
                     <hr class="separator my-1" />
 
                     <div class="d-flex align-items-center mt-4 ms-1">
-                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" />
+                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" v-show="game.player2.name != 'TBD'" />
                         <span class="ms-2">{{ game.player2.name }}</span>
                     </div>
                 </div>
@@ -129,14 +127,6 @@
 			.col-name {
 				flex: 0 0 40%;
 		    }
-        }
-
-        @@media (min-height: 810px) {
-            footer {
-                width: 100%;
-                position: sticky;
-                bottom: 0;
-            }
         }
 
         .score-box {

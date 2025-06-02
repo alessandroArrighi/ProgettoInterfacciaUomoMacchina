@@ -8,12 +8,13 @@ var Tournaments;
                 this.loadingGetSingleDrawPosition = false;
                 this.sets = [];
                 this.tempGames = null;
+                this.playerNameFilter = "";
                 this.getSingleDrawPosition = async (pos) => {
                     try {
                         this.tempGames = null;
                         this.loadingGetSingleDrawPosition = true;
                         const choice = this.model.selectBtn;
-                        var url = this.model.urlRaw + "?position=" + pos;
+                        var url = this.model.urlRaw + "?position=" + pos + "&tournamentId=" + this.model.tournamentId;
                         await this.getJsonT(url).then((games) => {
                             this.model.games = games;
                             this.tempGames = JSON.parse(JSON.stringify(games));
@@ -60,6 +61,15 @@ var Tournaments;
                 else if (select == 5.2) {
                     this.model.games = allGames.slice(half);
                 }
+            }
+            get filteredGames() {
+                if (!this.model.games)
+                    return [];
+                if (!this.playerNameFilter.trim())
+                    return this.model.games;
+                const filter = this.playerNameFilter.trim().toLowerCase();
+                return this.model.games.filter(g => (g.player1.name && g.player1.name.toLowerCase().includes(filter)) ||
+                    (g.player2.name && g.player2.name.toLowerCase().includes(filter)));
             }
         }
         Draw.drawVueModel = drawVueModel;

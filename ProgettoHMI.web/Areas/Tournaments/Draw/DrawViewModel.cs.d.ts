@@ -4,6 +4,7 @@
         games: IGameModel[];
         selectBtn: number;
         urlRaw: string;
+        tournamentId: string;
     }
 
     interface IGameModel {
