@@ -1,6 +1,7 @@
 ﻿declare module Tournaments.Tournaments.Server {
     interface IndexViewModelInterface {
         public tournaments: TournamentViewModelInterface[];
+        public urlFilters: string
     }
 
     interface TournamentViewModelInterface {

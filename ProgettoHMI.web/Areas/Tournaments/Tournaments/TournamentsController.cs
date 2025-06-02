@@ -23,6 +23,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
             var tournaments = await _tournamentService.Query(new TournamentsFiltersQuery { });
 
             model.SetTournaments(tournaments);
+            model.SetUrlFilters(Url, MVC.Tournaments.Tournaments.TournamentsFilters());
 
             return View(model);
         }

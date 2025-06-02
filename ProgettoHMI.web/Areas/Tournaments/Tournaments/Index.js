@@ -41,7 +41,7 @@ var Tournaments;
                     this.filtersCount = 0;
                 };
                 this.getTournaments = async (filters) => {
-                    let res = await fetch("/Tournaments/Tournaments/TournamentsFilters", {
+                    let res = await fetch(this.model.urlFilters, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
