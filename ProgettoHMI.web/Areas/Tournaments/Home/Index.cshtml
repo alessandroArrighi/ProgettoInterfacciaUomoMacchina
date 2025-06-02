@@ -25,10 +25,8 @@
 <div class="bg-secondary pt-4">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-center py-3 pb-4">
-            @if(true) {
-                <button class="btn btn-primary me-3 btn-lg fs-4">Iscriviti</button>
-            }
-            <button class="btn bg-white btn-lg fs-4">Tabellone</button>
+            <button v-if="register" class="btn btn-primary me-3 btn-lg fs-4" @@click="handleSub">Iscriviti</button>
+            <a href="@Url.Action(@MVC.Tournaments.Draw.Draw(Model.Tournament.Id))" class="btn bg-white btn-lg fs-4">Tabellone</a>
         </div>
 
         <h2 class="py-3">Dettagli del torneo</h2>
@@ -116,4 +114,22 @@
             border-color: gray;
         }
     </style>
+}
+
+@section scripts {
+	<script src="~/js/bundle-vue.js" asp-append-version="true"></script>
+	<script src="~/Areas/Tournaments/Home/Index.js" asp-append-version="true"></script>
+
+    <script type="application/json" id="Seed_JSON">
+		@Html.Raw(Model.ToJson())
+	</script>
+	
+	<script type="text/javascript">
+		var viewModel = new Tournaments.Home.IndexViewModel(JSON.parse(document.getElementById("Seed_JSON").innerText))
+
+		var vueModel = new Vue({
+			el: '#pageId',
+			data: viewModel
+		});
+	</script>
 }
