@@ -1,0 +1,119 @@
+@model ProgettoHMI.web.Areas.Tournaments.Home.IndexViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<header>
+    <div class="container-fluid bg-primary">
+        <div class="row">
+            <div class="col-12 col-md-6 pt-3 pt-md-0">
+                <img src="~/images/@Model.Tournament.Image" alt="Immagine del torneo" class="img-fluid">
+            </div>
+            <div class="col-12 col-md-6 py-5 d-flex align-items-center justify-content-center">
+                <div>
+                    <h2 class="fw-bold">@Model.Tournament.Name.ToUpper()</h2>
+                    <p class="text-center">@Model.Tournament.StartDate.ToString("d") - @Model.Tournament.EndDate.ToString("d")</p>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img src="~/images/@Model.Tournament.ImgRank" alt="Icona del rank">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="bg-secondary pt-4">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center justify-content-center py-3 pb-4">
+            @if(true) {
+                <button class="btn btn-primary me-3 btn-lg fs-4">Iscriviti</button>
+            }
+            <button class="btn bg-white btn-lg fs-4">Tabellone</button>
+        </div>
+
+        <h2 class="py-3">Dettagli del torneo</h2>
+
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12 col-md-10 mx-auto">
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Partecipanti</span>
+                            <span>@Model.Users.Count()</span>
+                        </div>
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Data di Inizio</span>
+                            <span>@Model.Tournament.StartDate.ToString("d")</span>
+                        </div>
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Data di Fine</span>
+                            <span>@Model.Tournament.EndDate.ToString("d")</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <div class="row">
+                    <div class="col-12 col-md-10 mx-auto">
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Città</span>
+                            <span>@Model.Tournament.City</span>
+                        </div>
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Circolo</span>
+                            <span>@Model.Tournament.Club</span>
+                        </div>
+                        <div class="bg-white rounded-2 p-3 mb-3 d-flex justify-content-between">
+                            <span class="text-muted">Rank</span>
+                            <span>@Model.Tournament.RankName</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="py-3">Descrizione torneo</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet nisl vitae eros convallis efficitur. Curabitur maximus justo et eros euismod, eu tincidunt felis volutpat. Suspendisse potenti. Ut ac erat at ligula tristique tincidunt. Proin eget ex id arcu efficitur condimentum non ut dui. Fusce sit amet orci eu ante interdum euismod. Nulla vestibulum dui et nulla tristique, a luctus nulla vehicula. Nam ut arcu id nunc aliquet facilisis non nec felis.
+
+        Sed pharetra felis id libero laoreet fermentum. Phasellus a malesuada nulla. Nunc ut risus sed eros pretium efficitur. Aliquam erat volutpat. Nam malesuada lorem non lectus lacinia, et convallis neque pharetra. Cras vestibulum, augue et malesuada aliquet, nunc erat auctor risus, et egestas neque turpis ac erat. Integer gravida velit sed orci gravida auctor. In vel felis viverra, aliquet purus ut, posuere magna.
+
+        Nullam aliquam cursus lorem, a tristique lorem consequat sed. Morbi mollis volutpat arcu, ut dictum est maximus in. In hac habitasse platea dictumst. Duis scelerisque nisl id ante iaculis, in cursus felis iaculis. Fusce et est mi. Nunc ut orci ac nulla vulputate dictum. Mauris quis metus feugiat, elementum odio ac, iaculis risus.</p>
+
+        <h2 class="py-3">Giocatori Iscritti</h2>
+
+        <div class="row pb-4">
+        @for (var i = 0; i < Model.Users.Count(); ++i) {
+            var user = Model.Users[i];
+
+            @for (var j = 0; j < 3; ++j) {
+                <div class="col-12 col-md-4 col-lg-3">
+                    <div class="bg-white mb-3 mx-4 d-flex justify-content-center align-items-center rounded-2">
+                        <div class="p-3">
+                            <div style="position: relative; width: 150px; heigth: 150px">
+                                <img src="~/images/monfils.jpg" alt="Immagine Giocatore" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                                <img src="~/images/@user.Rank.ImgRank" alt="Icona del rank" style="position: absolute; bottom: 0px; left: 110px;">
+                            </div>
+                            <div class="text-center pt-3">
+                                <p class="mb-0 fw-bolder">@user.Name</p>
+                                <p class="fw-bolder">@user.Surname</p>
+                                <p class="mb-0">@user.Rank.Points punti</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        </div>
+    </div>
+</div>
+
+@section styles {
+    <style>
+        nav {
+            border-bottom: solid;
+            border-width: 1px;
+            border-color: gray;
+        }
+    </style>
+}

@@ -9,8 +9,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
 {
     public class IndexViewModel
     {
-        TournamentViewModel Tournament { get; set; }
-        IEnumerable<SubUserViewModel> Users { get; set; }
+        public TournamentViewModel Tournament { get; set; }
+        public SubUserViewModel[] Users { get; set; }
 
         public IndexViewModel(TournamentsIdDTO tournament, UsersSubDTO users)
         {
@@ -19,6 +19,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
                 Id = tournament.Id,
                 Name = tournament.Name,
                 RankId = tournament.Rank.Id,
+                RankName = tournament.Rank.Name,
                 ImgRank = tournament.Rank.ImgRank,
                 Club = tournament.Club,
                 StartDate = tournament.StartDate,
@@ -52,6 +53,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
         public string Image { get; set; }
         public string City { get; set; }
         public Status Status { get; set; }
+        public string RankName { get; set; }
     }
 
     public class RankViewModel : RankViewModelTs
