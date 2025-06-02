@@ -36,6 +36,7 @@ namespace ProgettoHMI.web.Areas.User.Profile
 
             if (user == null)
             {
+                Console.WriteLine($"User not found for userId: {userId}");
                 return NotFound();
             }
             ViewData["isLogin"] = true;

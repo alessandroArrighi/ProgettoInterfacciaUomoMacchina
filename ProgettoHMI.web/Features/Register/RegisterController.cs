@@ -65,7 +65,8 @@ namespace ProgettoHMI.web.Features.Register
                         TaxID = model.TaxID,
                         Address = model.Address,
                         Nationality = model.Nationality,
-                        ImgProfile = model.ImgProfile
+                        ImgProfile = model.ImgProfile,
+                        Rank = model.RankId,
                     });
                     
                     return await AutoLogin(model);
