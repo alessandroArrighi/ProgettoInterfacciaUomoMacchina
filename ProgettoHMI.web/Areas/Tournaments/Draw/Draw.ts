@@ -22,7 +22,7 @@
                 this.loadingGetSingleDrawPosition = true;
                 const choice = this.model.selectBtn;
 
-                var url: string = this.model.urlRaw + "?position=" + pos;
+                var url: string = this.model.urlRaw + "?position=" + pos + "&tournamentId=" + this.model.tournamentId;
 
                 await this.getJsonT<Draw.Server.IGameModel[]>(url).then((games) => {
                     

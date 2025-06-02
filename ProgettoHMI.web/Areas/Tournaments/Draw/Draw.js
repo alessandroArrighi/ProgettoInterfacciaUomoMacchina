@@ -13,7 +13,7 @@ var Tournaments;
                         this.tempGames = null;
                         this.loadingGetSingleDrawPosition = true;
                         const choice = this.model.selectBtn;
-                        var url = this.model.urlRaw + "?position=" + pos;
+                        var url = this.model.urlRaw + "?position=" + pos + "&tournamentId=" + this.model.tournamentId;
                         await this.getJsonT(url).then((games) => {
                             this.model.games = games;
                             this.tempGames = JSON.parse(JSON.stringify(games));

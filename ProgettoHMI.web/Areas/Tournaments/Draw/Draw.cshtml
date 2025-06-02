@@ -31,7 +31,7 @@
         </div>
     </div>
 
-	<div class="d-flex justify-content-center mt-3">
+	<div class="d-flex justify-content-center mt-3" v-if="model.games.length == 0">
         <div class="alert alert-warning mt-3">Le partite non sono ancora state caricate!</div>
 	</div>
 
@@ -46,14 +46,14 @@
                 <!-- Colonna sinistra: nomi e separatore -->
                 <div class="col-name d-flex flex-column justify-content-center">
                     <div class="d-flex align-items-center mb-4 ms-1">
-                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" />
+                        <img :src="'/images/' + game.player1.rank.imgRank" class="player-icon" v-show="game.player1.name != 'TBD'" />
                         <span class="ms-2">{{ game.player1.name }}</span>
                     </div>
 
                     <hr class="separator my-1" />
 
                     <div class="d-flex align-items-center mt-4 ms-1">
-                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" />
+                        <img :src="'/images/' + game.player2.rank.imgRank" class="player-icon" v-show="game.player2.name != 'TBD'" />
                         <span class="ms-2">{{ game.player2.name }}</span>
                     </div>
                 </div>
