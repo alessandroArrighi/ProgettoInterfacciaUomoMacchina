@@ -39,10 +39,14 @@
 
         loadMoreTournaments() {
             if (this.tournamentsToShow >= this.filteredTournaments.length) {
-                this.sendAlerts("Non ci sono più tornei da mostrare!");
                 return;
             }
+
             this.tournamentsToShow += 4;
+
+            if (this.tournamentsToShow >= this.filteredTournaments.length) {
+                this.sendAlerts("Non ci sono più tornei da mostrare!");
+            }
         }
 
         onFilterChange(e: Event) {
