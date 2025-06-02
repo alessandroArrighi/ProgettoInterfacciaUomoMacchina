@@ -36,10 +36,10 @@
 
         private initRanks = () => {
             this.ranks = [
-                { value: "1", selected: false },
-                { value: "2", selected: false },
-                { value: "3", selected: false },
-                { value: "4", selected: false }
+                { value: "Bronzo", selected: false },
+                { value: "Argento", selected: false },
+                { value: "Oro", selected: false },
+                { value: "Diamante", selected: false }
             ]
         }
 
