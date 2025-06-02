@@ -4,6 +4,7 @@
         loadingGetSingleDrawPosition: boolean = false;
         sets: number[][] = [];
         tempGames: Draw.Server.IGameModel[] | null = null;
+        public playerNameFilter: string = "";
 
         constructor(public model: Draw.Server.drawViewModel) {
             this.sets = [[6,3],[7,5]];
@@ -70,6 +71,17 @@
             } else if (select == 5.2) {
                 this.model.games = allGames.slice(half);
             }
+        }
+
+        public get filteredGames(): Draw.Server.IGameModel[] {
+            if (!this.model.games) return [];
+            if (!this.playerNameFilter.trim()) return this.model.games;
+
+            const filter = this.playerNameFilter.trim().toLowerCase();
+            return this.model.games.filter(g =>
+                (g.player1.name && g.player1.name.toLowerCase().includes(filter)) ||
+                (g.player2.name && g.player2.name.toLowerCase().includes(filter))
+            );
         }
 
 

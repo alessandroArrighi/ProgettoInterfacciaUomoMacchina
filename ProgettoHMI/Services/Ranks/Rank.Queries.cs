@@ -32,6 +32,7 @@ namespace ProgettoHMI.Services.Ranks
         public async Task<RanksInfoDTO> Query(RanksInfoQuery qry)
         {
             var ranks = await _dbContext.Ranks
+                .Where(x => x.Id != -1)
                 .Select(x => new RanksInfoDTO.Rank
                 {
                     Id = x.Id,

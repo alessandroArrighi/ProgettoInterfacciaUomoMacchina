@@ -244,6 +244,7 @@ namespace ProgettoHMI.Services.Users
         public async Task<UserHomeDTO> Query()
         {
             var users = _dbContext.Users
+                .Where(x => x.Name != "TBD")
                 .OrderByDescending(x => x.Points)
                 .Take(10);
 
