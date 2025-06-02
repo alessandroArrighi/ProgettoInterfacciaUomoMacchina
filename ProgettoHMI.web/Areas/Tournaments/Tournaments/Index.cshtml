@@ -120,6 +120,7 @@
     </div>
 	<div class="pt-5"></div>
 
+	<div class="alert alert-warning mt-3 text-center" v-if="model.tournaments.length == 0">Nessun torneo disponibile</div>
 	<div class="row">
 		<template v-for="data in showTournamentLst">
 			<div class="col-12 col-md-6 col-lg-4 mb-4">
