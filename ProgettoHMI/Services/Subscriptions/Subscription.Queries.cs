@@ -49,6 +49,7 @@ namespace ProgettoHMI.Services.Subscriptions
 
         public class User
         {
+            public Guid Id { get; set; }
             public string Name { get; set; }
             public string Surname { get; set; }
             public UsersRankDTO.UserRank Rank { get; set; }
@@ -115,11 +116,12 @@ namespace ProgettoHMI.Services.Subscriptions
                         user => user.Id,
                         (sub, user) => new UsersSubDTO.User
                         {
+                            Id = user.Id,
                             Name = user.Name,
                             Surname = user.Surname,
                             Rank = new UsersRankDTO.UserRank
                             {
-                                Id = user.Rank,
+                                Id = 1,
                                 Points = user.Points
                             },
                             ImgProfile = user.ImgProfile
@@ -131,6 +133,7 @@ namespace ProgettoHMI.Services.Subscriptions
                         rank => rank.Id,
                         (user, rank) => new UsersSubDTO.User
                         {
+                            Id = user.Id,
                             Name = user.Name,
                             Surname = user.Surname,
                             Rank = new UsersRankDTO.UserRank
