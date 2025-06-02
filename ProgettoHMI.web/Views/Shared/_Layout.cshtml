@@ -25,7 +25,7 @@
                     <h1 class="text-dark">LOGO</h1>
                     @if (ViewData["isLogin"] as bool? ?? false) 
                     {
-                        <a href="#" class="btn"><img src="~/images/User.svg" alt="Account" class="w-75 h-75" /></a>
+                        <a href="@Url.Action(MVC.User.Profile.Index())" class="btn"><img src="~/images/User.svg" alt="Account" class="w-75 h-75" /></a>
 					
                     } else {
                         <div class="ms-4">
@@ -45,7 +45,7 @@
                     <h1 class="text-dark">LOGO</h1>
                     @if (ViewData["isLogin"] as bool? ?? false)
                     {
-                        <a href="#" class="btn"><img src="~/images/User.svg" alt="Account" class="w-75 h-75" /></a>
+                        <a href="@Url.Action(MVC.User.Profile.Index())" class="btn"><img src="~/images/User.svg" alt="Account" class="w-75 h-75" /></a>
                     }
                     else
                     {
@@ -64,7 +64,7 @@
                         <hr />
                         <a href="@Url.Action(MVC.Tournaments.Live.Index())" class="nav-link mb-1">Live</a>
                         <hr />
-                            <a href="@Url.Action(MVC.User.Profile.Profile())" class="nav-link mb-1">Tornei</a>
+                            <a href="@Url.Action(MVC.Tournaments.Tournaments.Index())" class="nav-link mb-1">Tornei</a>
                         <hr /> <!--class="w-75 m-auto mb-4"-->
                         <a href="#" class="nav-link mb-1">Gradi</a>
                         <hr class="mb-5" />

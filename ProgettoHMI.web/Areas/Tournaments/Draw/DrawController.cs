@@ -24,6 +24,11 @@ namespace ProgettoHMI.web.Areas.Tournaments.Draw
         [HttpGet]
         public async virtual Task<ActionResult> Draw(Guid TournamentId)
         {
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
+
             var model = new DrawViewModel();
 
             _tournamentId = TournamentId;

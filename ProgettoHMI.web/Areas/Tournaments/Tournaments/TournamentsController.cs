@@ -20,6 +20,11 @@ namespace ProgettoHMI.web.Areas.Tournaments.Tournaments
         {
             var model = new IndexViewModel();
 
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
+
             var tournaments = await _tournamentService.Query(new TournamentsFiltersQuery { });
 
             model.SetTournaments(tournaments);

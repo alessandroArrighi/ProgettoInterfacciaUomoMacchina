@@ -7,11 +7,13 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.Services.Users;
+using ProgettoHMI.web.Infrastructure;
 //using ProgettoHMI.Services.Players;
 //using ProgettoHMI.Services.Shared.Tournaments;
 
 namespace ProgettoHMI.web.Features.Home
 {
+    [Alerts]
     public partial class HomeController : Controller
     {
         private readonly UsersService _playerService;
@@ -33,6 +35,11 @@ namespace ProgettoHMI.web.Features.Home
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(1)
             });
+
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
 
             model.setPlayers(players);
             model.setTournaments(tournaments);
