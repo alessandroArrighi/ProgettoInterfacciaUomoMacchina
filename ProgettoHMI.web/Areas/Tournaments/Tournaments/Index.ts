@@ -165,6 +165,10 @@
                     this.showTournamentFlag = false
                 }
             }
+
+            if(this.showTournamentLst.length == this.model.tournaments.length) {
+                this.showTournamentFlag = false
+            }
         }
     }
     

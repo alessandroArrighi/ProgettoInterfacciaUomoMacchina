@@ -2,6 +2,8 @@ declare module Tournaments.Live.Server {
     interface IndexViewModelInterface {
         public tournaments: TournamentViewModelInterface[];
         public games: IGameModel[]
+        public urlFilters: string
+        public urlGames: string
     }
 
     interface TournamentViewModelInterface {

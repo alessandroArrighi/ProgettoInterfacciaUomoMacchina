@@ -11,6 +11,8 @@ var Tournaments;
                 this.filtersCount = 0;
                 this.popUpTournament = null;
                 this.cardWidth = "";
+                this.showTournamentLst = [];
+                this.showTournamentFlag = true;
                 this.initCities = () => {
                     this.cities = [
                         { value: "Milano", selected: false },
@@ -33,6 +35,11 @@ var Tournaments;
                         { value: "4", selected: false }
                     ];
                 };
+                this.initShowTournament = () => {
+                    this.showTournamentLst = [];
+                    this.showTournamentFlag = true;
+                    this.showMoreTournaments();
+                };
                 this.resetFilters = () => {
                     this.selectedCities = [];
                     this.initCities();
@@ -44,7 +51,7 @@ var Tournaments;
                 };
                 /* -------- Tournaments -------- */
                 this.getTournaments = async (filters) => {
-                    let res = await fetch("/Tournaments/Live/TournamentsFilters", {
+                    let res = await fetch(this.model.urlFilters, {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -54,6 +61,7 @@ var Tournaments;
                     if (res.ok) {
                         let data = await res.json();
                         this.model.tournaments = data;
+                        this.initShowTournament();
                     }
                     else {
                         console.error("Failed to fetch tournaments:", res.statusText);
@@ -126,9 +134,24 @@ var Tournaments;
                     }
                     this.performTournamentReq();
                 };
+                this.showMoreTournaments = () => {
+                    let lenStart = this.showTournamentLst.length;
+                    for (let i = lenStart; i < 10 + lenStart && this.showTournamentFlag; ++i) {
+                        let len = this.showTournamentLst.length;
+                        if (len < this.model.tournaments.length) {
+                            this.showTournamentLst.push(this.model.tournaments[i]);
+                        }
+                        else {
+                            this.showTournamentFlag = false;
+                        }
+                    }
+                    if (this.showTournamentLst.length == this.model.tournaments.length) {
+                        this.showTournamentFlag = false;
+                    }
+                };
                 /* -------- Games -------- */
                 this.getGames = async (tournamentId) => {
-                    let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
+                    let res = await fetch(`${this.model.urlGames}?tournamentId=${tournamentId}`, {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json"
@@ -154,6 +177,7 @@ var Tournaments;
                 this.model.games = [];
                 this.initCities();
                 this.initRanks();
+                this.initShowTournament();
                 this.drawUrl = drawUrl;
             }
         }

@@ -11,6 +11,8 @@ module Tournaments.Live {
         public popUpTournament: any = null
         public drawUrl: string
         public cardWidth: string = ""
+        public showTournamentLst: Tournaments.Server.TournamentViewModelInterface[] = []
+        public showTournamentFlag: boolean = true
 
         public constructor(model: Live.Server.IndexViewModelInterface, drawUrl: string) {
             this.model = model;
@@ -18,8 +20,10 @@ module Tournaments.Live {
 
             this.initCities()
             this.initRanks()
+            this.initShowTournament()
 
             this.drawUrl = drawUrl
+
         }
 
         private initCities = () => {
@@ -46,6 +50,12 @@ module Tournaments.Live {
             ]
         }
 
+        private initShowTournament = () => {
+            this.showTournamentLst = []
+            this.showTournamentFlag = true
+            this.showMoreTournaments()
+        }
+
         public resetFilters = () => {
             this.selectedCities = []
             this.initCities()
@@ -60,7 +70,7 @@ module Tournaments.Live {
 
         /* -------- Tournaments -------- */
         public getTournaments = async (filters: Live.Server.TournamentsFilterQueryViewModelInterface) => {
-            let res = await fetch("/Tournaments/Live/TournamentsFilters", {
+            let res = await fetch(this.model.urlFilters, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -71,6 +81,7 @@ module Tournaments.Live {
             if (res.ok) {
                 let data = await res.json();
                 this.model.tournaments = <Live.Server.TournamentViewModelInterface[]>data;
+                this.initShowTournament()
             } else {
                 console.error("Failed to fetch tournaments:", res.statusText);
             }
@@ -152,9 +163,26 @@ module Tournaments.Live {
             this.performTournamentReq();
         }
 
+        public showMoreTournaments = () => {
+            let lenStart = this.showTournamentLst.length
+            for(let i = lenStart; i < 10 + lenStart && this.showTournamentFlag; ++i) {
+                let len = this.showTournamentLst.length
+
+                if(len < this.model.tournaments.length) {
+                    this.showTournamentLst.push(this.model.tournaments[i])
+                } else {
+                    this.showTournamentFlag = false
+                }
+            }
+
+            if(this.showTournamentLst.length == this.model.tournaments.length) {
+                this.showTournamentFlag = false
+            }
+        }
+
         /* -------- Games -------- */
         public getGames = async (tournamentId: any) => {
-            let res = await fetch(`/Tournaments/Live/GamesLive?tournamentId=${tournamentId}`, {
+            let res = await fetch(`${this.model.urlGames}?tournamentId=${tournamentId}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json"

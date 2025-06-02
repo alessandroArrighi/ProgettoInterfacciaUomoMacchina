@@ -25,6 +25,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
             var model = new IndexViewModel();
             
             model.SetUrls(Url, MVC.Tournaments.Draw.Draw());
+            model.SetUrlFilters(Url, MVC.Tournaments.Live.TournamentsFilters());
+            model.SetUrlGames(Url, MVC.Tournaments.Live.GamesLive());
 
             var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Services.Tournament.Status.Start });
 

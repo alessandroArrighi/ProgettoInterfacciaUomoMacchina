@@ -125,7 +125,7 @@
 	<div class="pt-5"></div>
 
 	<div class="row">
-		<template v-for="(data, index) in model.tournaments">
+		<template v-for="(data, index) in showTournamentLst">
 			<div class="col-12 col-md-6 col-lg-4 mb-4" style="position: relative;">
 				<div :class="popUpTournament == data.id ? 'position-absolute' : '' " style="z-index: 10;">
 				<div class="container-fluid py-4 rounded-4 tournamentCard" :class="popUpTournament == data.id ? 'bg-primary' : 'bg-white'" :style="popUpTournament == data.id ? cardWidth : ''">

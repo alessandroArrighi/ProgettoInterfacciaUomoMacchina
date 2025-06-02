@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ProgettoHMI.Services.Tournament;
 using ProgettoHMI.web.Areas.Tournaments.Abstracts;
 using ProgettoHMI.web.Infrastructure;
@@ -9,6 +11,8 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
     public class IndexViewModel : BaseGameViewModel, BaseTournamentViewModel
     {
         public IEnumerable<BaseTournamentViewModelTs> Tournaments { get; set; }
+        public string UrlFilters { get; set; }
+        public string UrlGames { get; set; }
 
         public void SetTournaments(TournamentsFiltersDTO tournaments)
         {
@@ -20,6 +24,17 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
                 ImgRank = x.Rank.ImgRank
             });
         }
+
+        public void SetUrlFilters(IUrlHelper url, IActionResult action)
+        {
+            this.UrlFilters = url.Action(action);
+        }
+
+        public void SetUrlGames(IUrlHelper url, IActionResult action)
+        {
+            this.UrlGames = url.Action(action);
+        }
+
     }
 
     [TypeScriptModule("Tournaments.Live.Server")]
