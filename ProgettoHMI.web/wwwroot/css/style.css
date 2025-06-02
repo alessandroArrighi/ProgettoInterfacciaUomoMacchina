@@ -100,21 +100,25 @@
     border: none;
 }
 
-    .card-reward img {
-        max-width: 100%;
-        border-radius: 10px;
-    }
+.card-reward img {
+    max-width: 100%;
+    border-radius: 10px;
+}
 
-    .card-reward .title {
-        font-weight: bold;
-        font-size: 1.1rem;
-        margin-top: 0.8rem;
-    }
+.card-reward .title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 0.8rem;
+}
 
-    .card-reward .status {
-        font-weight: 600;
-    }
+.card-reward .status {
+    font-weight: 600;
+}
 
 .card-disabled {
     opacity: 0.4;
+}
+
+.text-orange {
+    color: #f1a300;
 }
