@@ -4,7 +4,7 @@
     ViewData["isNotRegister"] = false;
 }
 
-<div id="reg" class="bg-primary pb-5 pt-3">
+<div class="bg-primary pb-5 pt-3 min-vh-100">
 
     <p class="text-dark fw-bold fs-4 text-center mb-2 disabled" v-bind:class="selectSection == 1 ? 'd-block' : 'd-none'">Iscriviti per affrontare nuove sfide<br /> e ottenere numerosi premi</p>
 
@@ -99,20 +99,6 @@
     </div>
 </div>
 
-@section styles {
-    <style>
-        @@media (min-height: 810px) {
-            footer{
-                width: 100%;
-                position: absolute;
-                bottom: 0;
-            }
-            #reg {
-                height: 92vh;
-            }
-        }
-    </style>
-}
 
 @section Scripts {
     <script src="~/js/bundle-vue.js" asp-append-version="true"></script>
