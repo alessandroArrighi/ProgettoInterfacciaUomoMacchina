@@ -27,10 +27,10 @@ var Tournaments;
                 };
                 this.initRanks = () => {
                     this.ranks = [
-                        { value: "1", selected: false },
-                        { value: "2", selected: false },
-                        { value: "3", selected: false },
-                        { value: "4", selected: false }
+                        { value: "1", label: "Bronzo", selected: false },
+                        { value: "2", label: "Argento", selected: false },
+                        { value: "3", label: "Oro", selected: false },
+                        { value: "4", label: "Diamante", selected: false }
                     ];
                 };
                 this.initShowTournament = () => {

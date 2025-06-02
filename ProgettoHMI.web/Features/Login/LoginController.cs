@@ -43,7 +43,7 @@ namespace ProgettoHMI.web.Features.Login
                 IsPersistent = rememberMe,
             });
 
-            Alerts.AddSuccess(this, "Hai effettuato correttamente l'accesso!");
+            Alerts.AddSuccess(this, "Hai effettuato correttamente l accesso!");
 
             if (string.IsNullOrWhiteSpace(returnUrl) == false)
                 return Redirect(returnUrl);

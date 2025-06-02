@@ -21,8 +21,14 @@ declare module Tournaments.Live.Server {
         public status: number;
     }
 
-    interface TournamentFiltersViewModelInterface {
+    interface TournamentCityFiltersViewModelInterface {
         public value: string;
+        public selected: boolean;
+    }
+
+    interface TournamentRankFiltersViewModelInterface {
+        public value: string;
+        public label: string
         public selected: boolean;
     }
 

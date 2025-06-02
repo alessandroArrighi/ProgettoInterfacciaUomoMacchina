@@ -68,21 +68,6 @@ namespace ProgettoHMI.Infrastructure
                 },
                 new User
                 {
-                    Id = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267123"), // Forced to specific Guid for tests
-                    Email = "bob@test.it",
-                    Password = "Uy6qvZV0iA2/drm4zACDLCCm7BE9aCKZVQ16bg80XiU=", // SHA-256 of text "Test"
-                    Name = "Bob",
-                    Surname = "Bob",
-                    Rank = 4,
-                    Points = 2950,
-                    PhoneNumber = "1234567890",
-                    TaxID = "SNRJNK",
-                    Address = "Via Roma 1",
-                    Nationality = "Italian",
-                    ImgProfile = "monfils.jpg"
-                },
-                new User
-                {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
                     Email = string.Empty,
                     Password = string.Empty,
@@ -215,35 +200,23 @@ namespace ProgettoHMI.Infrastructure
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000006"),
                     Name = "Torneo di Cesena",
-                    Club = "Circolo di Palermo",
+                    Club = "Circolo di Cesena",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
                     Image = "wimbledon.jpg",
-                    City = "Palermo",
+                    City = "Cesena",
                     Rank = 2,
                     Status = Services.Tournament.Status.Start
                 },
                 new Tournament
                 {
-                    Id = Guid.Parse("00000000-0000-0000-0000-000000000007"),
-                    Name = "Torneo di Cesena",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(-14),
-                    EndDate = DateTime.Now.AddDays(-7),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.End
-                },
-                new Tournament
-                {
                     Id = Guid.NewGuid(),
                     Name = "Torneo di Venezia",
-                    Club = "Circolo di Palermo",
+                    Club = "Circolo di Venezia",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
                     Image = "wimbledon.jpg",
-                    City = "Palermo",
+                    City = "Venezia",
                     Rank = 2,
                     Status = Services.Tournament.Status.Start
                 },
@@ -251,11 +224,11 @@ namespace ProgettoHMI.Infrastructure
                 {
                     Id = Guid.NewGuid(),
                     Name = "Torneo di Pisa",
-                    Club = "Circolo di Palermo",
+                    Club = "Circolo di Pisa",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
                     Image = "wimbledon.jpg",
-                    City = "Palermo",
+                    City = "Pisa",
                     Rank = 2,
                     Status = Services.Tournament.Status.Start
                 },
@@ -263,11 +236,11 @@ namespace ProgettoHMI.Infrastructure
                 {
                     Id = Guid.NewGuid(),
                     Name = "Torneo di Livorno",
-                    Club = "Circolo di Palermo",
+                    Club = "Circolo di Livorno",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
                     Image = "wimbledon.jpg",
-                    City = "Palermo",
+                    City = "Livorno",
                     Rank = 2,
                     Status = Services.Tournament.Status.Start
                 },
@@ -275,179 +248,11 @@ namespace ProgettoHMI.Infrastructure
                 {
                     Id = Guid.NewGuid(),
                     Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
+                    Club = "Circolo di Genova",
                     StartDate = DateTime.Now.AddDays(14),
                     EndDate = DateTime.Now.AddDays(21),
                     Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
-                    Rank = 2,
-                    Status = Services.Tournament.Status.Start
-                },
-                new Tournament
-                {
-                    Id = Guid.NewGuid(),
-                    Name = "Torneo di Genova",
-                    Club = "Circolo di Palermo",
-                    StartDate = DateTime.Now.AddDays(14),
-                    EndDate = DateTime.Now.AddDays(21),
-                    Image = "wimbledon.jpg",
-                    City = "Palermo",
+                    City = "Genova",
                     Rank = 2,
                     Status = Services.Tournament.Status.Start
                 }
@@ -588,117 +393,6 @@ namespace ProgettoHMI.Infrastructure
                     MaxPoints = 15000,
                     Description = "Giocatore esperto, capace di sferrare vincenti in ogni zona del campo.",
                     ImgRank = "diamond.svg"
-                }
-            );
-
-            context.Subscriptions.AddRange(
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    PointsGained = 100
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    PointsGained = 50
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    PointsGained = 150
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                    PointsGained = 200
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                    PointsGained = 100
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000004"),
-                    PointsGained = 300
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000005"),
-                    PointsGained = 150
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000005"),
-                    PointsGained = 75
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000005"),
-                    PointsGained = 250
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("11000000-0000-0000-0000-000000000000"),
-                    PointsGained = -15
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("11000000-0000-0000-0000-000000000000"),
-                    PointsGained = -10
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("11000000-0000-0000-0000-000000000000"),
-                    PointsGained = -20
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    PointsGained = -10
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    PointsGained = -5
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    PointsGained = -15
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("3de6883f-9a0b-4667-aa53-0fbc52c4d300"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    PointsGained = -5
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("a030ee81-31c7-47d0-9309-408cb5ac0ac7"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    PointsGained = 20
-                },
-                new Subscription
-                {
-                    IDUser = Guid.Parse("bfdef48b-c7ea-4227-8333-c635af267354"),
-                    IDTournament = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    PointsGained = 100
                 }
             );
 

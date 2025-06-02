@@ -49,6 +49,7 @@ namespace ProgettoHMI.web.Features.Home
 
     public class TournamentViewModel
     {
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Club { get; set; }
         public string StartDate { get; set; }
@@ -57,6 +58,7 @@ namespace ProgettoHMI.web.Features.Home
 
         public TournamentViewModel(TournamentsSelectDTO.Tournament dto)
         {
+            this.Id = dto.Id;
             this.Name = dto.Name;
             this.Club = dto.Club;
             this.StartDate = dto.StartDate.ToString("dd/MM/yyyy");

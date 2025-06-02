@@ -181,7 +181,7 @@ namespace ProgettoHMI.Services.Subscriptions
                             Surname = user.Surname,
                             Rank = new UsersRankDTO.UserRank
                             {
-                                Id = 1,
+                                Id = user.Rank,
                                 Points = user.Points
                             },
                             ImgProfile = user.ImgProfile
@@ -202,7 +202,8 @@ namespace ProgettoHMI.Services.Subscriptions
                                 Name = rank.Name,
                                 ImgRank = rank.ImgRank,
                                 Points = user.Rank.Points
-                            }
+                            },
+                            ImgProfile = user.ImgProfile
                         }
                     )
                     .ToArrayAsync();

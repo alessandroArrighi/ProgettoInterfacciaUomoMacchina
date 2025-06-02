@@ -68,7 +68,7 @@
 							<button class="dropdown-item ps-4 py-2 border-bottom" type="button" @@click="handleRankOnClick(rank)">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" v-model="rank.selected" />
-									<label class="form-check-label">{{ rank.value }}</label>
+									<label class="form-check-label">{{ rank.label }}</label>
 								</div>
 							</button>
 						</li>
@@ -94,7 +94,7 @@
 								<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleRankOnClick(rank)" style="padding-left: 40px;">
 									<div class="form-check my-3">
 										<input class="form-check-input fs-2" type="checkbox" v-model="rank.selected" />
-										<label class="form-check-label fs-2">{{ rank.value }}</label>
+										<label class="form-check-label fs-2">{{ rank.label }}</label>
 									</div>
 								</button>
 							</li>
@@ -129,7 +129,7 @@
 						<div class="col-1"></div>
 						<div class="col-8">
 							<div class="pb-2"></div>
-							<a href="@Url.Action(MVC.Tournaments.Draw.Draw())" class="h4">{{ data.name }}</a>
+							<a :href="'@Url.Action(MVC.Tournaments.Home.Index())?TournamentId='+data.id" class="h4">{{ data.name }}</a>
 						</div>
 						<div class="col-3">
 							<img :src="'/images/' + data.imgRank" alt="icona rank">

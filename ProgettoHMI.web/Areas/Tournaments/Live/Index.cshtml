@@ -72,7 +72,7 @@
 							<button class="dropdown-item ps-4 py-2 border-bottom" type="button" @@click="handleRankOnClick(rank)">
 								<div class="form-check">
 									<input class="form-check-input" type="checkbox" v-model="rank.selected" />
-									<label class="form-check-label">{{ rank.value }}</label>
+									<label class="form-check-label">{{ rank.label }}</label>
 								</div>
 							</button>
 						</li>
@@ -98,7 +98,7 @@
 								<button class="btn btn-secondary dropdown-item rounded-0 w-100 text-start border-bottom" type="button" @@click="handleRankOnClick(rank)" style="padding-left: 40px;">
 									<div class="form-check my-3">
 										<input class="form-check-input fs-2" type="checkbox" v-model="rank.selected" />
-										<label class="form-check-label fs-2">{{ rank.value }}</label>
+										<label class="form-check-label fs-2">{{ rank.label }}</label>
 									</div>
 								</button>
 							</li>
@@ -127,7 +127,7 @@
 	<div class="row">
 		<template v-for="(data, index) in showTournamentLst">
 			<div class="col-12 col-md-6 col-lg-4 mb-4" style="position: relative;">
-				<div :class="popUpTournament == data.id ? 'position-absolute' : '' " style="z-index: 10;">
+				<div :class="popUpTournament == data.id ? 'popUpDesktop' : '' " style="z-index: 10;">
 				<div class="container-fluid py-4 rounded-4 tournamentCard" :class="popUpTournament == data.id ? 'bg-primary' : 'bg-white'" :style="popUpTournament == data.id ? cardWidth : ''">
 					<div class="row">
 						<div class="col-2">
@@ -147,6 +147,9 @@
 						</div>
 					</div>
 					<div v-if ="popUpTournament == data.id" id="dropDown" >
+						<div class="text-center pt-5 fw-bolder fs-5" v-if="model.games.length == 0">
+							Nessuna partita Live.<br>Torna più tardi!
+						</div>
 						<section class="mt-5">
 							<div class="cards-container">
 								<div class="m-auto tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-4 mt-3 position-relative" style="max-width: 650px;" v-for="game in model.games">
@@ -178,7 +181,7 @@
 								</div>
 							</div>
 						</section>
-						<div class="text-center pt-3">
+						<div class="text-center pt-3" v-if="model.games.length > 0">
 							<a :href="`${drawUrl}?TournamentId=${data.id}`" style="color: black;" class="mx-auto">Vai al Tabellone</a>
 						</div>
 					</div>
@@ -199,6 +202,16 @@
 
 		.more-height {
 			height: 120vh !important;
+		}
+
+		.popUpDesktop {
+			position: none;
+		}
+
+		@@media (min-width: 768px) {
+			.popUpDesktop {
+				position: absolute;
+			}
 		}
 	</style>
 }

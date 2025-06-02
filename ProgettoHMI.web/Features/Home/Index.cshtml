@@ -10,7 +10,9 @@
             <div class="container-fluid pb-5">
                 <h1 class="display-3" style="font-weight: 500;">Il sito che organizza i migliori tornei in Italia</h1>
 			    <h2 class="pt-5 pb-3">Pronto per una nuova sfida?</h2>
-                <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary px-5 py-3">Partecipa Ora</a>
+                @if(User == null || User.Identity == null || !User.Identity.IsAuthenticated) {
+                    <a href="@Url.Action(MVC.Register.Register())" class="btn btn-primary px-5 py-3">Partecipa Ora</a>
+                }
             </div>
 		</div>
 	</div>
@@ -88,7 +90,7 @@
                         <div class="container-fluid">
                             <img src="~/images/@Model.Tournaments[0].Img" class="d-block w-100 rounded-4" alt="...">
                             <div class="ps-2 pt-3 pb-3 text-center mb-3">
-                                <p class="h3 pb-2">@Model.Tournaments[0].Name</p>
+                                <a href="@Url.Action(MVC.Tournaments.Home.Index(Model.Tournaments[0].Id))" class="h3 pb-2">@Model.Tournaments[0].Name</a>
                                 <p class="home-tournament-date">@Model.Tournaments[0].StartDate</p>
                                 <p>@Model.Tournaments[0].Club</p>
                             </div>
@@ -103,7 +105,7 @@
                             <div class="container-fluid">
                                 <img src="~/images/@tournament.Img" class="d-block w-100 rounded-4" alt="...">
                                 <div class="ps-2 pt-3 pb-3 text-center mb-3">
-                                    <p class="h3 pb-2">@tournament.Name</p>
+                                    <a href="@Url.Action(MVC.Tournaments.Home.Index(tournament.Id))" class="h3 pb-2">@tournament.Name</a>
                                     <p class="home-tournament-date">@tournament.StartDate</p>
                                     <p>@tournament.Club</p>
                                 </div>

@@ -24,9 +24,14 @@ namespace ProgettoHMI.web.Areas.Tournaments.Live
         {
             var model = new IndexViewModel();
             
-            model.SetUrls(Url, MVC.Tournaments.Draw.Draw());
+            model.SetUrls(Url, MVC.Tournaments.Home.Index());
             model.SetUrlFilters(Url, MVC.Tournaments.Live.TournamentsFilters());
             model.SetUrlGames(Url, MVC.Tournaments.Live.GamesLive());
+
+            if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
+            {
+                ViewData["isLogin"] = true;
+            }
 
             var tournaments = await _tournamentService.Query(new TournamentFiltersStatusQuery { Status = Services.Tournament.Status.Start });
 

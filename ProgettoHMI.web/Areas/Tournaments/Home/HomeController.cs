@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ProgettoHMI.Services.Subscriptions;
@@ -27,6 +28,7 @@ namespace ProgettoHMI.web.Areas.Tournaments.Home
             if (HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
                 logged = true;
+                ViewData["isLogin"] = true;
             }
 
             var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;

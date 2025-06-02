@@ -1,8 +1,8 @@
 module Tournaments.Live {
     export class indexViewModel {
         public model: Live.Server.IndexViewModelInterface;
-        public cities: Live.Server.TournamentFiltersViewModelInterface[]
-        public ranks: Live.Server.TournamentFiltersViewModelInterface[]
+        public cities: Live.Server.TournamentCityFiltersViewModelInterface[]
+        public ranks: Live.Server.TournamentRankFiltersViewModelInterface[]
         public selectedCities: string[] = [];
         public selectedRanks: number[] = [];
         public startDate: Date | null = null;
@@ -43,10 +43,10 @@ module Tournaments.Live {
 
         private initRanks = () => {
             this.ranks = [
-                { value: "Bronzo", selected: false },
-                { value: "Argento", selected: false },
-                { value: "Oro", selected: false },
-                { value: "Diamante", selected: false }
+                { value: "1", label: "Bronzo" , selected: false },
+                { value: "2", label: "Argento", selected: false },
+                { value: "3", label: "Oro", selected: false },
+                { value: "4", label: "Diamante", selected: false }
             ]
         }
 
@@ -99,7 +99,7 @@ module Tournaments.Live {
             this.getTournaments(data);
         }
 
-        public handleCitySelectionChange = (city: Live.Server.TournamentFiltersViewModelInterface) => {
+        public handleCitySelectionChange = (city: Live.Server.TournamentCityFiltersViewModelInterface) => {
             if (city.selected) {
                 this.selectedCities.push(city.value);
             } else {
@@ -112,7 +112,7 @@ module Tournaments.Live {
             this.performTournamentReq();
         }
 
-        public handleCityOnClick = (city: Live.Server.TournamentFiltersViewModelInterface) => {
+        public handleCityOnClick = (city: Live.Server.TournamentCityFiltersViewModelInterface) => {
             city.selected = !city.selected;
 
             if(city.selected) {
@@ -124,7 +124,7 @@ module Tournaments.Live {
             this.handleCitySelectionChange(city);
         }
 
-        public handleRankSelectionChange = (rank: Live.Server.TournamentFiltersViewModelInterface) => {
+        public handleRankSelectionChange = (rank: Live.Server.TournamentRankFiltersViewModelInterface) => {
             if (rank.selected) {
                 this.selectedRanks.push(Number(rank.value));
             } else {
@@ -137,7 +137,7 @@ module Tournaments.Live {
             this.performTournamentReq();
         }
 
-        public handleRankOnClick = (rank: Live.Server.TournamentFiltersViewModelInterface) => {
+        public handleRankOnClick = (rank: Live.Server.TournamentRankFiltersViewModelInterface) => {
             rank.selected = !rank.selected;
 
             if(rank.selected) {

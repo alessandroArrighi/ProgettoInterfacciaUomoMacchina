@@ -1,5 +1,5 @@
 ﻿@using ProgettoHMI.Infrastructure
-<div class="bg-secondary container-fluid" style="min-height: 90vh;">
+<div class="bg-secondary container-fluid" style="min-height: 100vh;">
     <div class="row">
 
         <div class="header-section col-12 col-md-3 col-xl-3">
@@ -43,7 +43,7 @@
                         </div>
                         <p class="mt-3 text-center fw-bold">@Model.User.Rank.Points</p>
 
-                        <div>  
+                        <div class="max-height" style="max-height: 450px !important;">
                             @if (Model.Subscription != null && Model.Subscription.Count > 0)
                             {
                                 @foreach (var sub in Model.Subscription)
@@ -285,25 +285,24 @@
                 height: 680px;
             }
 
-            .max-height {
-				max-height: 600px;
-				overflow-y: auto;
-            }
-
             .reward-img {
                 width: 80%;
                 margin: 0 auto;
             }
         }
+
+        .max-height {
+				max-height: 600px;
+				overflow-y: auto;
+        }
    
-            .section-box {
-                display: none;
-            }
+        .section-box {
+            display: none;
+        }
 
-            .section-box.active {
-                display: block !important;
-            }
-
+        .section-box.active {
+            display: block !important;
+        }
 
         .profile-img-container {
             position: relative;

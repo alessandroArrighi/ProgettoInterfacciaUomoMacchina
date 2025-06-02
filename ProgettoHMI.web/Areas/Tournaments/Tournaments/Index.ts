@@ -1,8 +1,8 @@
 ﻿module Tournaments.Tournaments {
     export class indexViewModel {
         public model: Tournaments.Server.IndexViewModelInterface;
-        public cities: Tournaments.Server.TournamentFiltersViewModelInterface[]
-        public ranks: Tournaments.Server.TournamentFiltersViewModelInterface[]
+        public cities: Tournaments.Server.TournamentCityFiltersViewModelInterface[]
+        public ranks: Tournaments.Server.TournamentRankFiltersViewModelInterface[]
         public selectedCities: string[] = [];
         public selectedRanks: number[] = [];
         public startDate: Date | null = null;
@@ -36,10 +36,10 @@
 
         private initRanks = () => {
             this.ranks = [
-                { value: "Bronzo", selected: false },
-                { value: "Argento", selected: false },
-                { value: "Oro", selected: false },
-                { value: "Diamante", selected: false }
+                { value: "1", label: "Bronzo" , selected: false },
+                { value: "2", label: "Argento", selected: false },
+                { value: "3", label: "Oro", selected: false },
+                { value: "4", label: "Diamante", selected: false }
             ]
         }
 
@@ -90,7 +90,7 @@
             this.getTournaments(data);
         }
 
-        public handleCitySelectionChange = (city: Tournaments.Server.TournamentFiltersViewModelInterface) => {
+        public handleCitySelectionChange = (city: Tournaments.Server.TournamentCityFiltersViewModelInterface) => {
             if (city.selected) {
                 this.selectedCities.push(city.value);
             } else {
@@ -103,7 +103,7 @@
             this.performTournamentReq();
         }
 
-        public handleCityOnClick = (city: Tournaments.Server.TournamentFiltersViewModelInterface) => {
+        public handleCityOnClick = (city: Tournaments.Server.TournamentCityFiltersViewModelInterface) => {
             city.selected = !city.selected;
 
             if(city.selected) {
@@ -115,7 +115,7 @@
             this.handleCitySelectionChange(city);
         }
 
-        public handleRankSelectionChange = (rank: Tournaments.Server.TournamentFiltersViewModelInterface) => {
+        public handleRankSelectionChange = (rank: Tournaments.Server.TournamentRankFiltersViewModelInterface) => {
             if (rank.selected) {
                 this.selectedRanks.push(Number(rank.value));
             } else {
@@ -128,7 +128,7 @@
             this.performTournamentReq();
         }
 
-        public handleRankOnClick = (rank: Tournaments.Server.TournamentFiltersViewModelInterface) => {
+        public handleRankOnClick = (rank: Tournaments.Server.TournamentRankFiltersViewModelInterface) => {
             rank.selected = !rank.selected;
 
             if(rank.selected) {

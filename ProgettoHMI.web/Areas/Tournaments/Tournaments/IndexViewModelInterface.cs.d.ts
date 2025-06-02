@@ -18,8 +18,14 @@
         public endDate: Date;
     }
 
-    interface TournamentFiltersViewModelInterface {
+    interface TournamentCityFiltersViewModelInterface {
         public value: string;
+        public selected: boolean;
+    }
+
+    interface TournamentRankFiltersViewModelInterface {
+        public value: string;
+        public label: string
         public selected: boolean;
     }
 }
