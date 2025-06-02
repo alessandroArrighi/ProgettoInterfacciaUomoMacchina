@@ -9,6 +9,8 @@ var Tournaments;
                 this.startDate = null;
                 this.endDate = null;
                 this.filtersCount = 0;
+                this.showTournamentLst = [];
+                this.showTournamentFlag = true;
                 this.initCities = () => {
                     this.cities = [
                         { value: "Milano", selected: false },
@@ -31,6 +33,11 @@ var Tournaments;
                         { value: "4", selected: false }
                     ];
                 };
+                this.initShowTournament = () => {
+                    this.showTournamentLst = [];
+                    this.showTournamentFlag = true;
+                    this.showMoreTournaments();
+                };
                 this.resetFilters = () => {
                     this.selectedCities = [];
                     this.initCities();
@@ -51,6 +58,7 @@ var Tournaments;
                     if (res.ok) {
                         let data = await res.json();
                         this.model.tournaments = data;
+                        this.initShowTournament();
                     }
                     else {
                         console.error("Failed to fetch tournaments:", res.statusText);
@@ -122,9 +130,22 @@ var Tournaments;
                     }
                     this.performTournamentReq();
                 };
+                this.showMoreTournaments = () => {
+                    let lenStart = this.showTournamentLst.length;
+                    for (let i = lenStart; i < 10 + lenStart && this.showTournamentFlag; ++i) {
+                        let len = this.showTournamentLst.length;
+                        if (len < this.model.tournaments.length) {
+                            this.showTournamentLst.push(this.model.tournaments[i]);
+                        }
+                        else {
+                            this.showTournamentFlag = false;
+                        }
+                    }
+                };
                 this.model = model;
                 this.initCities();
                 this.initRanks();
+                this.initShowTournament();
             }
         }
         Tournaments.indexViewModel = indexViewModel;
