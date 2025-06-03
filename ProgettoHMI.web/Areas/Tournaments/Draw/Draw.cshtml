@@ -33,9 +33,13 @@
         <div class="alert alert-warning mt-3">Le partite non sono ancora state caricate!</div>
 	</div>
 
+    <div class="w-100 text-center mt-5" v-if="model.games.length != 0">
+        <h3>{{ $data.selectedLabel }}</h3>
+    </div>
+
     <section class="mt-5">
         <div class="row">
-            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1 }" style="max-width: 650px; margin: 0 auto;" v-for="game in $data.filteredGames">
+            <div class="tennis-card d-flex align-items-center bg-white rounded-4 p-3 py-5 mt-3 col-11" :class="{ 'position-relative': game.status == 1, 'more-margin': index > 0 && index % 2 === 0, 'margin-end': index % 2 === 0, 'margin-start': index % 2 === 1, 'mb-xl-5': index % 2 === 0 || index % 2 === 1  }" style="max-width: 650px; margin: 0 auto;" v-for="(game, index) in $data.filteredGames">
 				<!-- Colonna sinistra: indicatori di stato -->
                 <div class="position-absolute m-2 d-flex align-items-center" v-if="game.status == 1" style="top: 0px; left: 13px;">
                     <span class="text-danger fw-bold">LIVE</span>
@@ -127,6 +131,23 @@
 			.col-name {
 				flex: 0 0 40%;
 		    }
+        }
+
+        @@media (max-width: 1299px) {
+            .more-margin {
+                margin-top:4rem !important;
+            }
+        }
+
+        @@media (min-width: 1350px) {
+            .margin-end {
+                margin-right: 1.5rem !important;
+            }
+
+            .margin-start {
+                margin-left: 1.5rem !important;
+            }
+
         }
 
         .score-box {

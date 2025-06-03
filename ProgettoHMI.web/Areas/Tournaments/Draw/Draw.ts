@@ -5,16 +5,30 @@
         sets: number[][] = [];
         tempGames: Draw.Server.IGameModel[] | null = null;
         public playerNameFilter: string = "";
+        public drawTitle: { label: string, drawPosition: number }[];
 
         constructor(public model: Draw.Server.drawViewModel) {
             this.sets = [[6,3],[7,5]];
             if (model.selectBtn == 5) {
                 model.selectBtn = 5.1
             }
+            this.initDrawTitle();
         }
 
-        public cons() {
-            console.log("dentro alla func");
+        private initDrawTitle() {
+            this.drawTitle = [
+                { label: "Prima parte 3° Turno", drawPosition: 5.1 },
+                { label: "Seconda parte 3° Turno", drawPosition: 5.2 },
+                { label: "Ottavi di Finale", drawPosition: 4 },
+                { label: "Quarti di Finale", drawPosition: 3 },
+                { label: "Semifinale", drawPosition: 2 },
+                { label: "Finale", drawPosition: 1 }
+            ]
+        }
+
+        get selectedLabel() {
+            const found = this.drawTitle.find(x => x.drawPosition == this.model.selectBtn);
+            return found ? found.label : '';
         }
 
         public getSingleDrawPosition = async (pos: number) => {

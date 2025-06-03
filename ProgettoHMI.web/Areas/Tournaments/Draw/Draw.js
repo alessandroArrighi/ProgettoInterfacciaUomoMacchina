@@ -33,9 +33,21 @@ var Tournaments;
                 if (model.selectBtn == 5) {
                     model.selectBtn = 5.1;
                 }
+                this.initDrawTitle();
             }
-            cons() {
-                console.log("dentro alla func");
+            initDrawTitle() {
+                this.drawTitle = [
+                    { label: "Prima parte 3° Turno", drawPosition: 5.1 },
+                    { label: "Seconda parte 3° Turno", drawPosition: 5.2 },
+                    { label: "Ottavi di Finale", drawPosition: 4 },
+                    { label: "Quarti di Finale", drawPosition: 3 },
+                    { label: "Semifinale", drawPosition: 2 },
+                    { label: "Finale", drawPosition: 1 }
+                ];
+            }
+            get selectedLabel() {
+                const found = this.drawTitle.find(x => x.drawPosition == this.model.selectBtn);
+                return found ? found.label : '';
             }
             async getJson(url) {
                 let res = await fetch(url, {
