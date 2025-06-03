@@ -42,7 +42,7 @@
                 await this.getJsonT<Draw.Server.IGameModel[]>(url).then((games) => {
                     
                     this.model.games = games;
-                    this.reorderFilteredGames();
+
                     this.tempGames = JSON.parse(JSON.stringify(this.model.games));
                     if (choice == 5.1 || choice == 5.2) {
                         this.splitGamesInHalf(choice);
@@ -97,28 +97,5 @@
                 (g.player2.name && g.player2.name.toLowerCase().includes(filter))
             );
         }
-
-        public reorderForDesktop(games: Draw.Server.IGameModel[]): Draw.Server.IGameModel[] {
-            const result: Draw.Server.IGameModel[] = [...games];
-            for (let i = 0; i < result.length; i += 4) {
-                // swap i+1 e i+2 se esistono entrambi
-                if (i + 2 < result.length) {
-                    const temp = result[i + 1];
-                    result[i + 1] = result[i + 2];
-                    result[i + 2] = temp;
-                }
-            }
-            return result;
-        }
-
-        public reorderFilteredGames = (): void => {
-            if (window.innerWidth >= 1300) {
-                this.model.games = this.reorderForDesktop(this.model.games);
-            } else {
-                this.model.games = [...this.model.games]
-            }
-        }
-
-
     }
 }   

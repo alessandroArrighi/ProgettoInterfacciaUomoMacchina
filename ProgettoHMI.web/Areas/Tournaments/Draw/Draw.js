@@ -17,7 +17,6 @@ var Tournaments;
                         var url = this.model.urlRaw + "?position=" + pos + "&tournamentId=" + this.model.tournamentId;
                         await this.getJsonT(url).then((games) => {
                             this.model.games = games;
-                            this.reorderFilteredGames();
                             this.tempGames = JSON.parse(JSON.stringify(this.model.games));
                             if (choice == 5.1 || choice == 5.2) {
                                 this.splitGamesInHalf(choice);
@@ -28,14 +27,6 @@ var Tournaments;
                     catch (e) {
                         console.log(e);
                         this.loadingGetSingleDrawPosition = false;
-                    }
-                };
-                this.reorderFilteredGames = () => {
-                    if (window.innerWidth >= 1300) {
-                        this.model.games = this.reorderForDesktop(this.model.games);
-                    }
-                    else {
-                        this.model.games = [...this.model.games];
                     }
                 };
                 this.sets = [[6, 3], [7, 5]];
@@ -91,18 +82,6 @@ var Tournaments;
                 const filter = this.playerNameFilter.trim().toLowerCase();
                 return this.model.games.filter(g => (g.player1.name && g.player1.name.toLowerCase().includes(filter)) ||
                     (g.player2.name && g.player2.name.toLowerCase().includes(filter)));
-            }
-            reorderForDesktop(games) {
-                const result = [...games];
-                for (let i = 0; i < result.length; i += 4) {
-                    // swap i+1 e i+2 se esistono entrambi
-                    if (i + 2 < result.length) {
-                        const temp = result[i + 1];
-                        result[i + 1] = result[i + 2];
-                        result[i + 2] = temp;
-                    }
-                }
-                return result;
             }
         }
         Draw.drawVueModel = drawVueModel;
